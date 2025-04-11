@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIME TRACKER DASHBOARD</title>
+    <link rel="icon" href="speedometer.png">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/track.css">
+    <style>
+        body {
+        background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7), rgba(60, 60, 60, 0.7)),
+        url('img/clock.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position:relative;
+
+        }
+        img {
+            width:60px;
+            height:60px;
+            margin-left:12px;
+        }
+        header {
+            background-color:#fff;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
+            border-bottom: 2px solid #fff;
+            position: relative;
+            z-index: 1;
+        
+        }
+        .title{
+            color:#222222;
+            text-align: center;
+            font-size:2rem;
+            margin-bottom:20px;
+
+        }
+        .start {
+            background-color:rgb(3, 3, 175);
+            font-weight:bold;
+            font-size:18px;
+            cursor:pointer;
+        }
+        .stop {
+            background-color:rgb(3, 3, 175);
+            font-weight:bold;
+            font-size:18px;
+            cursor:pointer;
+        }
+        .task-container {
+            background-color: #fff;
+            padding:20px;
+            max-width:300px;
+            margin-left:12px;
+            border-radius:10px;
+            box-shadow:1 2px 8px rgba(0,0,0,0.1);
+            margin-top:48px;
+        }
+        textarea {
+            width:100%;
+        }
+        label{
+            display:block;
+            margin-top:10px;
+            font-weight:bold;
+        }
+        #description{
+            padding:30px;
+            border:1px solid #ccc;
+        }
+        #taskDate {
+            border:1px solid #ccc;
+        }
+        input,button {
+            width:100%;
+            padding:10px;
+            margin-top:6px;
+            border-radius:5px;
+            border:1px solid #aaa;
+            box-sizing: border-box;
+        }
+        table {
+            width:100%;
+            border-collapse: collapse;
+            margin-top:20px;
+        }
+        th,td {
+            padding:10px;
+            border:1px solid #ccc;
+            text-align:center;
+        }
+        th {
+            background-color:#eeee;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="img/dashboard.png" alt="dasboard">
+        <a href="index.html">Home Page</a>
+    </header>
+   
+    <div class="task-container">
+        <h2 class="title">⏰ TIME TRACKER</h2>
+
+        <label for="taskName">Task Name:</label>
+        <input type="text" id="taskName" placeholder="Enter your task here *" required>
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" placeholder="Task description if necessary.."></textarea>
+
+        <label for="taskDate">Date:</label>
+        <input type="Date" id="taskDate" required>
+
+        <button class="start">Start</button>
+        <button class="stop">Stop</button>
+
+        <table id="tasktable">
+            <caption>Total Time:</caption>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Date</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+       let startTimer = null;
+       let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
+
+       
+        function startTask() {
+          startTimer = new Date();
+       }
+
+       function endTask() {
+
+           if(!startTimer) {
+            alert("You must click START before stopping.")
+            return;
+           }
+
+           endTimer = new Date();
+           const duration = ((endTimer-startTimer)/60000).toFixed(2);
+
+           const taskName = document.getElementById('taskName').value.trim();
+
+           const description = document.getElementById('description');
+
+           const taskDate = document.getElementById('taskDate').value;
+           
+           if(!taskName || !taskDate) {
+            alert("Please fill out the Task and Date.");
+            return;
+           }
+
+           const task = {
+             taskName,
+             taskDate,
+             duration,
+        };
+           
+           taskList.push(task);
+           localStorage.setItem("tasks",JSON.stringify(taskList));
+           addToTable(task);
+
+       }
+
+       function addToTable() {
+
+       }
+       const startBtn = document.querySelector('.start');
+       startBtn.addEventListener('click',startTask);
+       
+       const stopBtn = document.querySelector('.stop');
+       stopBtn.addEventListener('click',endTask);
+    </script>
+
+</body>
+</html>
+
