@@ -7,6 +7,8 @@
     <link rel="icon" href="speedometer.png">
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/track.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         body {
             background-image: 
@@ -38,10 +40,15 @@
             margin-bottom:20px;
         }
         .start, .stop ,.reset{
-            background-color:rgb(3, 3, 175);
+            background-color:#040466;
             font-weight:bold;
             font-size:18px;
             cursor:pointer;
+        }
+        .main-containers{
+            display:flex;
+            justify-content: center;
+            align-content: center;
         }
         .task-container {
             background-color: #fff;
@@ -65,6 +72,14 @@
         #description {
             padding:12px;
             border:1px solid #ccc;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        #description:hover {
+            transform: scale(1.02); 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+        }
+        #desciption:active,:focus{
+            outline:none;
         }
         #taskDate {
             border:1px solid #ccc;
@@ -77,10 +92,39 @@
             border:1px solid #aaa;
             box-sizing: border-box;
         }
+        #showDailyStatus  {
+            background-color:#040466;
+            font-weight:bold;
+            font-size:18px;
+            cursor:pointer;
+            max-width:87%;
+            margin-left:17px;
+            margin-top:17px;
+            border:none;
+            box-shadow:4px 9px 16px rgba(0,0,0,0.5);
+        }
+        #showDailyStatus:hover{
+            background-color:#2A0247;
+        }
+        #weeklyCharts {
+            background-color:#040466;
+            font-weight:bold;
+            font-size:18px;
+            cursor:pointer;
+            max-width:87%;
+            margin-left:17px;
+            margin-top:17px;
+            border:none;
+            box-shadow:4px 9px 16px rgba(0,0,0,0.5);
+        }
+        #weeklyCharts:hover{
+             background-color: #2A0247;
+        }
         table {
             width:100%;
             border-collapse: collapse;
             margin-top:20px;
+            margin-left:-9px;
         }
         th, td {
             padding:10px;
@@ -96,10 +140,39 @@
         }
         caption {
             margin-top:15px;
+            text-align: center;
         }
         thead{
             margin-top:12px;
         }
+        #charts {
+            display:flex;
+            flex-wrap: wrap;
+            gap:20px;
+            margin:20px;
+            justify-content: center;
+            background-color:#fff;
+            border-radius:10px;
+            padding:12px;
+        }
+        canvas {
+            background-color: #fff;
+            border-radius:10px;
+            padding:10px;
+            max-width:500px;
+            width:100%;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
+
+        }
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; 
+            margin: 20px auto;
+            max-width:435px; 
+    }
+
         footer {
             background-color: rgba(0, 0, 0, 0.8);
             color: #ffffff;
@@ -107,7 +180,7 @@
             padding: 20px 10px;
             font-family: 'Inconsolata', monospace;
             font-size: 14px;
-            margin-top:px;
+            margin-top:12px;
             position: relative;
         }
         @media screen and (min-width:375px) {
@@ -121,6 +194,23 @@
                 right:73px;
             }
         }
+        @media screen and (min-width:768px) {
+            .task-container {
+                max-width:485px;
+            }
+        }
+        @media screen and (min-width:960px) {
+            .main-containers {
+                display:flex;
+                justify-content:space-between;
+            }
+            .chart-container {
+                position:absolute;
+                top:12%;
+                right:3%;
+                max-width:490px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -128,37 +218,49 @@
         <img src="img/dashboard.png" alt="dashboard">
         <a href="index.html">Home Page</a>
     </header>
-   
-    <div class="task-container">
-        <h2 class="title">⏰ TIME TRACKER</h2>
+    <div class="main-containers">
+        <div class="task-container">
+            <h2 class="title">⏰ TIME TRACKER</h2>
 
-        <label for="taskName">Task Name:</label>
-        <input type="text" id="taskName" placeholder="Enter your task here *" required>
+            <label for="taskName">Task Name:</label>
+            <input type="text" id="taskName" placeholder="Enter your task here *" required>
 
-        <label for="description">Description:</label>
-        <textarea name="description" id="description" placeholder="Task description if necessary.."></textarea>
+            <label for="description">Description:</label>
+            <textarea name="description" id="description" placeholder="Task description if necessary.."></textarea>
 
-        <label for="taskDate">Date:</label>
-        <input type="date" id="taskDate" required>
+            <label for="taskDate">Date:</label>
+            <input type="date" id="taskDate" required>
 
-        <button class="start">Start</button>
-        <button class="stop">Stop</button>
-        <button class="reset">Reset</button>
+            <button class="start">Start</button>
+            <button class="stop">Stop</button>
+            <button class="reset">Reset</button>
 
-        <table id="tasktable">
-            <caption>Total Time:</caption>
-            <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Date</th>
-                    <th>Duration (min)</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-      
+            <table id="tasktable">
+                <caption><strong>Total Time:</strong></caption>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Date</th>
+                        <th>Duration (min)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        
+        </div>
     </div>
-  
+
+    <div class="chart-container">
+        <div id="charts">
+            <button id="showDailyStatus">
+                Show Daily Status
+            </button>
+            
+            <canvas id="dailyChart"></canvas>
+            <button id="weeklyCharts" class="weekly">Show Weekly Status</button>
+            <canvas id="weeklyChart"></canvas>
+        </div>
+    </div>
     <footer>
         <div class="footer-content">
           <p>&copy; 2025 TimeWise Tracker. All rights reserved.</p>
@@ -169,9 +271,10 @@
             <a href="#contact">Contact</a>
           </div>
         </div>
-      </footer>
+    </footer>
     <script>
         let startTime = null;
+        let timerInterval;
         let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 
         
@@ -180,7 +283,25 @@
     
 
         function startTask() {
+            const taskName = document.getElementById('taskName').value.trim();
+            const taskDate = document.getElementById('taskDate').value;
+
+            if(!taskName || !taskDate) {
+                alert("Please enter the task and date before you START");
+                return;
+            }
             startTime = new Date();
+            timerInterval = setInterval(()=>{
+                  const now = new Date();
+                  const passedTime = Math.floor((now - startTime)/1000);
+                  const minutes = Math.floor(passedTime / 60);
+                  const seconds = passedTime % 60;
+
+                  const timeString = `${minutes}:${seconds < 10 ? '0' : ""}${seconds}`;
+
+                  document.title = `🕛 ${timeString} - Tracking..`;
+
+            },1000);
         }
 
         function endTask() {
@@ -188,6 +309,10 @@
                 alert("You must click START before stopping.");
                 return;
             }
+
+            clearInterval(timerInterval);
+            document.title = "TIME TRACKER DASHBOARD";
+           
 
             const endTime = new Date();
             const duration = ((endTime - startTime) / 60000).toFixed(2);
@@ -210,14 +335,8 @@
             localStorage.setItem("tasks", JSON.stringify(taskList));
             addToTable(task);
             resetForm();
-
-        
-            document.getElementById('taskName').value = '';
-            document.getElementById('description').value = '';
-            document.getElementById('taskDate').value = '';
-            startTime = null;
         }
-
+        
         function addToTable(task) {
             const tbody = document.querySelector("#tasktable tbody");
             const row = document.createElement("tr");
@@ -228,32 +347,128 @@
             `;
             tbody.appendChild(row);
         }
-
+        
         function resetForm() {
-            document.getElementById('taskName').value = "";
-            document.getElementById('description').value = "";
+            document.getElementById('taskName').value ="";
             document.getElementById('taskDate').value = "";
+            document.getElementById('description').value = "";
             startTime = null;
         }
+
 
         function resetTask() {
         if (confirm("Are you sure? Do you want to reset all the tasks?")) {
         localStorage.removeItem("tasks");
         taskList = [];
         document.querySelector('#tasktable tbody').innerHTML = "";
-        document.getElementById('taskName').value = "";
-        document.getElementById('description').value = "";
-        document.getElementById('taskDate').value = "";
-        startTime = null;
+        resetForm();
+        dailyChartStatus()
             }
         }
 
+        function dailyChartStatus() {
+            const today = new Date().toISOString().split('T')[0];
+            const dailyTasks = taskList.filter(task=>task.taskDate === today);
 
+            const taskDurations = {};
+            dailyTasks.forEach(task=>{
+                if (!taskDurations[task.taskName]) {
+                    taskDurations[task.taskName] = 0;
+                }
+                taskDurations[task.taskName] += parseFloat(task.duration);
+            });
+
+            const ctx = document.getElementById('dailyChart').getContext('2d');
+
+            if(window.dailyChart instanceof Chart) {
+                window.dailyChart.destroy();
+            }
+            window.dailyChart = new Chart(ctx,{
+                type : 'pie',
+                data : {
+                    labels : Object.keys(taskDurations),
+                    datasets : [{
+                        label : 'Today\'s Time Spent on Tasks',
+                        data : Object.values(taskDurations),
+                        backgroundColor :[
+                            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                            '#9966FF', '#FF9F40', '#66ff66', '#cc66ff'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive : true,
+                    plugins:{
+                        title : {
+                            display : true,
+                            text:"Today's Task Summary (Pie Chart)"
+                        }
+                    }
+                }
+            });
+        }
+        function weeklyChartStatus() {
+                const recentTasks = taskList.filter(task => {
+                const date = new Date(task.taskDate);
+                const now = new Date();
+                const diffDays = (now - date) / (1000 * 3600 * 24);
+                return diffDays <= 7;
+            });
+
+            const taskDurations = {};
+            recentTasks.forEach(task => {
+                if (!taskDurations[task.taskName]) {
+                    taskDurations[task.taskName] = 0;
+                }
+                taskDurations[task.taskName] += parseFloat(task.duration);  
+            });
+
+            const ctx = document.getElementById('weeklyChart').getContext('2d');
+
+            if (window.weeklyChart instanceof Chart) {
+                window.weeklyChart.destroy();
+            }
+
+            window.weeklyChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(taskDurations),
+                    datasets: [{
+                        label: "Time Spent on Tasks (Last 7 days)",
+                        data: Object.values(taskDurations),
+                        backgroundColor: [
+                            "#FFB3BA", 
+                            "#FFDFBA", 
+                            "#FFFFBA", 
+                            "#BAFFC9", 
+                            "#BAE1FF", 
+                            "#D5BAFF",
+                            "#FFC9DE", 
+                            "#C9FFF5"  
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: "Weekly Task Summary (Pie Chart)"
+                        }
+                    }
+                }
+            });
+        }
 
         document.querySelector('.start').addEventListener('click', startTask);
         document.querySelector('.stop').addEventListener('click', endTask);
         document.querySelector('.reset').addEventListener('click',resetTask);
+        document.getElementById('showDailyStatus').addEventListener('click', dailyChartStatus);
+        document.getElementById('weeklyCharts').addEventListener('click',weeklyChartStatus);
+         
+         
     </script>
 
 </body>
 </html>
+
