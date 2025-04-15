@@ -9,7 +9,9 @@ html {
     box-sizing: inherit;
 }
 body {
-    background-image: url('img/clock.jpg');
+    background-image: 
+            linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7), rgba(60, 60, 60, 0.7)),
+            url('img/clock.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -33,10 +35,10 @@ a{
 }
 .heading {
     color:#060865;
-    font-size:27px;
+    font-size:21px;
     text-align: center;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-top: 10px;
+    margin-top:0px;
     font-weight:bold;
 }
 .time {
@@ -47,29 +49,23 @@ a{
     height:30px;
 
 }
-.titles {
-    display:flex;
-    flex-direction: column-reverse;
-    justify-content: center;
-    align-items: center;
-    position:absolute;
-    top:3px;
-}
+
 .container {
     background-color: #fff;
-    width: 303px;
+    margin-right:12px;
     padding: 50px;
     box-shadow: 
         0 4px 6px rgba(0, 0, 0, 0.3),
         0 10px 20px rgba(0, 0, 0, 0.25);
     border-radius: 12px;
     position: absolute;
-    top:80px;
+    top:65px;
     margin-left: 9px;
+    text-align: center;
 }
 .head {
     text-align: center;
-    font-size: 1.8rem;
+    font-size:28px;
     font-family: "Inconsolata", monospace;
     color: rgb(1, 1, 22);
     margin-top:42px;
@@ -121,7 +117,7 @@ input:focus {
 .container2 {
     background: #fff;
     position: absolute;
-    bottom: -58%;
+    bottom: -62%;
     margin-left: 9px;
     margin-right: 9px;
     font-weight: 100;
@@ -171,4 +167,122 @@ footer {
 
 .footer-links a:hover {
     text-decoration: underline;
+}
+
+@media screen and (min-width:375px){
+    .container {
+      margin-left:15px;
+
+    }
+    .heading {
+        font-size:26px;
+    }
+    
+    .container2 {
+        bottom:-52%;
+    }
+}
+@media screen and (min-width:425px) {
+    .heading {
+        font-size:30px;
+    }
+    .container2 {
+        bottom:-48%;
+    }
+}
+@media screen and (min-width:768px) {
+    .container {
+        max-width:500px;
+        display: flex;
+        flex-direction: column;
+        margin-top:12px;
+    }
+    .main-container {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container2 {
+        max-width: 500px;
+        bottom:-56%;
+    }
+}
+@media screen and (min-width:1020px) {
+     .main-container {
+        justify-content:space-between;
+     }
+     .container2 {
+       position:absolute;
+       top:62%;
+       right:5%;
+       max-height:240px;
+     }
+     .container {
+        margin-top:0;
+     }
+     .time {
+        display:inline;
+        color:#fff;
+        position:absolute;
+        top:12%;
+        right:5%;
+        width:438px;
+        font-size: 3rem;
+     }
+     footer {
+        margin-top:1017px;
+     }
+}
+@media screen and (min-width:1120px) {
+    .main-container {
+        justify-content: space-between;
+    }
+    .container2 {
+        position: absolute;
+        top:62%;
+        right:5%;
+        max-height:240px;
+
+    }
+    .time {
+        display:inline;
+        color:#fff;
+        position:absolute;
+        top:12%;
+        right:5%;
+        width:516px;
+        font-size:3.2rem;
+    }
+    .container {
+        margin-top:0;
+    }
+    footer {
+        margin-top:1019px;
+    }
+}
+@media screen  and (min-width:1148px){
+    .main-container {
+        justify-content: space-between;
+    }
+    .container2 {
+        max-width:500px;
+    }
+    .time {
+        display:inline;
+        color:#fff;
+        position:absolute;
+        top:12%;
+        right:5%;
+        font-size:3.5rem;
+        width:453px;
+    }
+    .head {
+        margin:0;
+    }
+    .container2 {
+        position:absolute;
+        top:55%;
+        right:8%;
+        max-height:239px;
+    }
 }

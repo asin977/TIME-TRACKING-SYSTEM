@@ -9,14 +9,13 @@
     <link rel="stylesheet" href="styles/track.css">
     <style>
         body {
-        background-image: 
-        linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7), rgba(60, 60, 60, 0.7)),
-        url('img/clock.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        position:relative;
-
+            background-image: 
+            linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7), rgba(60, 60, 60, 0.7)),
+            url('img/clock.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position:relative;
         }
         img {
             width:60px;
@@ -31,22 +30,14 @@
             border-bottom: 2px solid #fff;
             position: relative;
             z-index: 1;
-        
         }
-        .title{
+        .title {
             color:#222222;
             text-align: center;
             font-size:2rem;
             margin-bottom:20px;
-
         }
-        .start {
-            background-color:rgb(3, 3, 175);
-            font-weight:bold;
-            font-size:18px;
-            cursor:pointer;
-        }
-        .stop {
+        .start, .stop ,.reset{
             background-color:rgb(3, 3, 175);
             font-weight:bold;
             font-size:18px;
@@ -55,28 +46,30 @@
         .task-container {
             background-color: #fff;
             padding:20px;
-            max-width:300px;
             margin-left:12px;
             border-radius:10px;
-            box-shadow:1 2px 8px rgba(0,0,0,0.1);
-            margin-top:48px;
+            box-shadow:4px 9px 16px rgba(0,0,0,0.5);
+            margin-top:15px;
+            margin-right:15px;
         }
         textarea {
-            width:100%;
+            margin-top:10px;
+            width:261px;
+            height:130px;
         }
-        label{
+        label {
             display:block;
             margin-top:10px;
             font-weight:bold;
         }
-        #description{
-            padding:30px;
+        #description {
+            padding:12px;
             border:1px solid #ccc;
         }
         #taskDate {
             border:1px solid #ccc;
         }
-        input,button {
+        input, button {
             width:100%;
             padding:10px;
             margin-top:6px;
@@ -89,7 +82,7 @@
             border-collapse: collapse;
             margin-top:20px;
         }
-        th,td {
+        th, td {
             padding:10px;
             border:1px solid #ccc;
             text-align:center;
@@ -97,11 +90,42 @@
         th {
             background-color:#eeee;
         }
+        .reset {
+            width:100%;
+            padding:10px;
+        }
+        caption {
+            margin-top:15px;
+        }
+        thead{
+            margin-top:12px;
+        }
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 10px;
+            font-family: 'Inconsolata', monospace;
+            font-size: 14px;
+            margin-top:px;
+            position: relative;
+        }
+        @media screen and (min-width:375px) {
+            textarea{
+                width:312px;
+            }
+            
+        }
+        @media screen and (min-width:425px) {
+            .titles {
+                right:73px;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
-        <img src="img/dashboard.png" alt="dasboard">
+        <img src="img/dashboard.png" alt="dashboard">
         <a href="index.html">Home Page</a>
     </header>
    
@@ -115,10 +139,11 @@
         <textarea name="description" id="description" placeholder="Task description if necessary.."></textarea>
 
         <label for="taskDate">Date:</label>
-        <input type="Date" id="taskDate" required>
+        <input type="date" id="taskDate" required>
 
         <button class="start">Start</button>
         <button class="stop">Stop</button>
+        <button class="reset">Reset</button>
 
         <table id="tasktable">
             <caption>Total Time:</caption>
@@ -126,65 +151,109 @@
                 <tr>
                     <th>Task</th>
                     <th>Date</th>
-                    <th>Duration</th>
+                    <th>Duration (min)</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
+      
     </div>
-
+  
+    <footer>
+        <div class="footer-content">
+          <p>&copy; 2025 TimeWise Tracker. All rights reserved.</p>
+          <p>Built with ❤️ to help you reclaim your time.</p>
+          <div class="footer-links">
+            <a href="#about">About</a> 
+            <a href="#features">Features</a> 
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </footer>
     <script>
-       let startTimer = null;
-       let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
+        let startTime = null;
+        let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 
-       
+        
+        
+         taskList.forEach(task=> addToTable(task));
+    
+
         function startTask() {
-          startTimer = new Date();
-       }
+            startTime = new Date();
+        }
 
-       function endTask() {
+        function endTask() {
+            if (!startTime) {
+                alert("You must click START before stopping.");
+                return;
+            }
 
-           if(!startTimer) {
-            alert("You must click START before stopping.")
-            return;
-           }
+            const endTime = new Date();
+            const duration = ((endTime - startTime) / 60000).toFixed(2);
 
-           endTimer = new Date();
-           const duration = ((endTimer-startTimer)/60000).toFixed(2);
+            const taskName = document.getElementById('taskName').value.trim();
+            const taskDate = document.getElementById('taskDate').value;
 
-           const taskName = document.getElementById('taskName').value.trim();
+            if (!taskName || !taskDate) {
+                alert("Please fill out the Task and Date.");
+                return;
+            }
 
-           const description = document.getElementById('description');
+            const task = {
+                taskName,
+                taskDate,
+                duration
+            };
 
-           const taskDate = document.getElementById('taskDate').value;
-           
-           if(!taskName || !taskDate) {
-            alert("Please fill out the Task and Date.");
-            return;
-           }
+            taskList.push(task);
+            localStorage.setItem("tasks", JSON.stringify(taskList));
+            addToTable(task);
+            resetForm();
 
-           const task = {
-             taskName,
-             taskDate,
-             duration,
-        };
-           
-           taskList.push(task);
-           localStorage.setItem("tasks",JSON.stringify(taskList));
-           addToTable(task);
+        
+            document.getElementById('taskName').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('taskDate').value = '';
+            startTime = null;
+        }
 
-       }
+        function addToTable(task) {
+            const tbody = document.querySelector("#tasktable tbody");
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${task.taskName}</td>
+                <td>${task.taskDate}</td>
+                <td>${task.duration}</td>
+            `;
+            tbody.appendChild(row);
+        }
 
-       function addToTable() {
+        function resetForm() {
+            document.getElementById('taskName').value = "";
+            document.getElementById('description').value = "";
+            document.getElementById('taskDate').value = "";
+            startTime = null;
+        }
 
-       }
-       const startBtn = document.querySelector('.start');
-       startBtn.addEventListener('click',startTask);
-       
-       const stopBtn = document.querySelector('.stop');
-       stopBtn.addEventListener('click',endTask);
+        function resetTask() {
+        if (confirm("Are you sure? Do you want to reset all the tasks?")) {
+        localStorage.removeItem("tasks");
+        taskList = [];
+        document.querySelector('#tasktable tbody').innerHTML = "";
+        document.getElementById('taskName').value = "";
+        document.getElementById('description').value = "";
+        document.getElementById('taskDate').value = "";
+        startTime = null;
+            }
+        }
+
+
+
+        document.querySelector('.start').addEventListener('click', startTask);
+        document.querySelector('.stop').addEventListener('click', endTask);
+        document.querySelector('.reset').addEventListener('click',resetTask);
     </script>
 
 </body>
 </html>
-

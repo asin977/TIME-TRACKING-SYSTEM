@@ -21,3 +21,13 @@ function endTask() {
 }
 
 
+function resetTask() {
+    if (confirm("Are you sure.Do you want to reset all the tasks?"));
+    localStorage.removeItem("tasks");
+    taskList = [];
+    document.getElementById('taskName').value = "";
+    document.getElementById('description').value = "";
+    document.getElementById('taskDate').value = "";
+    startTime = null;
+}
+
