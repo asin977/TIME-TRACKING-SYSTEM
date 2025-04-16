@@ -71,14 +71,27 @@ a{
     margin-top:42px;
 
 }
-input, select {
+input {
     width: 100%;
     padding: 10px;
     margin: 8px 0;
     border: 1px solid #ccc;
     font-size: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+input:hover, select:hover {
+    transform: scale(1.02); 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+}
 button {
     width: 100%;
     padding: 10px;
@@ -90,18 +103,15 @@ button {
     cursor: pointer;
     font-size: 14px;
 }
-
 button:hover {
     background-color: rgb(42, 2, 71);
 }
-
 .divider {
     margin: 20px 0;
     text-align: center;
     font-weight: bold;
     color: #aaa;
 }
-
 input:focus {
     outline: none;
 }
@@ -135,9 +145,7 @@ input:focus {
 }
 
 .message {
-    margin-left: 12px;
-    margin-right: 12px;
-    font-family: 'Inconsolata', monospace;
+   font-family:sans-serif;
 }
 footer {
     background-color: rgba(0, 0, 0, 0.8);
@@ -286,3 +294,5 @@ footer {
         max-height:239px;
     }
 }
+
+
