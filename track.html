@@ -13,6 +13,7 @@
 <body>
     <header>
         <img src="img/dashboard.png" alt="dashboard">
+       
         <a href="index.html">Home Page</a>
     </header>
     <div class="main-containers">
@@ -22,16 +23,21 @@
             <label for="taskName">Task Name:</label>
             <input type="text" id="taskName" placeholder="Enter your task here *" required>
 
+            <label for="tagName">Task Tag:</label>
+            <input type="text" id="taskTag" placeholder="Enter the task tag if any">
+
             <label for="description">Description:</label>
             <textarea name="description" id="description" placeholder="Task description if necessary.."></textarea>
+                
+            <button class="start">START</button>
+            <button class="reset">RESET</button>
+            <div id="activeTasks" class="active-task-buttons"></div>
 
-            <label for="taskDate">Date:</label>
-            <input type="date" id="taskDate" required>
-
-            <button class="start">Start</button>
-            <button class="stop">Stop</button>
-            <button class="reset">Reset</button>
-
+            <div class="search-section">
+                <input type="text" id="searchInput" placeholder="Search by task/tag name">
+                <button class="search">SEARCH</button>
+                <div id="searchResults" class="search-results"></div>
+            </div>
             <table id="tasktable">
                 <caption><strong>Total Time:</strong></caption>
                 <thead>
@@ -50,18 +56,19 @@
     <div class="chart-container">
         <div id="charts">
             <button id="showDailyStatus">
-                Show Daily Status
+                📊Show Today's Chart
             </button>
             
             <canvas id="dailyChart"></canvas>
-            <button id="weeklyCharts" class="weekly">Show Weekly Status</button>
+            <button id="weeklyCharts" class="weekly">📅 Weekly Summary</button>
             <canvas id="weeklyChart"></canvas>
         </div>
+      
     </div>
     <footer>
         <div class="footer-content">
           <p>&copy; 2025 TimeWise Tracker. All rights reserved.</p>
-          <p>Built with ❤️ to help you reclaim your time.</p>
+          <p>Built with JS to help you reclaim your time.</p>
           <div class="footer-links">
             <a href="#about">About</a> 
             <a href="#features">Features</a> 

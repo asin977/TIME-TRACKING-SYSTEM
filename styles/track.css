@@ -45,7 +45,7 @@ header {
     border-radius:10px;
     box-shadow:4px 9px 16px rgba(0,0,0,0.5);
     margin-top:15px;
-    margin-right:15px;
+    margin-right:12px;
 }
 textarea {
     margin-top:10px;
@@ -56,6 +56,13 @@ label {
     display:block;
     margin-top:10px;
     font-weight:bold;
+}
+.search-section {
+    margin-top:20px;
+}
+.search {
+    font-weight:bold;
+    font-size:18px;
 }
 #description {
     padding:12px;
@@ -73,25 +80,6 @@ label {
     border:1px solid #ccc;
     
 }
-/* .task-container input[type="text"],
-    .task-container textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-.task-container button {
-    margin: 10px 5px 0 0;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    background: #118ab2;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-  } */
 input, button {
     width:100%;
     padding:10px;
@@ -145,6 +133,11 @@ th {
 .reset {
     width:100%;
     padding:10px;
+}
+.stop {
+    background-color: #ff4d4d;
+    font-size:18px;
+    font-weight:bold;
 }
 caption {
     margin-top:15px;
