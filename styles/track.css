@@ -73,6 +73,25 @@ label {
     border:1px solid #ccc;
     
 }
+/* .task-container input[type="text"],
+    .task-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+.task-container button {
+    margin: 10px 5px 0 0;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #118ab2;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  } */
 input, button {
     width:100%;
     padding:10px;
@@ -194,8 +213,27 @@ canvas {
     }
     .chart-container {
         position:absolute;
-        top:12%;
+        top:3%;
         right:3%;
         max-width:490px;
     }
+    footer {
+        margin-top:241px;
+    }
 }
+@media  screen and (min-width:1148px) {
+    footer{
+        margin-top:635px;
+    }
+    .main-containers {
+        margin-left:55px;
+    }
+}
+@media screen and (min-width:1440px) {
+    
+  
+
+}
+
+
+
