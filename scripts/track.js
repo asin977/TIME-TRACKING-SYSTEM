@@ -10,6 +10,8 @@ function generateTaskId() {
 function startTask() {
     const taskName = document.getElementById("taskName").value.trim();
     const description = document.getElementById("description").value.trim();
+
+    const taskTag = document.getElementById("taskTag").value.trim();
   
     if (!taskName) {
       alert("Please enter the task before you START");
@@ -24,11 +26,11 @@ function startTask() {
       const passedTime = Math.floor((now - startTime) / 1000);
       const minutes = Math.floor(passedTime / 60);
       const seconds = passedTime % 60;
-      const timeString = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+      const timeString = `${minutes < 0 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
       document.title = `🕛 ${timeString}-Tracking-${taskName}`;
     }, 1000);
   
-    taskTimers[taskId] = { taskName, description, startTime, interval };
+    taskTimers[taskId] = { taskName, description, taskTag,startTime, interval };
   
     const taskBtn = document.createElement("button");
     taskBtn.textContent = `STOP ${taskName}`;
@@ -39,6 +41,7 @@ function startTask() {
   
     document.getElementById("taskName").value = "";
     document.getElementById("description").value = "";
+    document.getElementById('taskTag').value="";
 }
 
 function stopTask(taskId) {
@@ -56,7 +59,8 @@ function stopTask(taskId) {
       taskName: task.taskName,
       taskDate,
       duration,
-      description: task.description
+      description: task.description,
+      taskTag:task.taskTag
     };
 
     taskList.push(taskObj);
@@ -70,13 +74,20 @@ function stopTask(taskId) {
 function addToTable(task) {
     const tbody = document.querySelector("#tasktable tbody");
     const row = document.createElement("tr");
+  
     row.innerHTML = `
       <td title="${task.description || ''}">${task.taskName}</td>
       <td>${task.taskDate}</td>
-      <td>${task.duration}</td>
+      <td>${task.duration} min</td>
+      <td><button class="table-delete-btn">🗑️</button></td>
     `;
+  
+    row.querySelector(".table-delete-btn").addEventListener("click", () => {
+      row.remove(); 
+    });
+  
     tbody.appendChild(row);
-}
+  }
 
 function resetTask() {
     if (confirm("Are you sure? Do you want to reset all the tasks?")) {
@@ -172,10 +183,10 @@ function weeklyChartStatus() {
 });
 }
 
+
 document.querySelector(".start").addEventListener("click", startTask);
 document.querySelector(".reset").addEventListener("click", resetTask);
 document.getElementById("showDailyStatus").addEventListener("click", dailyChartStatus);
 document.getElementById("weeklyCharts").addEventListener("click", weeklyChartStatus);
-
 
 

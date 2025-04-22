@@ -42,6 +42,56 @@ function startTask() {
 
 }
 
+function stopTask(taskId) {
+    const task = taskTimers[taskId];
+    if (!task) return;
+
+    clearInterval(task.interval);
+    document.title = "TIME TRACKER DASHBOARED";
+
+    const endTime = new Date();
+    
+}
 
 
+function addToTable(task) {
+      const tbody = document.querySelector('#taskable tbody');
+      const row = document.createElement('tr');
 
+      row.innerHTML = `
+             <td title = ${task.description || ""}>${task.taskName}</td>
+             <td>${task.taskDate}</td>
+             <td>${task.duration}min</td>
+             <td><button class="table-delete-btn">🗑️</button></td>
+
+      `;
+      row.querySelector(".table-delete-btn").addEventListener('click',()=>{
+        row.remove();
+      });
+      tbody.appendChild(row);
+}
+
+function searchTasks() {
+    const query = document.getElementById("searchInput").value.trim().tolowerCase();
+    const resultsDiv = document.getElementById('searchResults');
+    resultsDiv.innerHTML = "";
+
+    if(!query)  {
+        resultsDiv.innerHTML = "<p>Please enter a tag or task name to search</p>";
+        return;
+    }
+    const matches = taskList.filter(task=> task.taskName.tolowerCase().includes(query));
+
+    if(matches.length ===0) {
+        resultsDiv.innerHTML = `<p>No tasks found with name:<strong>${query}</strong></p>`;
+        return;
+    }
+    const ul = document.createElement('ul');
+    matches.forEach(task=> {
+        const li = document.createElement('li');
+        li.innerHTML = `
+               
+        `
+    })
+    
+}
