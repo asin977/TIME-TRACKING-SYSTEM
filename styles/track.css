@@ -40,12 +40,13 @@ header {
 }
 .task-container {
     background-color: #fff;
-    padding:20px;
-    margin-left:12px;
+    padding:10px;
+    margin-left:98px;
     border-radius:10px;
     box-shadow:4px 9px 16px rgba(0,0,0,0.5);
     margin-top:15px;
-    margin-right:12px;
+    margin-right:99px;
+    
 }
 textarea {
     margin-top:10px;
@@ -158,6 +159,19 @@ thead{
     border-radius:10px;
     padding:12px;
 }
+.details {
+    list-style-type:none;
+    font-family:sans-serif;
+    font-size:18px;
+    color:rgb(22, 1, 1);
+    margin-left:12px;
+}
+.detail-cont {
+    background-color: #ccc;
+    padding:5px;
+    border-radius:10px;
+    box-shadow: 0px 4px 20px rgba(204, 204, 204, 0.7);
+}
 canvas {
     background-color: #fff;
     border-radius:10px;
@@ -165,7 +179,6 @@ canvas {
     max-width:500px;
     width:100%;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
-
 }
 .chart-container {
     display: flex;
@@ -173,7 +186,7 @@ canvas {
     align-items: center;
     flex-direction: column; 
     margin: 20px auto;
-    max-width:435px; 
+    max-width:529px; 
 }
  footer {
     background-color: rgba(0, 0, 0, 0.8);
@@ -187,18 +200,24 @@ canvas {
 }
 @media screen and (min-width:375px) {
     textarea{
-        width:312px;
+        width:283px;
     }
+    .task-container {
+    padding:31px;
     
 }
 @media screen and (min-width:425px) {
     .titles {
         right:73px;
+        max-width: 0%;
     }
+    .task-container {
+    padding:50px;
+}
 }
 @media screen and (min-width:768px) {
     .task-container {
-        max-width:485px;
+        max-width:500px;
     }
 }
 @media screen and (min-width:960px) {
@@ -209,24 +228,23 @@ canvas {
     .chart-container {
         position:absolute;
         top:3%;
-        right:3%;
-        max-width:490px;
+        right:0%;
+        max-width:449px;
     }
-    footer {
-        margin-top:241px;
-    }
+    .task-container{
+        margin-left:12px;
+}
 }
 @media  screen and (min-width:1148px) {
-    footer{
-        margin-top:635px;
-    }
     .main-containers {
-        margin-left:55px;
+        margin-left:200px;
+    }
+    .chart-container {
+        margin-right:150px;
     }
 }
 @media screen and (min-width:1440px) {
     
-  
+  }
 
 }
-

@@ -89,8 +89,14 @@ function searchTasks() {
     const ul = document.createElement('ul');
     matches.forEach(task=> {
         const li = document.createElement('li');
+        li.classList.add('details')
         li.innerHTML = `
-               
+            <strong>${task.taskName}</strong><br>
+             📅 ${task.taskDate}<br>
+             ⏱️ ${task.duration} min <br>
+             📝 ${task.description || 'No description'}<br>
+             🏷️ ${task.taskTag || 'No Tag'}
+
         `
     })
     

@@ -182,8 +182,65 @@ function weeklyChartStatus() {
 }
 });
 }
-
-
+function searchTasks() {
+    const query = document.getElementById("searchInput").value.trim().toLowerCase();
+    const resultsDiv = document.getElementById("searchResults");
+    resultsDiv.innerHTML = "";
+  
+    if (!query) {
+      resultsDiv.innerHTML = "<p>Please enter a tag or task name to search.</p>";
+      return;
+    }
+  
+    const matches = taskList.filter(task =>
+      task.taskName.toLowerCase().includes(query) ||
+      (task.taskTag && task.taskTag.toLowerCase().includes(query))
+    );
+  
+    if (matches.length === 0) {
+      resultsDiv.innerHTML = `<p>No tasks found with name: <strong>${query}</strong></p>`;
+      return;
+    }
+  
+    const ul = document.createElement("ul");
+    ul.classList.add('detail-cont');
+    matches.forEach(task => {
+        const li = document.createElement("li");
+        li.classList.add('details');
+        li.innerHTML = `
+            <strong>${task.taskName}</strong><br/>
+            📅 ${task.taskDate}<br/>
+            ⏱️ ${task.duration} min<br/>
+            📝 ${task.description || 'No description'}<br/>
+            🏷️ ${task.taskTag || 'No tag'}
+        `;
+  
+    const deleteBtn = document.createElement("span");
+    deleteBtn.innerHTML = `
+        <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+          <g style="fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-width:2">
+            <path d="m31 16v-4h10v4"/>
+            <path d="m51 25v31c0 2.2091-1.7909 4-4 4h-22c-2.2091 0-4-1.7909-4-4v-31"/>
+            <path d="m17 16h38v4h-38z"/>
+            <path d="m41 28.25v26.75"/>
+            <path d="m31 28.25v26.75"/>
+          </g>
+        </svg>
+      `;
+    deleteBtn.title = "Remove this result";
+    deleteBtn.style.cursor = "pointer";
+    deleteBtn.style.marginLeft = "90px";
+    deleteBtn.onclick = () => li.remove();
+  
+    li.appendChild(deleteBtn); 
+    ul.appendChild(li);         
+});
+  
+    resultsDiv.innerHTML = `<h3>Search Results for "<em>${query}</em>":</h3>`;
+    resultsDiv.appendChild(ul);
+    document.getElementById("searchInput").value = "";
+}
+  
 document.querySelector(".start").addEventListener("click", startTask);
 document.querySelector(".reset").addEventListener("click", resetTask);
 document.getElementById("showDailyStatus").addEventListener("click", dailyChartStatus);
