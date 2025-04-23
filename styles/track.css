@@ -40,12 +40,12 @@ header {
 }
 .task-container {
     background-color: #fff;
-    padding:10px;
-    margin-left:98px;
+    padding: 8px;
+    margin-left:116px;
     border-radius:10px;
     box-shadow:4px 9px 16px rgba(0,0,0,0.5);
-    margin-top:15px;
-    margin-right:99px;
+    margin-top:8px;
+    margin-right:116px;
     
 }
 textarea {

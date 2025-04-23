@@ -1,84 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIME TRACKER DASHBOARD</title>
-    <link rel="icon" href="speedometer.png">
-    <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="styles/track.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Time Tracker Dashboard</title>
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="icon" href="speedometer.png">
+  <link rel="stylesheet" href="styles/track.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <header>
-        <img src="img/dashboard.png" alt="dashboard">
-       
-        <a href="index.html">Home Page</a>
-    </header>
-    <div class="main-containers">
-        <div class="task-container">
-            <h2 class="title">⏰ TIME TRACKER</h2>
+  <header>
+    <img src="img/dashboard.png" alt="Dashboard Logo">
+    <a href="index.html">Home Page</a>
+  </header>
 
-            <label for="taskName">Task Name:</label>
-            <input type="text" id="taskName" placeholder="Enter your task here *" required>
+  <div class="main-containers">
+    <div class="task-container">
+        <h2 class="title">⏰ TIME TRACKER</h2>
 
-            <label for="tagName">Task Tag:</label>
-            <input type="text" id="taskTag" placeholder="Enter the task tag if any">
+        <label for="taskName">Task Name:</label>
+        <input type="text" id="taskName" placeholder="Enter your task here *" required>
 
-            <label for="description">Description:</label>
-            <textarea name="description" id="description" placeholder="Task description if necessary.."></textarea>
-                
-            <button class="start">START</button>
-            <button class="reset">RESET</button>
-            <div id="activeTasks" class="active-task-buttons"></div>
+        <label for="taskTag">Task Tag:</label>
+        <input type="text" id="taskTag" placeholder="Enter the task tag if any">
 
-            <div class="search-section">
-                <input type="text" id="searchInput" placeholder="Search by task/tag name">
-                <button class="search" onclick="searchTasks()">SEARCH</button>
-                <div id="searchResults" class="search-results"></div>
-            </div>
-            <table id="tasktable">
-                <caption><strong>Total Time:</strong></caption>
-                <thead>
-                    <tr>
-                        <th>Task</th>
-                        <th>Date</th>
-                        <th>Duration (min)</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        
+        <label for="description">Description:</label>
+        <textarea id="description" placeholder="Task description if necessary.."></textarea>
+
+        <button class="start">START</button>
+        <button class="reset">RESET</button>
+        <div id="activeTasks" class="active-task-buttons"></div>
+
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Search by task/tag name">
+            <button class="search" onclick="searchTasks()">SEARCH</button>
+            <div id="searchResults" class="search-results"></div>
         </div>
+
+        <table id="tasktable">
+            <caption><strong>Total Time:</strong></caption>
+            <thead>
+            <tr>
+                <th>Task</th>
+                <th>Date</th>
+                <th>Duration (min)</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
+  </div>
 
-    <div class="chart-container">
-        <div id="charts">
-            <button id="showDailyStatus">
-                📊Show Today's Chart
-            </button>
-            
-            <canvas id="dailyChart"></canvas>
-            <button id="weeklyCharts" class="weekly">📅 Weekly Summary</button>
-            <canvas id="weeklyChart"></canvas>
-        </div>
-      
+  <div class="chart-container">
+    <div id="charts">
+      <button id="showDailyStatus">📊 Show Today's Chart</button>
+      <canvas id="dailyChart"></canvas>
+      <button id="weeklyCharts" class="weekly">📅 Weekly Summary</button>
+      <canvas id="weeklyChart"></canvas>
     </div>
-    <footer>
-        <div class="footer-content">
-          <p>&copy; 2025 TimeWise Tracker. All rights reserved.</p>
-          <p>Built with JavaScript, inspired by the rhythm of life — to help you take back your time.</p>
-          <div class="footer-links">
-            <a href="#about">About</a> 
-            <a href="#features">Features</a> 
-            <a href="#contact">Contact</a>
-          </div>
-        </div>
-    </footer>
-<script src="scripts/track.js"></script>
+  </div>
 
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 TimeWise Tracker. All rights reserved.</p>
+      <p>Built with JavaScript, inspired by the rhythm of life — to help you take back your time.</p>
+      <div class="footer-links">
+        <a href="#about">About</a> 
+        <a href="#features">Features</a> 
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="scripts/track.js"></script>
 </body>
 </html>
-
