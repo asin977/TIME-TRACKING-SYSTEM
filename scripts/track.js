@@ -169,7 +169,7 @@ function weeklyChartStatus() {
             labels: Object.keys(taskDurations),
             datasets: [{
                 data: Object.values(taskDurations),
-                backgroundColor: ['#0D1B2A', '#1B263B', '#3A0CA3', '#6A040F', '#144552', '#1B4332']
+                backgroundColor: ['darkred','darkblue','rubeccapurple','lavender','goldenrod','#556B2F','orange']
             }]
         },
         options: {
@@ -249,6 +249,34 @@ function searchTasks() {
     document.getElementById("searchInput").value = "";
 }
 
+window.onload = function() {
+    const resumedTask = JSON.parse(sessionStorage.getItem("resumedTask"));
+
+    if(resumedTask && resumedTask.isResumed) {
+        const {taskName,description,taskTag,startTime} = resumedTask;
+        const taskId = `resumed-${Date.now()}-${Math.floor(Math.random()*1000)}`;
+
+        const interval = setInterval(()=>{
+            const now = new Date();
+            const passedTime = Math.floor((now-new Date(startTime))/1000);
+            const minutes = Math.floor(passedTime / 60);
+            const seconds = passedTime % 60;
+            const timeString = `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0": ""}${seconds}`;
+            document.title = `🕛 ${timeString}-Tracking-${taskName}`;
+        },1000);
+
+        taskTimers[taskId] = {taskName,description,taskTag,startTime,interval};
+
+        const taskBtn = document.createElement('button');
+        taskBtn.textContent = `STOP ${taskName}`;
+        taskBtn.classList.add('stop');
+        taskBtn.dataset.taskId = taskId;
+        taskBtn.onclick = ()=>stopTask(taskId);
+        document.getElementById("activeTasks").appendChild(taskBtn);
+
+        sessionStorage.removeItem("resumedTask");
+    }
+}
 
 document.querySelector(".start").addEventListener("click", startTask);
 document.querySelector(".reset").addEventListener("click", resetTask);

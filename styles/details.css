@@ -4,7 +4,6 @@ body {
     padding: 0;
     background-color: #f4f4f4;
 }
-
 .detail-container {
     max-width: 800px;
     margin: 30px auto;
@@ -12,7 +11,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.25);
-    margin-top:-12px;
+    margin-top:16px;
 }
 .container {
     background-color: #fff;
@@ -25,19 +24,22 @@ body {
     margin-left: 9px;
     text-align: center;
 }
-
 h1 {
     text-align: center;
-    color: #333;
+    color:black;
+    font-weight:bold;
+    font-family:sans-serif;
+    margin-left:-16px;
 }
-
 .details {
     margin: 20px 0;
 }
-
+.headers {
+    background-color:#fff;
+}
 .details p {
     font-size: 16px;
-    color: #555;
+    color:black;
 }
 
 .back-button {
@@ -52,9 +54,20 @@ h1 {
     font-weight:bold;
     font-family:Arial, Helvetica, sans-serif;
     font-size:17px;
-    margin-left:36px;
+    margin-left:27px;
+    margin-right:19px;
+    cursor:pointer;
 }
-
+.resume {
+    font-weight:bold;
+    font-size:18px;
+    cursor:pointer;
+   
+}
 .back-button:hover {
     background-color:#2A0247;
 }
+footer {
+    margin-top:217px;
+}
+

@@ -7,6 +7,24 @@ function createAccount() {
     const passWord = document.getElementById('createpassword').value.trim();
     const otherJob = document.getElementById('otherjob').value.trim();
 
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!emailPattern.test(email)) {
+        alert("please enter a valid email address.");
+        return;
+    }
+
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    if(!passwordPattern.test(passWord)) {
+        alert("password must be atleast 8 charecters and must include:\n"  + 
+            "• one uppercase letter\n" +
+              "• one lowercase letter\n" +
+              "• one number\n" +
+              "• one special character"
+        );
+        return;
+    }
+
     if (!firstName || !email || !jobRole || !passWord) {
         alert("Please fill all the required fields.");
         return;

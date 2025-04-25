@@ -58,7 +58,7 @@ a{
         0 10px 20px rgba(0, 0, 0, 0.25);
     border-radius: 12px;
     position: absolute;
-    top:70px;
+    top:61px;
     margin-left: 9px;
     text-align: center;
 }
@@ -131,7 +131,7 @@ input:focus {
 .container2 {
     background: #fff;
     position: absolute;
-    bottom: -60%;
+    bottom:-58%;
     margin-left: 9px;
     margin-right: 9px;
     font-weight: 100;
@@ -191,7 +191,9 @@ footer {
     }
     
     .container2 {
-        bottom:-52%;
+        bottom:-49%;
+
+
     }
 }
 @media screen and (min-width:425px) {

@@ -40,7 +40,7 @@ header {
 }
 .task-container {
     background-color: #fff;
-    padding: 8px;
+    padding:10px;
     margin-left:2px;
     border-radius:10px;
     box-shadow:4px 9px 16px rgba(0,0,0,0.5);
@@ -204,7 +204,8 @@ canvas {
         width:283px;
     }
     .task-container {
-    padding:31px;
+        max-width:349px;
+        padding:20px;
     
 }
 @media screen and (min-width:425px) {
@@ -213,8 +214,9 @@ canvas {
         max-width: 0%;
     }
     .task-container {
-    padding:50px;
-}
+        max-width:381px;
+        padding:17px;
+    }
 }
 @media screen and (min-width:768px) {
     .task-container {

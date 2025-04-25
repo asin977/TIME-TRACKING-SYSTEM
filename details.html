@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <div class="heading">
-        <h2></h2>
+    <div class="headers">
+          <img src="work-order.png" alt="work-order"> 
     </div>
     <div class="detail-container">
         <h1>Task Details</h1>
@@ -24,20 +24,22 @@
             <p><strong>End Date:</strong> <span id="endDate"></span></p>
             <p><strong>End Time:</strong> <span id="endTime"></span></p>
             <p><strong>Duration:</strong> <span id="taskDuration"></span> minutes</p>
+            <button class="resume" id="resumeTaskBtn">Resume Task</button>
         </div>
         <a href="track.html" class="back-button">Back to Dashboard</a>
     </div>
-    <footer>
-        <div class="footer-content">
+    <footer style = "margin-top:295px;">
+         <div class="footer-content">
           <p>&copy; 2025 TimeWise Tracker. All rights reserved.</p>
           <p>Built with JavaScript, inspired by the rhythm of life — to help you take back your time.</p>
-          <div class="footer-detail">
-            <a href="#about">About</a> 
-            <a href="#features">Features</a> 
-            <a href="#contact">Contact</a>
+          <div class="footer-links">
+              <a href="#about">About</a> 
+              <a href="#features">Features</a> 
+              <a href="#contact">Contact</a>
           </div>
         </div>
       </footer>
     <script src="scripts/details.js"></script>
+    
 </body>
 </html>

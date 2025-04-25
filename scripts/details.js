@@ -16,8 +16,22 @@ window.onload = function () {
         document.getElementById("endDate").textContent = endDate.toLocaleDateString();
         document.getElementById("endTime").textContent = endDate.toLocaleTimeString();
         document.getElementById("taskDuration").textContent = duration || '0';
-    } else {
-        alert("No task data found!");
-        window.location.href = "index.html";
+        
+        document.getElementById("resumeTaskBtn").onclick = function () {
+            const resumedTask = {
+                taskName,
+                description,
+                taskTag,
+                startTime:new Date().toISOString(),
+                isResumed : true
+            };
+            sessionStorage.setItem("resumedTask",JSON.stringify(resumedTask));
+            window.location.href= "track.html";
+
+        };
+    }else {
+       alert("No task data found!"); 
+       window.location.href= "track.html";
     }
 };
+
