@@ -12,6 +12,7 @@
 <body>
   <header>
     <img src="img/dashboard.png" alt="Dashboard Logo">
+    <h3 class="name">TimeWise Tracker</h3>
     <a href="index.html">Home Page</a>
   </header>
 
@@ -28,8 +29,8 @@
         <label for="description">Description:</label>
         <textarea id="description" placeholder="Task description if necessary.."></textarea>
 
-        <button class="start">START</button>
-        <button class="reset">RESET</button>
+        <button class="track">Track your Time ➡️</button>
+        <button class="delete-records">Delete All Records</button>
         <div id="activeTasks" class="active-task-buttons"></div>
 
         <div class="search-section">
@@ -37,14 +38,14 @@
             <button class="search" onclick="searchTasks()">SEARCH</button>
             <div id="searchResults" class="search-results"></div>
         </div>
-
+        
         <table id="tasktable">
-            <caption><strong>Total Time:</strong></caption>
+            <caption><strong>Your Tasks</strong></caption>
             <thead>
             <tr>
                 <th>Task</th>
-                <th>Date</th>
-                <th>Duration (min)</th>
+                <th>StartDate</th>
+                <th>Duration</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -72,8 +73,8 @@
           <a href="#contact">Contact</a>
       </div>
     </div>
+    
   </footer>
-
-  <script src="scripts/track.js"></script>
+<script src="scripts/track.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 body {
-    background-image: 
+    /* background-image: 
     linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7), rgba(60, 60, 60, 0.7)),
-    url('img/clock.jpg');
+    url('img/clock.jpg'); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -27,8 +27,8 @@ header {
     font-size:2rem;
     margin-bottom:20px;
 }
-.start, .stop ,.reset{
-    background-color:#040466;
+.track{
+    background-color:black;
     font-weight:bold;
     font-size:18px;
     cursor:pointer;
@@ -93,7 +93,7 @@ input, button {
     box-sizing: border-box;
 }
 #showDailyStatus  {
-    background-color:#040466;
+    background-color:black;
     font-weight:bold;
     font-size:18px;
     cursor:pointer;
@@ -107,7 +107,7 @@ input, button {
     background-color:#2A0247;
 }
 #weeklyCharts {
-    background-color:#040466;
+    background-color:black;
     font-weight:bold;
     font-size:18px;
     cursor:pointer;
@@ -122,9 +122,9 @@ input, button {
 }
 table {
     width:100%;
-    border-collapse: collapse;
+    border-collapse:collapse;
     margin-top:20px;
-    margin-left:-9px;
+    margin-left:-29px;
 }
 th, td {
     padding:10px;
@@ -138,10 +138,9 @@ th {
     width:100%;
     padding:10px;
 }
-.stop {
-    background-color: #ff4d4d;
-    font-size:18px;
-    font-weight:bold;
+caption {
+    font-size:26px;
+    margin-bottom:10px;
 }
 caption {
     margin-top:15px;
@@ -181,6 +180,11 @@ canvas {
     width:100%;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
 }
+.delete-records {
+    font-weight:bold;
+    font-size:18px;
+    cursor:pointer;
+}
 .chart-container {
     display: flex;
     justify-content: center;
@@ -190,8 +194,8 @@ canvas {
     max-width:529px; 
 }
  footer {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #ffffff;
+    background-color:#fff;
+    color:black;
     text-align: center;
     padding: 20px 10px;
     font-family: 'Inconsolata', monospace;
@@ -206,7 +210,7 @@ canvas {
     .task-container {
         max-width:349px;
         padding:20px;
-    
+}
 }
 @media screen and (min-width:425px) {
     .titles {
@@ -247,7 +251,13 @@ canvas {
     }
 }
 @media screen and (min-width:1440px) {
-    
+     .task-container {
+        margin-left:80px;
+     }
+    #charts {
+        margin-top:33px;
+        margin:58px;
+        width:460px;
+    }
   }
 
-}

@@ -12,6 +12,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.25);
     margin-top:16px;
+    border:14px solid black;
 }
 .container {
     background-color: #fff;
@@ -30,22 +31,33 @@ h1 {
     font-weight:bold;
     font-family:sans-serif;
     margin-left:-16px;
+    border-bottom:1px solid black;
 }
 .details {
     margin: 20px 0;
 }
 .headers {
     background-color:#fff;
+    position:relative;
 }
 .details p {
     font-size: 16px;
     color:black;
 }
+.timer{
+    margin:0;
+    text-align: center;
+    position:absolute;
+    top:18px;
+    right:61px;
+    font-size:22px;
+    color:black;
 
+}
 .back-button {
     display: inline-block;
     margin-top: 20px;
-    background-color:#040466;
+    background-color:black;
     color: white;
     padding: 10px 20px;
     text-align: center;
@@ -69,5 +81,11 @@ h1 {
 }
 footer {
     margin-top:217px;
+}
+
+@media screen and (min-width:1140px) {
+    body{
+      overflow-y: hidden;
+    }
 }
 

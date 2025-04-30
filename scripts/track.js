@@ -3,10 +3,6 @@ let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 taskList.forEach(task => addToTable(task));
 Chart.register();
 
-function generateTaskId() {
-    return `task-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-}
-
 function startTask() {
     const taskName = document.getElementById("taskName").value.trim();
     const description = document.getElementById("description").value.trim();
@@ -18,29 +14,42 @@ function startTask() {
     }
 
     const taskId = generateTaskId();
-    const startTime = new Date().toISOString(); 
+    const startTime = new Date().toISOString();
 
-    const interval = setInterval(() => {
-        const now = new Date();
-        const passedTime = Math.floor((now - new Date(startTime)) / 1000);
-        const minutes = Math.floor(passedTime / 60);
-        const seconds = passedTime % 60;
-        const timeString = `${minutes < 0 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-        document.title = `🕛 ${timeString}-Tracking-${taskName}`;
-    }, 1000);
-
-    taskTimers[taskId] = { taskName, description, taskTag, startTime, interval };
-
-    const taskBtn = document.createElement("button");
-    taskBtn.textContent = `STOP ${taskName}`;
-    taskBtn.classList.add("stop")
-    taskBtn.dataset.taskId = taskId;
-    taskBtn.onclick = () => stopTask(taskId);
-    document.getElementById("activeTasks").appendChild(taskBtn);
+    startTimer(taskId, { taskName, description, taskTag, startTime });
 
     document.getElementById("taskName").value = "";
     document.getElementById("description").value = "";
     document.getElementById('taskTag').value = "";
+}
+
+function startTimer(taskId, taskData) {
+    const { taskName, description, taskTag, startTime } = taskData;
+
+    const interval = setInterval(() => {
+        const now = new Date();
+        const passedTime = Math.floor((now - new Date(startTime)) / 1000);
+        const hours = Math.floor(passedTime / 3600);
+        const minutes = Math.floor((passedTime % 3600) / 60);
+        const seconds = passedTime % 60;
+        const timeString = 
+            `${hours < 10 ? "0" : ""}${hours}:` +
+            `${minutes < 10 ? "0" : ""}${minutes}:` +
+            `${seconds < 10 ? "0" : ""}${seconds}`;
+        document.title = `🕛 ${timeString} - Tracking - ${taskName}`;
+    }, 1000);
+    
+    taskTimers[taskId] = { taskName, description, taskTag, startTime, interval };
+
+    const taskBtn = document.createElement("button");
+    taskBtn.textContent = `STOP ${taskName}`;
+    taskBtn.classList.add("stop");
+    taskBtn.dataset.taskId = taskId;
+    taskBtn.onclick = () => stopTask(taskId);
+    document.getElementById("activeTasks").appendChild(taskBtn);
+
+    
+    window.location.href = `timer.html?taskId=${taskId}`;
 }
 
 function stopTask(taskId) {
@@ -50,50 +59,41 @@ function stopTask(taskId) {
     clearInterval(task.interval);
     document.title = "TIME TRACKER DASHBOARD";
 
-    const endTime = new Date().toISOString(); 
+    const endTime = new Date().toISOString();
     const duration = ((new Date(endTime) - new Date(task.startTime)) / 60000).toFixed(2);
-    const taskDate = new Date().toISOString().split("T")[0]; 
+    const taskDate = new Date().toISOString().split("T")[0];
+
+    const existingIndex = taskList.findIndex(t =>
+        t.taskName === task.taskName &&
+        t.startTime === task.startTime
+    );
 
     const taskObj = {
-      taskName: task.taskName,
-      taskDate,
-      duration,
-      description: task.description,
-      taskTag: task.taskTag,
-      startTime: task.startTime, 
-      endTime: endTime 
+        taskName: task.taskName,
+        taskDate,
+        duration,
+        description: task.description,
+        taskTag: task.taskTag,
+        startTime: task.startTime,
+        endTime: endTime
     };
 
-    taskList.push(taskObj);
+    if (existingIndex !== -1) {
+        taskList[existingIndex] = taskObj;
+    } else {
+        taskList.push(taskObj);
+    }
+
     localStorage.setItem("tasks", JSON.stringify(taskList));
-    addToTable(taskObj);
+    document.querySelector("#tasktable tbody").innerHTML = "";
+    taskList.forEach(t => addToTable(t));
 
     delete taskTimers[taskId];
     document.querySelector(`button[data-task-id="${taskId}"]`).remove();
 }
 
-
-function addToTable(task) {
-    const tbody = document.querySelector("#tasktable tbody");
-    const row = document.createElement("tr");
-    const taskIndex = taskList.indexOf(task);
-  
-    row.innerHTML = `
-      <td title="${task.description || ''}">${task.taskName}</td>
-      <td>${task.taskDate}</td>
-      <td>${task.duration} min</td>
-      <td>
-        <button class="details-btn" onclick="viewDetails(${taskIndex})">📋 Details</button>
-      </td>
-    `;
-
-    tbody.appendChild(row);
-}
-
-function viewDetails(index) {
-    const task = taskList[index];
-    sessionStorage.setItem("selectedTask", JSON.stringify(task)); 
-    window.location.href = "details.html"; 
+function generateTaskId() {
+    return `task-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 }
 
 function resetTask() {
@@ -108,6 +108,36 @@ function resetTask() {
     }
 }
 
+function addToTable(task) {
+    const tbody = document.querySelector("#tasktable tbody");
+    const row = document.createElement("tr");
+    const taskIndex = taskList.indexOf(task);
+
+    const totalSeconds = Math.floor(parseFloat(task.duration) * 60);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    const durationFormatted = 
+        `${hours.toString().padStart(2, "0")}:` +
+        `${minutes.toString().padStart(2, "0")}:` +
+        `${seconds.toString().padStart(2, "0")}`;
+
+    row.innerHTML = `
+        <td title="${task.description || ''}">${task.taskName}</td>
+        <td>${task.taskDate}</td>
+        <td>${durationFormatted}</td>
+        <td>
+            <button class="details-btn" onclick="viewDetails(${taskIndex})">🕒 Resume</button>
+        </td>
+    `;
+    tbody.appendChild(row);
+}
+
+function viewDetails(index) {
+    const task = taskList[index];
+    sessionStorage.setItem("selectedTask", JSON.stringify(task));
+    window.location.href = "details.html";
+}
 function dailyChartStatus() {
     const today = new Date().toISOString().split("T")[0];
     const dailyTasks = taskList.filter(task => task.taskDate === today);
@@ -278,8 +308,64 @@ window.onload = function() {
     }
 }
 
-document.querySelector(".start").addEventListener("click", startTask);
-document.querySelector(".reset").addEventListener("click", resetTask);
+const taskNameInput = document.getElementById("taskName");
+const descriptionInput = document.getElementById("description");
+const taskTagInput = document.getElementById("taskTag");
+const trackButton = document.querySelector(".track");
+const taskTableBody = document.querySelector('#tasktable tbody');
+
+function saveTaskToLocalStorage() {
+    localStorage.setItem('tasks',JSON.stringify(taskList));
+}
+
+function renderTaskTable() {
+    taskTableBody.innerHTML = "";
+    taskList.forEach((task,index)=>{
+        const row = document.createElement("tr");
+        row.innerHTML = `
+                 <td>${task.taskName}</td>
+                 <td>${task.startDate}</td>
+                 <td>${task.totalDuration}</td>
+                 <td>
+                     <button class="resume" onclick="resumeTask(${index})">🕒 Resume</button>
+                 </td>    
+        `;
+        taskTableBody.appendChild(row)
+    });
+}
+
+trackButton.addEventListener("click",function() {
+    const taskName = taskNameInput.value.trim();
+    const taskTag = taskTagInput.value.trim();
+    const description = descriptionInput.value.trim();
+
+    if(taskName && taskTag && description) {
+        const taskData = {
+            taskName,
+            taskTag,
+            description,
+            startDate:new Date().toLocaleString(),
+            sessions : [],
+            totalDuration : '00:00:00'
+        };
+        taskList.push(taskData);
+        saveTaskToLocalStorage();
+        window.location.href = `timer.html?taskIndex=${taskList.length-1}`;
+    }else {
+        alert("Please fill in all fields.")
+    }
+});
+function resumeTask(index) {
+    window.location.href = `timer.html?taskIndex=${index}`;
+}
+
+
+document.querySelector(".track").addEventListener("click", startTask);
+document.querySelector(".delete-records").addEventListener("click", resetTask);
 document.getElementById("showDailyStatus").addEventListener("click", dailyChartStatus);
 document.getElementById("weeklyCharts").addEventListener("click", weeklyChartStatus);
 
+document.querySelector('.track').addEventListener("click",startTask);
+document.querySelector('.delete-records');
+
+document.addEventListener('DOMContentLoaded',renderTaskTable);
