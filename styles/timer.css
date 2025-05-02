@@ -368,7 +368,7 @@ p {
 
     .display-rows {
         width: 100%;
-        max-width: 520px;
+        max-width:484px;
         padding: 30px;
         display: flex;
         border-radius: 2px;

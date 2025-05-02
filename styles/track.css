@@ -103,6 +103,9 @@ input, button {
     border:none;
     box-shadow:4px 9px 16px rgba(0,0,0,0.5);
 }
+.table-header {
+    margin-left:-9px;
+}
 #showDailyStatus:hover{
     background-color:#2A0247;
 }
@@ -124,7 +127,7 @@ table {
     width:100%;
     border-collapse:collapse;
     margin-top:20px;
-    margin-left:-29px;
+    margin-left:-3px;
 }
 th, td {
     padding:10px;

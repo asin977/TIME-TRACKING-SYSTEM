@@ -31,7 +31,6 @@
 
         <button class="track" onclick="startTask()">Track your Time ➡️</button>
         <button class="delete-records" onclick="resetTask()">Delete All Records</button>
-        <div id="activeTasks" class="active-task-buttons"></div>
 
         <div class="search-section">
             <input type="text" id="searchInput" placeholder="Search by task/tag name">
@@ -41,10 +40,10 @@
 
         <table id="tasktable">
             <caption><strong>Your Tasks</strong></caption>
-            <thead>
+            <thead class="table-header">
             <tr>
                 <th>Task</th>
-                <th>StartDate</th>
+                <th>Start Date</th>
                 <th>Duration</th>
                 <th>Action</th>
             </tr>
@@ -56,10 +55,10 @@
 
   <div class="chart-container">
     <div id="charts">
-          <button id="showDailyStatus" onclick="dailyChartStatus()">📊 Show Today's Chart</button>
-          <canvas id="dailyChart"></canvas>
-          <button id="weeklyCharts" class="weekly" onclick="weeklyChartStatus()">📅 Weekly Summary</button>
-         <canvas id="weeklyChart"></canvas>
+        <button id="showDailyStatus" onclick="dailyChartStatus()">📊 Show Today's Chart</button>
+        <canvas id="dailyChart"></canvas>
+        <button id="weeklyCharts" class="weekly" onclick="weeklyChartStatus()">📅 Weekly Summary</button>
+        <canvas id="weeklyChart"></canvas>
     </div>
   </div>
 
@@ -74,6 +73,6 @@
       </div>
     </div>
   </footer>
-<script src="scripts/track.js"></script>
+  <script src="scripts/track.js"></script>
 </body>
 </html>
