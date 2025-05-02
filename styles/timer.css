@@ -70,7 +70,7 @@ h2 {
 }
 p {
     margin-left: 17px;
-    color:black;
+    color:white;
     font-weight:bold;
     font-size:20px;
 }
@@ -84,7 +84,12 @@ p {
     margin-top: 45px;
     align-items: center;
 }
-
+.details {
+    color:#fff;
+}
+.task {
+    color:#fff;
+}
 .timer-container h2 {
     margin: 0 0 16px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
@@ -207,9 +212,9 @@ p {
     border: none;
     color:black;
     font-weight: bold;
-    border-radius: 4px;
+    border-radius:4px;
     cursor: pointer;
-    padding: 6px 13px;
+    padding:8px 13px;
     margin-top: 12px;
     font-weight:bold;
 }
@@ -227,7 +232,7 @@ p {
     background-color:#fff;
     border: none;
     color:black;
-    padding:6px 15px;
+    padding:8px 15px;
     cursor: pointer;
     border-radius: 4px;
     font-weight: bold;
@@ -286,6 +291,9 @@ p {
 
     .controls button {
         margin-top: 17px;
+    }
+    table {
+        margin-left:-39px;
     }
 
 }
@@ -372,7 +380,6 @@ p {
         border: none;
         padding: 10px 16px;
         cursor: pointer;
-        border-radius: 20px;
         font-weight: bold;
         margin-top: 8px;
     }
@@ -412,7 +419,6 @@ p {
         border: none;
         font-weight: bold;
         padding: 10px 20px;
-        border-radius: 20px;
         cursor: pointer;
     }
     .records::-webkit-scrollbar {
@@ -458,5 +464,8 @@ p {
 
     #elapsedTime {
         font-size:33px;
+    }
+    .task-container {
+        max-width:788px;
     }
 }

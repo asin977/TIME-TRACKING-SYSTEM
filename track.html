@@ -29,8 +29,8 @@
         <label for="description">Description:</label>
         <textarea id="description" placeholder="Task description if necessary.."></textarea>
 
-        <button class="track">Track your Time ➡️</button>
-        <button class="delete-records">Delete All Records</button>
+        <button class="track" onclick="startTask()">Track your Time ➡️</button>
+        <button class="delete-records" onclick="resetTask()">Delete All Records</button>
         <div id="activeTasks" class="active-task-buttons"></div>
 
         <div class="search-section">
@@ -38,7 +38,7 @@
             <button class="search" onclick="searchTasks()">SEARCH</button>
             <div id="searchResults" class="search-results"></div>
         </div>
-        
+
         <table id="tasktable">
             <caption><strong>Your Tasks</strong></caption>
             <thead>
@@ -56,9 +56,9 @@
 
   <div class="chart-container">
     <div id="charts">
-          <button id="showDailyStatus">📊 Show Today's Chart</button>
+          <button id="showDailyStatus" onclick="dailyChartStatus()">📊 Show Today's Chart</button>
           <canvas id="dailyChart"></canvas>
-          <button id="weeklyCharts" class="weekly">📅 Weekly Summary</button>
+          <button id="weeklyCharts" class="weekly" onclick="weeklyChartStatus()">📅 Weekly Summary</button>
          <canvas id="weeklyChart"></canvas>
     </div>
   </div>
@@ -73,7 +73,6 @@
           <a href="#contact">Contact</a>
       </div>
     </div>
-    
   </footer>
 <script src="scripts/track.js"></script>
 </body>

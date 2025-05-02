@@ -2,46 +2,64 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CountDown</title>
-  <link rel="stylesheet" href="styles/timer.css">
-  <link rel="icon" href="time.png" alt="time">
+  <link rel="stylesheet" href="styles/timer.css" />
+  <link rel="icon" href="time.png" alt="time" />
 </head>
 
 <body>
   <div class="container">
-
     <div class="records">
       <h2 class="headerss">RECORDED TIMERS</h2>
-      <div id="recordsList"></div>
+      <div id="recordsList" class="record">
+        <h2>📝 Task Details</h2>
+        <p><strong>Task Name:</strong> <span id="taskName"></span></p>
+        <p><strong>Task Tag:</strong> <span id="taskTag"></span></p>
+        <p><strong>Task Description:</strong><span id="taskDescription"></span></p>
+        <p><strong>Start Date:</strong> <span id="recordStartDate"></span></p>
+        <p><strong>End Date:</strong><span id="recordEndDate"></span></p>
+        <p><strong>Start Time:</strong> <span id="recordStartTime"></span></p>
+        <p><strong>End Time:</strong> <span id="recordEndTime"></span></p>
+        <p><strong>Duration:</strong> <span id="taskDuration"></span></p>
+        <button class="clear">Delete</button>
+        <button class="dashboard">Dashboard</button>
+      </div>
     </div>
+
     <div class="timer-box">
       <h2 class="live">🕔 LIVE TIMER</h2>
-        <div class="display-row elapsed-row">
-          <span class="label"></span>
-          <span class="value" id="elapsedTime">00:00:00</span>
-        </div>
-        <div class="display-rows">
-          <span class="label">Start</span>
-          <span class="value" id="startTime">--:--:--</span>
-        </div>
-        <div class="display-rows">
-          <span class="label">End</span>
-          <span class="value" id="endTime">--:--:--</span>
-        </div>
-
-        <div class="controls">
-          <button id="start">Start</button>
-          <button id="stop" disabled>Stop</button>
-          <button id="reset" disabled>Reset</button>
-        </div>
-        <div class="controls">
-          <button id="clearAll">Clear All Records</button>
-        </div>
+      <div class="display-row elapsed-row">
+        <span class="label"></span>
+        <span class="value" id="elapsedTime">00:00:00</span>
       </div>
+      <div class="display-rows">
+        <span class="label">Start</span>
+        <span class="value" id="startTime">--:--:--</span>
+      </div>
+      <div class="display-rows">
+        <span class="label">End</span>
+        <span class="value" id="endTime">--:--:--</span>
+      </div>
+
+      <div class="controls">
+        <button id="start">Start</button>
+        <button id="stop" disabled>Stop</button>
+        <button id="reset" disabled>Reset</button>
+      </div>
+      <div class="controls">
+        <button id="clearAll">Clear All Records</button>
+      </div>
+    </div>
+
   </div>
 
+  <div class="recorded-tasks">
+    <h2 class="titles">TIMER2 - All Task Records</h2>
+    <div id="allTasksList"></div>
+  </div>
   <script src="scripts/timer.js"></script>
 </body>
+
 </html>
