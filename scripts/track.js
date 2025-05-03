@@ -1,72 +1,55 @@
-// scripts/track.js
+let taskList = JSON.parse(localStorage.getItem('tasks')) || [];
 
-function startTask() {
-    const taskName = document.getElementById("taskName").value.trim();
-    const taskTag = document.getElementById("taskTag").value.trim();
-    const description = document.getElementById("description").value.trim();
-  
-    if (!taskName) {
-      alert("Please enter a task name.");
-      return;
-    }
-  
-    const now = Date.now();
-    sessionStorage.setItem("currentTaskName", taskName);
-    sessionStorage.setItem("currentTaskTag", taskTag);
-    sessionStorage.setItem("currentTaskDescription", description);
-    sessionStorage.setItem("startTime", now.toString());
-    sessionStorage.setItem("accumulatedDuration", "0");
-  
-    window.location.href = "timer.html";
+const taskNameInput = document.getElementById("taskName");
+const taskTagInput = document.getElementById("taskTag");
+const descriptionInput = document.getElementById("description");
+const trackButton = document.querySelector(".track");
+const taskTableBody = document.querySelector("#tasktable tbody");
+
+function saveTaskToLocalStorage() {
+  localStorage.setItem('tasks', JSON.stringify(taskList));
+}
+
+function renderTaskTable() {
+  taskTableBody.innerHTML = "";
+  taskList.forEach((task, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${task.taskName}</td>
+      <td>${task.startDate}</td>
+      <td>${task.totalDuration}</td>
+      <td>
+        <button class="resume" onclick="resumeTask(${index})">Resume</button>
+      </td>
+    `;
+    taskTableBody.appendChild(row);
+  });
+}
+
+trackButton.addEventListener("click", function () {
+  const taskName = taskNameInput.value.trim();
+  const taskTag = taskTagInput.value.trim();
+  const description = descriptionInput.value.trim();
+
+  if (taskName && taskTag && description) {
+    const taskData = {
+      taskName,
+      taskTag,
+      description,
+      startDate: new Date().toLocaleString(),
+      sessions: [],
+      totalDuration: "00:00:00"
+    };
+    taskList.push(taskData);
+    saveTaskToLocalStorage();
+    window.location.href = `timer.html?taskIndex=${taskList.length - 1}`;
+  } else {
+    alert("Please fill in all fields.");
   }
-  
-  function resetTask() {
-    if (confirm("Are you sure you want to delete all tasks?")) {
-      localStorage.removeItem("tasks");
-      loadTasks();
-    }
-  }
-  
-  function loadTasks() {
-    const taskTableBody = document.getElementById("taskTableBody");
-    taskTableBody.innerHTML = "";
-  
-    const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-  
-    tasks.forEach((task, index) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${task.name}</td>
-        <td>${task.startDate}</td>
-        <td>${task.duration}</td>
-        <td>
-          <button onclick="resumeTask(${index})">Resume</button>
-          <button onclick="deleteTask(${index})">Delete</button>
-        </td>
-      `;
-      taskTableBody.appendChild(tr);
-    });
-  }
-  
-  function deleteTask(index) {
-    const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-    tasks.splice(index, 1);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    loadTasks();
-  }
-  
-  function resumeTask(index) {
-    const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-    const task = tasks[index];
-  
-    sessionStorage.setItem("currentTaskName", task.name);
-    sessionStorage.setItem("currentTaskTag", task.tag || "");
-    sessionStorage.setItem("currentTaskDescription", task.description || "");
-    sessionStorage.setItem("resumeStartTime", Date.now().toString());
-    sessionStorage.setItem("accumulatedDuration", task.durationSeconds || "0");
-  
-    window.location.href = "timer.html";
-  }
-  
-  document.addEventListener("DOMContentLoaded", loadTasks);
-  
+});
+
+function resumeTask(index) {
+  window.location.href = `timer.html?taskIndex=${index}`;
+}
+
+document.addEventListener("DOMContentLoaded", renderTaskTable);
