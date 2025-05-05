@@ -69,11 +69,58 @@ function searchTasks() {
             <strong><h3>Start Date:</h3></strong><p>${task.startDate}</p>
             `;
             resultsDiv.appendChild(div);
-    })
+    });
 }
 
 document.addEventListener("DOMContentLoaded",renderTaskTable);
 
 function dailyChartStatus() {
-    
+    const ctx = document.getElementById("dailyChart").getContext("2d");
+    new Chart(ctx, {
+        type:"pie",
+        data: {
+            labels : taskList.map((task)=>task.taskName),
+            datasets: [{
+                label: "Task Duration",
+                data:taskList.map((task)=>{
+                    const totalDuration = task.sessions.reduce((acc,session));
+                    const [hours,minutes,seconds] = session.duration.split(":");
+                    return acc + parseInt(hours) * 3600 + parseInt(minutes)*60 + parseInt(seconds);
+                
+                })
+            }]
+        },
+        options: {
+            responsive : true,
+            plugins: {
+                legend : {
+                    position:"top"
+                }
+            }
+        }
+    })
+}
+
+function weeklyChartStatus() {
+    const ctx = document.getElementById("weeklyChart").getContext("2d");
+    new Chart(ctx, {
+        type:"bar",
+        data: {
+            labels: taskList.map((task)=>task.taskName),
+            datasets : [{
+                labels: "Total Duration (in hours)",
+                data : taskList.map((task)=>{
+                    const totalDuration = task.sessions.reduce((acc,session)=> {
+                        const [hours,minutes,seconds] = session.duration.split(":");
+                        return acc + parseInt(hours) * 3600 + parseInt(minutes) * 60  + parseInt(seconds);
+                    })
+                })
+            }]
+        }
+    })
+}
+
+function parseDuration(durationStr) {
+    const [hh,mm,ss] = durationStr.split(":").map(Number);
+    return hh * 60 + mm + ss / 60;
 }

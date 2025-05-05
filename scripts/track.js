@@ -93,7 +93,7 @@ function weeklyChartStatus() {
       datasets: [{
         label: "Total Duration (in hours)",
         data: taskList.map(task => parseDuration(task.totalDuration)),
-        backgroundColor: "#4BC0C0"
+        backgroundColor: ["#4BC0C0","#FF6384","#36A2EB"]
       }]
     }
   });

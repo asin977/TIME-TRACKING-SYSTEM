@@ -4,7 +4,6 @@ const taskIndex = urlParams.get("taskIndex");
 const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 const taskData = tasks[taskIndex];
 
-
 const elapsedTimeEl = document.getElementById("elapsedTime");
 const startTimeEl = document.getElementById("startTime");
 const endTimeEl = document.getElementById("endTime");
@@ -17,22 +16,34 @@ const allTasksListEl = document.getElementById("allTasksList");
 let startTime;
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (!taskData) {
+    alert("Task not found.");
+    window.location.href = "track.html";
+    return;
+  }
+
   document.getElementById("taskName").textContent = taskData.taskName || "";
   document.getElementById("taskTag").textContent = taskData.taskTag || "";
   document.getElementById("taskDescription").textContent = taskData.description || "";
-  document.getElementById("recordStartDate").textContent = taskData.startDate || "";
+  document.getElementById("recordStartDate").textContent = taskData.startDate || "--/--/----";
 
   resetTimer();
   renderAllTaskSessions();
 });
 
 function startTimer() {
-  startTime = new Date()
+  startTime = new Date();
   const startTimeStr = startTime.toLocaleTimeString();
   const startDateStr = startTime.toLocaleDateString();
 
   startTimeEl.textContent = startTimeStr;
   recordStartTimeEl.textContent = startTimeStr;
+  document.getElementById("recordStartDate").textContent = startDateStr;
+
+  
+  taskData.startDate = startDateStr;
+  tasks[taskIndex] = taskData;
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 
   document.getElementById("start").disabled = true;
   document.getElementById("stop").disabled = false;
@@ -44,6 +55,9 @@ function stopTimer() {
   const endTimeStr = endTime.toLocaleTimeString();
   const endDateStr = endTime.toLocaleDateString();
 
+  const startTimeStr = startTime.toLocaleTimeString();
+  const startDateStr = startTime.toLocaleDateString();
+
   endTimeEl.textContent = endTimeStr;
   recordEndTimeEl.textContent = endTimeStr;
   recordEndDateEl.textContent = endDateStr;
@@ -53,20 +67,21 @@ function stopTimer() {
   const mins = String(Math.floor((diff % 3600) / 60)).padStart(2, "0");
   const secs = String(diff % 60).padStart(2, "0");
   const duration = `${hrs}:${mins}:${secs}`;
+
   elapsedTimeEl.textContent = duration;
   taskDurationEl.textContent = duration;
 
-  
   if (!taskData.sessions) taskData.sessions = [];
 
   taskData.sessions.push({
-    startDate: startTime.toLocaleDateString(),
-    startTime: startTime.toLocaleTimeString(),
+    startDate: startDateStr,
+    startTime: startTimeStr,
     endDate: endDateStr,
     endTime: endTimeStr,
     duration: duration,
   });
 
+  taskData.startDate = startDateStr; 
   taskData.totalDuration = duration;
   tasks[taskIndex] = taskData;
   localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -124,7 +139,6 @@ function renderAllTaskSessions() {
 
   allTasksListEl.appendChild(table);
 }
-
 
 document.getElementById("start").addEventListener("click", startTimer);
 document.getElementById("stop").addEventListener("click", stopTimer);
