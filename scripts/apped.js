@@ -124,3 +124,34 @@ function parseDuration(durationStr) {
     const [hh,mm,ss] = durationStr.split(":").map(Number);
     return hh * 60 + mm + ss / 60;
 }
+
+const urlParams = new URLSearchParams(window.location.search);
+
+const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+const taskIndex = urlParams.get("taskIndex");
+const taskData = tasks[taskIndex];
+
+const elapsedTimeEl = document.getElementById("elapsedTime");
+const startTimeEl = document.getElementById("startTime");
+const endTimeEl = document.getElementById("endTime");
+const recordStartDate = document.getElementById("recordStartDate");
+const recordEndDate = document.getElementById("recordEndDate");
+const recordStartTime = document.getElementById("recordStartTime");
+const recordEndTime = document.getElementById("recordEndTime");
+const taskDuration = document.getElementById("taskDuration");
+
+let startTime;
+
+document.addEventListener("DOMContentLoaded",()=>{
+    if(!taskData) {
+        alert("Task not found.");
+        window.location.href = "track.html";
+        return;
+    }
+    document.getElementById("taskName").textContent = taskData.taskName || "";
+    document.getElementById("taskTag").textContent = taskData.taskTag || "";
+    document.getElementById("taskDescription").textContent = taskData.description || "";
+    document.getElementById(recordStartDate).textContent = 
+    taskData.startDate || "--/--/----";
+    resetTimer();
+})

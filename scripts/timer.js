@@ -92,11 +92,7 @@ function stopTimer() {
 function resetTimer() {
   elapsedTimeEl.textContent = "00:00:00";
   startTimeEl.textContent = "--:--:--";
-  endTimeEl.textContent = "--:--:--";
-  recordStartTimeEl.textContent = "--:--:--";
-  recordEndTimeEl.textContent = "--:--:--";
-  recordEndDateEl.textContent = "--/--/----";
-  taskDurationEl.textContent = "00:00:00";
+  
 
   document.getElementById("start").disabled = false;
   document.getElementById("stop").disabled = true;

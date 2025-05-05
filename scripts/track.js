@@ -61,7 +61,7 @@ function searchTasks() {
   filtered.forEach(task => {
     const div = document.createElement("div");
     div.classList.add("search-result");
-    div.innerHTML = `<strong>📑${task.taskName}</strong> - 📌${task.taskTag} - 🕒${task.totalDuration} <button class="clear">🗑️ DELETE</button>`;
+    div.innerHTML = `<strong>📑${task.taskName}</strong> <br> 📌${task.taskTag} <br> 🕒${task.totalDuration} <button class="clear">🗑️ DELETE</button>`;
     resultsDiv.appendChild(div);
     
   });

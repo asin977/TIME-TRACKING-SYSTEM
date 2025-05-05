@@ -52,6 +52,11 @@ header {
     overflow-x: hidden;
     
 }
+.search-result {
+    font-size:18px;
+    margin-top:12px;
+    margin-bottom:12px;
+}
 textarea {
     margin-top:10px;
     width:261px;
