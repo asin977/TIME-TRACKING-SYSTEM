@@ -14,6 +14,7 @@ const taskDurationEl = document.getElementById("taskDuration");
 const allTasksListEl = document.getElementById("allTasksList");
 
 let startTime;
+let timerInterval;
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!taskData) {
@@ -32,11 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function stopWatch(date) {
-  const hrs = String(date.getHours()).padStart(2,'0');
-  const mins = String(date.getMinutes()).padStart(2,'0');
-  const secs = String(date.getSeconds()).padStart(2,'0');
-  return `${hrs}:${mins}:${secs}`
-
+  const hrs = String(date.getHours()).padStart(2, '0');
+  const mins = String(date.getMinutes()).padStart(2, '0');
+  const secs = String(date.getSeconds()).padStart(2, '0');
+  return `${hrs}:${mins}:${secs}`;
 }
 
 function timeFormatting(sec) {
@@ -46,7 +46,6 @@ function timeFormatting(sec) {
   return `${hours}:${minutes}:${seconds}`;
 }
 
-
 function startTimer() {
   startTime = new Date();
   const startTimeStr = startTime.toLocaleTimeString();
@@ -55,8 +54,7 @@ function startTimer() {
   startTimeEl.textContent = startTimeStr;
   recordStartTimeEl.textContent = startTimeStr;
   document.getElementById("recordStartDate").textContent = startDateStr;
-  
-  
+
   taskData.startDate = startDateStr;
   tasks[taskIndex] = taskData;
   localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -65,11 +63,16 @@ function startTimer() {
   document.getElementById("stop").disabled = false;
   document.getElementById("reset").disabled = false;
 
-  stopWatch();
-  timeFormatting();
+  timerInterval = setInterval(() => {
+    const now = new Date();
+    const diff = Math.floor((now - startTime) / 1000);
+    elapsedTimeEl.textContent = timeFormatting(diff);
+  }, 1000);
 }
 
 function stopTimer() {
+  clearInterval(timerInterval);
+
   const endTime = new Date();
   const endTimeStr = endTime.toLocaleTimeString();
   const endDateStr = endTime.toLocaleDateString();
@@ -82,10 +85,7 @@ function stopTimer() {
   recordEndDateEl.textContent = endDateStr;
 
   const diff = Math.floor((endTime - startTime) / 1000);
-  const hrs = String(Math.floor(diff / 3600)).padStart(2, "0");
-  const mins = String(Math.floor((diff % 3600) / 60)).padStart(2, "0");
-  const secs = String(diff % 60).padStart(2, "0");
-  const duration = `${hrs}:${mins}:${secs}`;
+  const duration = timeFormatting(diff);
 
   elapsedTimeEl.textContent = duration;
   taskDurationEl.textContent = duration;
@@ -100,7 +100,7 @@ function stopTimer() {
     duration: duration,
   });
 
-  taskData.startDate = startDateStr; 
+  taskData.startDate = startDateStr;
   taskData.totalDuration = duration;
   tasks[taskIndex] = taskData;
   localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -109,9 +109,10 @@ function stopTimer() {
 }
 
 function resetTimer() {
+  clearInterval(timerInterval);
   elapsedTimeEl.textContent = "00:00:00";
   startTimeEl.textContent = "--:--:--";
-  
+  endTimeEl.textContent = "--:--:--";
 
   document.getElementById("start").disabled = false;
   document.getElementById("stop").disabled = true;
