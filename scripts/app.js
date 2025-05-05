@@ -1,101 +1,345 @@
-let taskTimers = {};
-let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
-taskList.forEach(task => addToTable(task));
-Chart.register();
+let taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+const taskTableBody = document.getElementById("taskTableBody");
 
-document.querySelector(".track").addEventListener("click",startTask);
+function saveTaskToLocalStorage() {
+  localStorage.setItem("tasks",JSON.parse(taskList));
+}
+
+function renderTaskTable() {
+  taskTableBody.innerHTML = "";
+  taskList.forEach((task,index)=>{
+    const row = document.createElement("tr");
+    row.innerHTML = `
+       <td>${task.taskName}</td>
+       <td>${task.taskTag}</td>
+       <td>${task.startDate}</td>
+       <td>${task.totalDuration}</td>
+       <td><button class="resume" onclick="resumeTask${index}>Resume</button></td>"
+      `;
+    taskTableBody.appendChild(row);
+  })
+}
 
 function startTask() {
-    const taskName = document.addEventListener("taskName").value.trim();
-    const description = document.getElementById("description").value.trim();
-    const taskTag = document.getElementById("tasktag").value.trim();
-    if (!taskName) {
-        alert("Please enter the task before you START");
-        return;
-    }
-    const taskId = generateTaskId();
-    const startTime = new Date().toISOString();
-    sessionStorage.setItem("currentTaskId",taskId);
-    sessionStorage.setItem("currentTaskName",taskName);
-    sessionStorage.setItem("currentTaskDescription",description);
-    sessionStorage.setItem("currentTaskTag",taskTag);
-    window.location.href = "timer.html";
-
-    document.getElementById("taskName").value = "";
-    document.getElementById("description").value = "";
-    document.getElementById("taskTag").value = "";
-
-}
-
-function stoptask(taskId) {
-    const taskName = sessionStorage.getItem("currentTaskName");
-    const description = sessionStorage.getItem("currentTaskDescription");
-
-    const taskTag = sessionStorage.getItem("currentTaskTag");
-    const startTime = sessionStorage.getItem("currentTaskStartTime");
-    const endTime = new Date().toISOString();
-    const duration = ((new Date(endTime) - new Date(startTime)) / 60000).toFixed(2);
-    const taskDate = new Date().toISOString().split("T")
-    [0];
-   
-    document.getElementById("endTimeDisplay").textContent = 
-    `End Time: ${new Date(endTime).toLocaleString()}`;
-
-    const taskObj = {
+  const taskName = document.getElementById("taskName").value.trim();
+  const taskTag = document.getElementById("taskTag").value.trim();
+  const description = document.getElementById("description").value.trim();
+  if (taskName && taskTag && description) {
+     const taskData = {
         taskName,
-        taskDate,
-        duration,
-        description,
         taskTag,
-        startTime,
-        endTime
-    };
-    taskList.push(taskObj);
-    localStorage.setItem("tasks",JSON.stringify(taskList));
-    addToTable(taskObj);
-
-    sessionStorage.removeItem("currentTaskId");
-    sessionStorage.removeItem("currentTaskName");
-    sessionStorage.removeItem("currentTaskDescription");
-    sessionStorage.removeItem("currentTaskTag");
-    sessionStorage.removeItem("currentTaskStartTime");
-    sessionStorage.removeItem("currentTaskEndTime");
-    sessionStorage.removeItem("currentTaskDuration");
-    sessionStorage.removeItem("currentTaskDate");
-
-    
+        description,
+        startDate:new Date().toLocaleString(),
+        sessions :[],
+        totalDuration : "00:00:00"
+      };
+      taskList.push(taskData);
+      saveTaskToLocalStorage();
+      window.location.href = `timer.html?taskIndex=${taskList.length - 1}`;
+    }else {
+       alert("Please fill in all fields.");
+    }
 }
-function generateTaskId() {
-    return Math.floor(Math.random() * 1000000);
-
+function resumeTask(index) {
+  window.location.href = `timer.html?taskIndex=${index}`;
 }
 
-function addToTable(task) {
-    const tbody = document.querySelector("#tasktable tbody");
-    const row = document.querySelector("tr");
-    const taskIndex = taskList.indexOf(task);
+function resetTask(index) {
+  if (confirm("Are you sure you want to delete all tasks?")) {
+     localStorage.removeItem("tasks");
+     taskList = [];
+     renderTaskTable();
+  }
+}
 
-    const totalSeconds = Math.floor(parseFloat(task.duration)*60);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-    const formattedTime = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
-    
+function searchTasks() {
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  const resultsDiv = document.getElementById("searchResults");
+  resultsDiv.innerHTML = "";
+  const filterd = taskList.filter(task => task.taskName.toLowerCase().includes(query) || task.taskTag.toLowerCase().includes(query));
+  filterd.forEach(task => {
+    const div = document.createElement("div");
+    div.classList.add("search-result");
+    div.innerHTML = `
+      <strong>${task.taskName}</strong> - ${task.taskTag} - ${task.totalDuration}
+      
+    `;
+    resultsDiv.appendChild(div);
+  });
+}
+
+document.addEventListener("DOMContentLoadede",renderTaskTable);
+
+function dailyChartStatus() {
+  const ctx = document.getElementById("dailyChart").getContext("2d");
+  new CharacterData(ctx,{
+    type:"pie",
+    data:{
+      labels : taskList.map(task=> task.taskName),
+      datasets : [{
+        data : taskList.map(task => parseDuration(task.totalDuration)),
+        backgroundColor: ["red","blue",'green','yellow','orange','purple','pink']
+        
+
+      }]
+    }
+  });
+}
+
+function weeklyChartStatus() {
+  const ctx = document.getElementById("weeklyChart").getContext("2d");
+  new Chart(ctx, {
+    type:"bar",
+    data: {
+      labels:taskList.map(task => task.taskName),
+      datasets : [{
+        label : "Total Duration (in mins)",
+        data: taskList.map(task => parseDuration(task.totalDuration)),
+
+      }]
+    }
+  })
+}
+
+function parseDuration(duration) {
+  const [hh,mm,ss] = durationStr.split(":").map(Number);
+  return hh * 60 + mm + ss / 60;
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+const taskIndex = urlParams.get("taskIndex");
+const elapsedTimeEl = document.getElementById("elapsedTime");
+const startTimeEl = document.getElementById("startTime");
+const endTimeEl = document.getElementById('endTime');
+const taskData = JSON.parse(localStorage.getItem("tasks"));
+[taskIndex];
+
+let startTime,timerInterval;
+
+function updateElapsedTime() {
+  const now = new Date();
+  const diff = Math.floor((now - startTime) / 1000);
+  const hrs = String(Math.floor(diff / 3600)).padStart(2,"0");
+  const mins = String(Math.floor((diff % 3600)/ 60)).padStart(2,'0');
+  const secs = String(diff % 60).padStart(2,'0');
+  elapsedTimeEl.textContent = `${hrs}:${mins}:${secs}`;
+}
+
+function startTimer() {
+  startTime = new Date();
+  startTimeEl.textContent = startTime.toLocaleTimeString();
+  timerInterval = setInterval(updateElapsedTime,1000);
+  document.getElementById("start").disabled = true;
+  document.getElementById("stop").disabled = false;
+  document.getElementById("reset").disabled = false;
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  const endTime = new Date();
+  endTimeEl.textContent = endTime.toLocaleTimeString();
+  const duration = elapsedTimeEl.textContent;
+
+  taskData.sessions.push({
+    start:startTime.toLocaleString(),
+    end : endTime.toLocaleString(),
+    duration
+  });
+  taskData.totalDuration = duration;
+  localStorage.setItem("tasks",JSON.stringify(taskList));
+  alert("session recorded! Returning to dashboard");
+  window.location.href = "track.html";
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  elapsedTimeEl.textContent = "00:00:00";
+  startTimeEl.textContent = "--:--:--";
+  endTimeEl.textContent = "--:--:--";
+  document.getElementById('start').disabled = false;
+  document.getElementById("stop").disabled = true;
+  document.getElementById("reset").disabled = true;
+
+
+}
+
+document.getElementById("start").addEventListener('click',startTimer);
+document.getElementById("stop").addEventListener("click",stopTimer);
+
+
+let taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+const taskTableBody = document.getElementById("taskTableBody");
+
+function saveTaskToLocalStorage() {
+  localStorage.setItem("tasks", JSON.stringify(taskList));
+}
+
+function renderTaskTable() {
+  taskTableBody.innerHTML = "";
+  taskList.forEach((task, index) => {
+    const row = document.createElement("tr");
     row.innerHTML = `
-         <td title="${task.description  || ""}">${task.taskName}</td>
-         <td>${task.taskDate}</td>
-         <td>${durationFormatted}</td>
-         <td>
-            <button class="details-btn" onclick="viewDetails(${taskIndex}"> Resume</button>
-
-         </td>
-         
-        `;
-    tbody.appendChild(row);
+      <td>${task.taskName}</td>
+      <td>${task.startDate}</td>
+      <td>${task.totalDuration}</td>
+      <td><button class="resume" onclick="resumeTask(${index})">Resume</button></td>
+    `;
+    taskTableBody.appendChild(row);
+  });
 }
 
-function viewDetails(index) {
-     const task = taskList[index];
-     sessionStorage.setItem("selectedTask",JSON.stringify(task));
-     window.location.href= "taskDetails.html";
+function startTask() {
+  const taskName = document.getElementById("taskName").value.trim();
+  const taskTag = document.getElementById("taskTag").value.trim();
+  const description = document.getElementById("description").value.trim();
+
+  if (taskName && taskTag && description) {
+    const taskData = {
+      taskName,
+      taskTag,
+      description,
+      startDate: new Date().toLocaleString(),
+      sessions: [],
+      totalDuration: "00:00:00"
+    };
+    taskList.push(taskData);
+    saveTaskToLocalStorage();
+    window.location.href = `timer.html?taskIndex=${taskList.length - 1}`;
+  } else {
+    alert("Please fill in all fields.");
+  }
 }
+
+function resumeTask(index) {
+  window.location.href = `timer.html?taskIndex=${index}`;
+}
+
+function resetTask() {
+  if (confirm("Are you sure you want to delete all tasks?")) {
+    localStorage.removeItem("tasks");
+    taskList = [];
+    renderTaskTable();
+  }
+}
+
+function searchTasks() {
+  const query = document.getElementById("searchInput").value.trim().toLowerCase();
+  const resultsDiv = document.getElementById("searchResults");
+  resultsDiv.innerHTML = "";
+  const filtered = taskList.filter(task => task.taskName.toLowerCase().includes(query) || task.taskTag.toLowerCase().includes(query));
+  filtered.forEach(task => {
+    const div = document.createElement("div");
+    div.classList.add("search-result");
+    div.innerHTML = `<strong>${task.taskName}</strong> - ${task.taskTag} - ${task.totalDuration}`;
+    resultsDiv.appendChild(div);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", renderTaskTable);
+
+function dailyChartStatus() {
+  // Dummy chart for example
+  const ctx = document.getElementById("dailyChart").getContext("2d");
+  new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: taskList.map(task => task.taskName),
+      datasets: [{
+        data: taskList.map(task => parseDuration(task.totalDuration)),
+        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"]
+      }]
+    }
+  });
+}
+
+function weeklyChartStatus() {
+  const ctx = document.getElementById("weeklyChart").getContext("2d");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: taskList.map(task => task.taskName),
+      datasets: [{
+        label: "Total Duration (in hours)",
+        data: taskList.map(task => parseDuration(task.totalDuration)),
+        backgroundColor: "#4BC0C0"
+      }]
+    }
+  });
+}
+
+function parseDuration(durationStr) {
+  const [hh, mm, ss] = durationStr.split(":").map(Number);
+  return hh * 60 + mm + ss / 60;
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+const taskIndex = urlParams.get("taskIndex");
+const elapsedTimeEl = document.getElementById("elapsedTime");
+const startTimeEl = document.getElementById("startTime");
+const endTimeEl = document.getElementById("endTime");
+
+const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+const taskData = tasks[taskIndex];
+
+let startTime;
+
+function startTimer() {
+  startTime = new Date();
+  startTimeEl.textContent = startTime.toLocaleTimeString();
+
+  // Disable start, enable stop and reset
+  document.getElementById("start").disabled = true;
+  document.getElementById("stop").disabled = false;
+  document.getElementById("reset").disabled = false;
+}
+
+function stopTimer() {
+  const endTime = new Date();
+  endTimeEl.textContent = endTime.toLocaleTimeString();
+
+  const diff = Math.floor((endTime - startTime) / 1000);
+  const hrs = String(Math.floor(diff / 3600)).padStart(2, "0");
+  const mins = String(Math.floor((diff % 3600) / 60)).padStart(2, "0");
+  const secs = String(diff % 60).padStart(2, "0");
+  const duration = `${hrs}:${mins}:${secs}`;
+  elapsedTimeEl.textContent = duration;
+
+  // Save session
+  if (!taskData.sessions) taskData.sessions = [];
+  taskData.sessions.push({
+    start: startTime.toLocaleString(),
+    end: endTime.toLocaleString(),
+    duration
+  });
+
+  taskData.totalDuration = duration;
+  tasks[taskIndex] = taskData;
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  alert("Session recorded! Returning to dashboard.");
+  window.location.href = "track.html";
+}
+
+function resetTimer() {
+  elapsedTimeEl.textContent = "00:00:00";
+  startTimeEl.textContent = "--:--:--";
+  endTimeEl.textContent = "--:--:--";
+
+  document.getElementById("start").disabled = false;
+  document.getElementById("stop").disabled = true;
+  document.getElementById("reset").disabled = true;
+}
+
+document.getElementById("start").addEventListener("click", startTimer);
+document.getElementById("stop").addEventListener("click", stopTimer);
+document.getElementById("reset").addEventListener("click", resetTimer);
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("taskName").textContent = taskData.taskName;
+  document.getElementById("taskTag").textContent = taskData.taskTag;
+  document.getElementById("taskDescription").textContent = taskData.description;
+  document.getElementById("recordStartDate").textContent = taskData.startDate;
+
+  // Initial state
+  resetTimer();
+});

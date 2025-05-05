@@ -1,156 +1,153 @@
-window.addEventListener("DOMContentLoaded", () => {
-    const taskName = sessionStorage.getItem("currentTaskName") || "Unnamed Task";
-    const taskTag = sessionStorage.getItem("currentTaskTag") || "No Tag";
-    const taskDescription = sessionStorage.getItem("currentTaskDescription") || "No Description";
+const urlParams = new URLSearchParams(window.location.search);
+const taskIndex = urlParams.get("taskIndex");
+
+const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+const taskData = tasks[taskIndex];
+
+
+const elapsedTimeEl = document.getElementById("elapsedTime");
+const startTimeEl = document.getElementById("startTime");
+const endTimeEl = document.getElementById("endTime");
+const recordStartTimeEl = document.getElementById("recordStartTime");
+const recordEndTimeEl = document.getElementById("recordEndTime");
+const recordEndDateEl = document.getElementById("recordEndDate");
+const taskDurationEl = document.getElementById("taskDuration");
+const allTasksListEl = document.getElementById("allTasksList");
+
+let startTime;
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("taskName").textContent = taskData.taskName || "";
+  document.getElementById("taskTag").textContent = taskData.taskTag || "";
+  document.getElementById("taskDescription").textContent = taskData.description || "";
+  document.getElementById("recordStartDate").textContent = taskData.startDate || "";
+
+  resetTimer();
+  renderAllTaskSessions();
+});
+
+function startTimer() {
+  startTime = new Date()
+  const startTimeStr = startTime.toLocaleTimeString();
+  const startDateStr = startTime.toLocaleDateString();
+
+  startTimeEl.textContent = startTimeStr;
+  recordStartTimeEl.textContent = startTimeStr;
+
+  document.getElementById("start").disabled = true;
+  document.getElementById("stop").disabled = false;
+  document.getElementById("reset").disabled = false;
+}
+
+function stopTimer() {
+  const endTime = new Date();
+  const endTimeStr = endTime.toLocaleTimeString();
+  const endDateStr = endTime.toLocaleDateString();
+
+  endTimeEl.textContent = endTimeStr;
+  recordEndTimeEl.textContent = endTimeStr;
+  recordEndDateEl.textContent = endDateStr;
+
+  const diff = Math.floor((endTime - startTime) / 1000);
+  const hrs = String(Math.floor(diff / 3600)).padStart(2, "0");
+  const mins = String(Math.floor((diff % 3600) / 60)).padStart(2, "0");
+  const secs = String(diff % 60).padStart(2, "0");
+  const duration = `${hrs}:${mins}:${secs}`;
+  elapsedTimeEl.textContent = duration;
+  taskDurationEl.textContent = duration;
+
   
-    document.getElementById("taskName").textContent = taskName;
-    document.getElementById("taskTag").textContent = taskTag;
-    document.getElementById("taskDescription").textContent = taskDescription;
-  
-    let startTime;
-    let intervalId;
-  
-    const currentTask = JSON.parse(localStorage.getItem("currentTask"));
-    if (currentTask) {
-      document.getElementById("recordStartDate").textContent = currentTask.startDate;
-      document.getElementById("recordEndDate").textContent = currentTask.endDate;
-      document.getElementById("recordStartTime").textContent = currentTask.startTime;
-      document.getElementById("recordEndTime").textContent = currentTask.endTime;
-      document.getElementById("taskDuration").textContent = currentTask.duration;
-    }
-  
-    function updateElapsedTime() {
-      const now = new Date();
-      const diff = new Date(now - startTime);
-      const h = String(diff.getUTCHours()).padStart(2, '0');
-      const m = String(diff.getUTCMinutes()).padStart(2, '0');
-      const s = String(diff.getUTCSeconds()).padStart(2, '0');
-      document.getElementById("elapsedTime").textContent = `${h}:${m}:${s}`;
-    }
-  
-    document.getElementById("start").addEventListener("click", () => {
-      const now = new Date();
-      startTime = now;
-  
-      const startDateStr = now.toISOString().split("T")[0];
-      const startTimeStr = now.toTimeString().split(" ")[0];
-  
-      document.getElementById("recordStartDate").textContent = startDateStr;
-      document.getElementById("recordStartTime").textContent = startTimeStr;
-      document.getElementById("startTime").textContent = startTimeStr;
-  
-      intervalId = setInterval(updateElapsedTime, 1000);
-      document.getElementById("stop").disabled = false;
-      document.getElementById("reset").disabled = false;
-      document.getElementById("start").disabled = true;
-    });
-  
-    document.getElementById("stop").addEventListener("click", () => {
-      clearInterval(intervalId);
-      const endTime = new Date();
-      const endTimeStr = endTime.toTimeString().split(" ")[0];
-      const endDateStr = endTime.toISOString().split("T")[0];
-  
-      document.getElementById("endTime").textContent = endTimeStr;
-      document.getElementById("recordEndTime").textContent = endTimeStr;
-      document.getElementById("recordEndDate").textContent = endDateStr;
-  
-      const diff = new Date(endTime - startTime);
-      const h = String(diff.getUTCHours()).padStart(2, '0');
-      const m = String(diff.getUTCMinutes()).padStart(2, '0');
-      const s = String(diff.getUTCSeconds()).padStart(2, '0');
-      const durationStr = `${h}:${m}:${s}`;
-      document.getElementById("taskDuration").textContent = durationStr;
-  
-      const record = {
-        name: taskName,
-        tag: taskTag,
-        taskDescription: taskDescription,
-        startDate: document.getElementById("recordStartDate").textContent,
-        endDate: document.getElementById("recordEndDate").textContent,
-        startTime: document.getElementById("recordStartTime").textContent,
-        endTime: endTimeStr,
-        duration: durationStr,
-      };
-  
-      // Save current task for persistence
-      localStorage.setItem("currentTask", JSON.stringify(record));
-  
-      // Save to allTasks list
-      const tasks = JSON.parse(localStorage.getItem("allTasks")) || [];
-      tasks.push(record);
-      localStorage.setItem("allTasks", JSON.stringify(tasks));
-  
-      renderAllTasks();
-  
-      document.getElementById("stop").disabled = true;
-    });
-  
-    document.getElementById("reset").addEventListener("click", () => {
-      clearInterval(intervalId);
-      document.getElementById("elapsedTime").textContent = "00:00:00";
-      document.getElementById("startTime").textContent = "--:--:--";
-      document.getElementById("endTime").textContent = "--:--:--";
-      // Keep record section data persistent
-  
-      document.getElementById("start").disabled = false;
-      document.getElementById("stop").disabled = true;
-      document.getElementById("reset").disabled = true;
-    });
-  
-    document.getElementById("clearAll").addEventListener("click", () => {
-      sessionStorage.clear();
-      localStorage.clear();
-      location.reload();
-    });
-  
-    document.getElementById("deleteTask").addEventListener("click", () => {
-       
-        localStorage.removeItem("currentTask");
-        sessionStorage.removeItem("currentTaskName");
-        sessionStorage.removeItem("currentTaskTag");
-        sessionStorage.removeItem("currentTaskDescription");
-      
-        document.getElementById("taskName").textContent = "";
-        document.getElementById("taskTag").textContent = "";
-        document.getElementById("taskDescription").textContent = "";
-        document.getElementById("recordStartDate").textContent = "";
-        document.getElementById("recordEndDate").textContent = "";
-        document.getElementById("recordStartTime").textContent = "";
-        document.getElementById("recordEndTime").textContent = "";
-        document.getElementById("taskDuration").textContent = "";
-      
-        alert("Task details deleted successfully!");
-      });
-      
-  
-    document.getElementById("goDashboard").addEventListener("click", () => {
-      window.location.href = "track.html";
-    });
-  
-    function renderAllTasks() {
-      const tasks = JSON.parse(localStorage.getItem("allTasks")) || [];
-      const container = document.getElementById("allTasksList");
-      container.innerHTML = "";
-  
-      tasks.forEach((task, index) => {
-        const div = document.createElement("div");
-        div.classList.add("task-entry");
-        div.innerHTML = `
-          <p><strong>TASK ${index + 1}</strong></p>
-          <p><strong>◘Task Name:</strong> ${task.name}</p>
-          <p><strong>◘Task Tag:</strong> ${task.tag}</p>
-          <p><strong>◘Description:</strong> ${task.taskDescription}</p>
-          <p><strong>◘Start Date:</strong> ${task.startDate}</p>
-          <p><strong>◘Start Time:</strong> ${task.startTime}</p>
-          <p><strong>◘End Time:</strong> ${task.endTime}</p>
-          <p><strong>◘Duration:</strong> ${task.duration}</p>
-          <hr>
-        `;
-        container.appendChild(div);
-      });
-    }
-  
-    renderAllTasks();
+  if (!taskData.sessions) taskData.sessions = [];
+
+  taskData.sessions.push({
+    startDate: startTime.toLocaleDateString(),
+    startTime: startTime.toLocaleTimeString(),
+    endDate: endDateStr,
+    endTime: endTimeStr,
+    duration: duration,
   });
-  
+
+  taskData.totalDuration = duration;
+  tasks[taskIndex] = taskData;
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  renderAllTaskSessions();
+}
+
+function resetTimer() {
+  elapsedTimeEl.textContent = "00:00:00";
+  startTimeEl.textContent = "--:--:--";
+  endTimeEl.textContent = "--:--:--";
+  recordStartTimeEl.textContent = "--:--:--";
+  recordEndTimeEl.textContent = "--:--:--";
+  recordEndDateEl.textContent = "--/--/----";
+  taskDurationEl.textContent = "00:00:00";
+
+  document.getElementById("start").disabled = false;
+  document.getElementById("stop").disabled = true;
+  document.getElementById("reset").disabled = true;
+}
+
+function renderAllTaskSessions() {
+  allTasksListEl.innerHTML = "";
+
+  if (!taskData.sessions || taskData.sessions.length === 0) {
+    allTasksListEl.innerHTML = "<p>No sessions recorded yet.</p>";
+    return;
+  }
+
+  const table = document.createElement("table");
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Start Date</th>
+        <th>Start Time</th>
+        <th>End Date</th>
+        <th>End Time</th>
+        <th>Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${taskData.sessions.map((session, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${session.startDate}</td>
+          <td>${session.startTime}</td>
+          <td>${session.endDate}</td>
+          <td>${session.endTime}</td>
+          <td>${session.duration}</td>
+        </tr>
+      `).join("")}
+    </tbody>
+  `;
+
+  allTasksListEl.appendChild(table);
+}
+
+
+document.getElementById("start").addEventListener("click", startTimer);
+document.getElementById("stop").addEventListener("click", stopTimer);
+document.getElementById("reset").addEventListener("click", resetTimer);
+
+document.getElementById("goDashboard").addEventListener("click", () => {
+  window.location.href = "track.html";
+});
+
+document.getElementById("deleteTask").addEventListener("click", () => {
+  if (confirm("Are you sure you want to delete this task?")) {
+    tasks.splice(taskIndex, 1);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    window.location.href = "track.html";
+  }
+});
+
+document.getElementById("clearAll").addEventListener("click", () => {
+  if (confirm("Clear all sessions for this task?")) {
+    taskData.sessions = [];
+    taskData.totalDuration = "00:00:00";
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    renderAllTaskSessions();
+    resetTimer();
+  }
+});

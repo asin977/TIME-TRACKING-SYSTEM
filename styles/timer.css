@@ -378,10 +378,11 @@ p {
     .resume {
         font-weight: bold;
         border: none;
-        padding: 10px 16px;
+        padding:3px;
         cursor: pointer;
         font-weight: bold;
         margin-top: 8px;
+
     }
 
     .display-row span.label {
