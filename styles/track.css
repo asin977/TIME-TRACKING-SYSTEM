@@ -22,7 +22,9 @@ header {
     z-index: 1;
 }
 .resume {
-    padding:3px
+    padding:3px;
+    font-weight:bold;
+    font-size:12px;
 }
 .title {
     color:#222222;
@@ -216,7 +218,7 @@ canvas {
     text-align: center;
     padding: 20px 10px;
     font-family: 'Inconsolata', monospace;
-    font-size: 14px;
+    font-size: 15px;
     margin-top:12px;
     position: relative;
 }
@@ -238,10 +240,22 @@ canvas {
         max-width:381px;
         padding:17px;
     }
+    .resume{
+        font-size:15px;
+    }
+    table {
+        margin-left:-14px;
+    }
+    footer {
+        font-size:18px;
+    }
 }
 @media screen and (min-width:768px) {
     .task-container {
         max-width:500px;
+    }
+    table {
+        margin-left:0px;
     }
 }
 @media screen and (min-width:960px) {
@@ -273,12 +287,20 @@ canvas {
 }
 @media screen and (min-width:1440px) {
      .task-container {
-        margin-left:80px;
+        margin-left:100px;
+        width:2000px;
      }
     #charts {
         margin-top:33px;
         margin:58px;
         width:460px;
+    }
+    .resume {
+        padding:8px;
+        font-size:18px;
+    }
+    table {
+        margin-left:0px;
     }
   }
   

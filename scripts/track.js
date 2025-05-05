@@ -13,7 +13,7 @@ function renderTaskTable() {
       <td>${task.taskName}</td>
       <td>${task.startDate}</td>
       <td>${task.totalDuration}</td>
-      <td><button class="resume" onclick="resumeTask(${index})">🕒Resume</button></td>
+      <td><button class="resume" onclick="resumeTask(${index})">🕒  Resume</button></td>
     `;
     taskTableBody.appendChild(row);
   });
@@ -29,7 +29,7 @@ function startTask() {
       taskName,
       taskTag,
       description,
-      stataskrtDate: new Date().toLocaleString(),
+      startTaskDate: new Date().toLocaleString(),
       sessions: [],
       totalDuration: "00:00:00"
     };
@@ -61,7 +61,7 @@ function searchTasks() {
   filtered.forEach(task => {
     const div = document.createElement("div");
     div.classList.add("search-result");
-    div.innerHTML = `<strong>📑${task.taskName}</strong> <br> 📌${task.taskTag} <br> 🕒${task.totalDuration} <button class="clear">🗑️ DELETE</button>`;
+    div.innerHTML = `<strong>Task Name:📑${task.taskName}</strong> <br> Task Tag:📌 ${task.taskTag} <br> Total Duration:🕒 ${task.totalDuration} <button class="clear">🗑️ DELETE</button>`;
     resultsDiv.appendChild(div);
     
   });
@@ -70,7 +70,7 @@ function searchTasks() {
 document.addEventListener("DOMContentLoaded", renderTaskTable);
 
 function dailyChartStatus() {
-  // Dummy chart for example
+  
   const ctx = document.getElementById("dailyChart").getContext("2d");
   new Chart(ctx, {
     type: "pie",
@@ -78,7 +78,7 @@ function dailyChartStatus() {
       labels: taskList.map(task => task.taskName),
       datasets: [{
         data: taskList.map(task => parseDuration(task.totalDuration)),
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"]
+        backgroundColor: ["darkred", "goldenrod", "orange", "pink","lightgreen"]
       }]
     }
   });
@@ -93,7 +93,7 @@ function weeklyChartStatus() {
       datasets: [{
         label: "Total Duration (in hours)",
         data: taskList.map(task => parseDuration(task.totalDuration)),
-        backgroundColor: ["#4BC0C0","#FF6384","#36A2EB"]
+        backgroundColor: ["darkred", "goldenrod", "blue", "pink","lightgreen"]
       }]
     }
   });

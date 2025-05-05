@@ -153,5 +153,128 @@ document.addEventListener("DOMContentLoaded",()=>{
     document.getElementById("taskDescription").textContent = taskData.description || "";
     document.getElementById(recordStartDate).textContent = 
     taskData.startDate || "--/--/----";
+    document.getElementById(recordStartTime).textContent = 
+    taskData.startTime || "--:--:--";
     resetTimer();
 })
+
+function startTimer() {
+    startTime = new Date();
+    const startTimeStr = startTime.toLocaleTimeString();
+    const startDateStr = startTime.toLocaleDateString();
+    startTimeEl.textContent = startTimeStr;
+    recordStartTimeEl.textContent = startTimeStr;
+    document.getElementById(recordStartDate).textContent = startDateStr;
+    taskData.startDate = startDateStr;
+    taskData.startTime = startTimeStr;
+    tasks[taskIndex] = taskData;
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+
+    document.getElementById("start").disabled = true;
+    document.getElementById("stop").disabled = false;
+    document.getElementById("reset").disabled = false;
+    
+
+    renderAllTaskSessions();
+}
+
+function stopTimer() {
+    const endTime = new Date();
+    const endTimeStr = endTime.toLocaleTimeString();
+    const endDateStr = endTime.toLocaleDateString();
+
+    const startTimeStr = startTime.toLocaleTimeString();
+    const startDateStr = startTime.toLocaleDateString();
+
+    endTimeEl.textContent = endTimeStr;
+    recordEndTimeEl.textContent = endTimeStr;
+    recordEndDate.textContent = endDateStr;
+
+    const diff = Math.floor((endTime - startTime)/1000);
+    const hrs = Math.floor(String(diff/3600)).padStart(2,"0");
+    const mins = Math.floor((diff % 3600)/60).padStart(2,"0");
+    const secs = Math.floor(diff % 60).padStart(2,"0");
+
+    const duration = `${hrs}:${mins}:${secs}`;
+    elapsedTimeEl.textContent = duration;
+    taskDurationEl.textContext  = duration;
+
+    if(!taskData.sessions) taskData.sessions = [];
+    taskData.sessions.push({
+        startTime:startTimeStr,
+        endTime:endTimeStr,
+        startDate:startDateStr,
+        endTime:endDateStr,
+        duartion:duration,
+    });
+    taskData.startDate = startDateStr;
+    taskData.totalDuration = duration;
+    tasks[taskIndex] = taskData;
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+    renderAllTaskSessions();
+    
+}
+
+function resetTimer() {
+    elapsedTimeEl.textContent = "00:00:00";
+    startTimeEl.textContent = "--:--:--";
+
+    document.getElementById("start").disabled = false;
+    document.getElementById("stop").disbaled = true;
+    document.getElementById("reset").disabled = true;
+}
+
+function renderAllTaskSessions() {
+    allTasksListEl.innerHTML = "";
+
+    if(!taskData.sessions  || taskData.sessions.length === 0) {
+        allTasksListEl.innerHTML = "<p>No sessions recorded yet..</p>"
+        return;
+    }
+
+    const table = document.createElement("table");
+    table.innerHTML = `
+           <thead>
+                <tr>
+                   <th>#</th>
+                   <th>Start Date</th>
+                   <th>End Date</th>
+                   <th>Start Time</th>
+                   <th>End Time</th>
+                   <th>Duration</th>
+                </tr>
+            </thead>  
+            <tbody>     
+            ${taskData.sessions.map((session,index)=> `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${session.startDate}</td>
+                    <td>${session.endDate}</td>
+                    <td>${session.startTime}</td>
+                    <td>${session.endTime}</td>
+                    <td>${session.duration}</td>
+                </tr>
+            ` ).join("") }
+
+    `;
+    allTasksListEl.appendChild(table);
+    
+}
+
+document.getElementById('start').addEventListener("click",startTimer);
+document.getElementById("stop").addEventListener("click",stopTimer);
+document.getElementById("reset").addEventListener("click",resetTimer);
+const allTasksListEl = document.getElementById("goDashboard").addEventListener("click",()=>{
+     window.location.href = "track.html";
+});
+document.getElementById("clearAll").addEventListener("click",()=>{
+    if(confirm("clear all sessions for this task?")) {
+        taskData.sessions = [];
+        taskData.totalDuration = "00:00:00";
+        localStorage.setItem("tasks",JSON.stringify(tasks));
+        renderAllTaskSessions();
+        resetTimer();
+        
+    }
+})
+

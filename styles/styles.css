@@ -200,7 +200,7 @@ footer {
     }
     
     .container2 {
-        bottom:-53%;
+        bottom:-54%;
     }
     footer {
         margin-top:1238px;
@@ -211,7 +211,10 @@ footer {
         font-size:30px;
     }
     .container2 {
-        bottom:-48%;
+        bottom:-53%;
+    }
+    .name {
+        font-size:21px;
     }
 }
 @media screen and (min-width:768px) {
@@ -230,6 +233,10 @@ footer {
         max-width: 500px;
         bottom:-55%;
     }
+    footer{
+        font-size:18px;
+    }
+    
 }
 @media screen and (min-width:1020px) {
      .main-container {
@@ -340,4 +347,3 @@ footer {
     }
 }
 
-   

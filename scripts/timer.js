@@ -31,6 +31,22 @@ document.addEventListener("DOMContentLoaded", () => {
   renderAllTaskSessions();
 });
 
+function stopWatch(date) {
+  const hrs = String(date.getHours()).padStart(2,'0');
+  const mins = String(date.getMinutes()).padStart(2,'0');
+  const secs = String(date.getSeconds()).padStart(2,'0');
+  return `${hrs}:${mins}:${secs}`
+
+}
+
+function timeFormatting(sec) {
+  const hours = String(Math.floor(sec / 3600)).padStart(2, "0");
+  const minutes = String(Math.floor((sec % 3600) / 60)).padStart(2, "0");
+  const seconds = String(sec % 60).padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+
 function startTimer() {
   startTime = new Date();
   const startTimeStr = startTime.toLocaleTimeString();
@@ -39,7 +55,7 @@ function startTimer() {
   startTimeEl.textContent = startTimeStr;
   recordStartTimeEl.textContent = startTimeStr;
   document.getElementById("recordStartDate").textContent = startDateStr;
-
+  
   
   taskData.startDate = startDateStr;
   tasks[taskIndex] = taskData;
@@ -48,6 +64,9 @@ function startTimer() {
   document.getElementById("start").disabled = true;
   document.getElementById("stop").disabled = false;
   document.getElementById("reset").disabled = false;
+
+  stopWatch();
+  timeFormatting();
 }
 
 function stopTimer() {
