@@ -104,7 +104,35 @@ function stopTimer() {
   taskData.totalDuration = duration;
   tasks[taskIndex] = taskData;
   localStorage.setItem("tasks", JSON.stringify(tasks));
+  records.forEach((record,index)=>{
+    let totalSeconds = 0;
+    let sessionHtml = '';
 
+    record.sessions.forEach((session,idx)=>{
+        const [h,m,s] = session.elapsed.split(':').map(Number);
+        totalSeconds += h*3600 + m * 60 + s;
+
+        sessionHtml += `
+                <div class="session">
+                <strong class="one">Session ${idx + 1}</strong><br>
+                Start:${session.start} (${session.startDate});<br>
+                End:${session.end} (${session.endDate})<br>
+                Duration:${session.elapsed}<br><br>
+                </div>
+            `;
+    });
+    const totalDuration = timeFormatting(totalSeconds);
+
+    recordsList.innerHTML += `
+        <div class="record">
+             <div class="head"><strong class="strong">TIMER ${index+1}</strong></div>
+             ${sessionHtml}
+             <div><strong>Total Duration:${totalDuration}</strong></div>
+             <button class="clear" onclick="deleteRecord(${index})">Delete</button>
+             <button class="resume" onclick="resumeTimer(${index})">Resume</button>
+        </div>
+    `;
+});lk
   renderAllTaskSessions();
 }
 

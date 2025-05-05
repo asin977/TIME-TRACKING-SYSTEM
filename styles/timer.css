@@ -4,12 +4,9 @@
 html {
     box-sizing: border-box;
 }
-
 *, *:after, *:before {
     box-sizing: inherit;
 }
-
-
 body {
     margin: 0;
     padding: 0;
@@ -19,7 +16,11 @@ body {
     background-color:black;
     overflow: hidden;
 }
-
+.homer {
+    background-color:#fff;
+    padding:8px;
+   
+}
 .container {
     display: flex;
     height: 100vh;
@@ -37,7 +38,7 @@ img{
 .records {
     position: absolute;
     bottom: 12px;
-    top:562px;
+    top:592px;
     background-color:#fff;
     color:black;
     width: 98%;
@@ -47,13 +48,14 @@ img{
     margin-left:3px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
-.names {
+.name {
     color:black;
     font-family:'Inconsolata';
     font-weight:bold;
     position:absolute;
     right:8px;
-    top:17px;
+    top:-2px;
+    font-size:17px;
 }
 h2 {
     text-align: center;
@@ -206,7 +208,6 @@ p {
     font-size: 1.2rem;
     padding: 5px;
 }
-
 .clear {
     background-color:#fff;
     border: none;
@@ -218,7 +219,6 @@ p {
     margin-top: 12px;
     font-weight:bold;
 }
-
 .resume {
     background-color:#fff;
     border: none;
@@ -280,7 +280,7 @@ p {
     .records {
         position: absolute;
         bottom: 12px;
-        top: 557px;
+        top: 592px;
         background-color:#fff;
         color: #fff;
         width: 98%;
@@ -294,6 +294,9 @@ p {
     }
     table {
         margin-left:-39px;
+    }
+    .name{
+        font-size:18px;
     }
 
 }
@@ -310,7 +313,7 @@ p {
     .records {
         position: absolute;
         bottom: 12px;
-        top:615px;
+        top:647px;
         width: 98%;
         padding: 20px;
         box-sizing: border-box;
@@ -318,6 +321,9 @@ p {
     }
     .controls {
         margin-top:14px;
+    }
+    .name{
+        font-size:21px;
     }
 }
 @media screen and (min-width:768px) {
@@ -327,7 +333,7 @@ p {
         box-sizing: border-box;
         overflow-y: auto;
         position: absolute;
-        top:6px
+        top:53px
     }
     h2 {
         font-size: 3rem;
@@ -341,6 +347,11 @@ p {
         padding-bottom: 8px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
        
+    }
+    .name{
+        font-size:25px;
+        top:-15px;
+        right:11px;
     }
     .record {
         margin-bottom: 12px;
@@ -357,7 +368,6 @@ p {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
-        /* margin-top: 45px; */
         align-items: center;
         margin-left: 242px;
     }

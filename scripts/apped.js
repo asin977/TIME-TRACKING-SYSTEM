@@ -238,5 +238,66 @@ function stopTimer() {
 }
  
 function resetTimer() {
-    
+    clearInterval(timerInterval);
+    elapsedTimeEl.textContent = "00:00:00";
+    startTimerEl.textContent = "--:--:--";
+    endTimeEl.textContent = "--:--:--";
+
+    document.getElementById("start").disabled = false;
+    document.getElementById("stop").disabled = true;
+    document.getElementById("reset").disabled = true;
 }
+
+function renderAllTaskSessions() {
+    allTasksListEl.innerHTML = "";
+    if(!taskData.sessions || taskData.sessions.length === 0) {
+        allTasksListEl.innerHTML = "<p>No sessions recorded yet.</p>";
+        return;
+    }
+
+    const table = document.createElement("table");
+    table.innerHTML = `
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Start Date</th>
+            <th>Start Time</th>
+            <th>End Date</th>
+            <th>End Time</th>
+            <th>Duration</th>
+            </tr>
+            </thead>
+            <tbody>
+            ${taskData.sessions.map((session,index)=>`
+                <tr>
+                <td>${index + 1}</td>
+                <td>${session.startDate}</td>
+                <td>${session.startTime}</td>
+                <td>${session.endDate}</td>
+                <td>${session.endTime}</td>
+                <td>${session.duration}</td>
+                <tr>
+               
+                `).join(":")}
+            
+            `;
+            allTasksListEl.appendChild(table);
+};
+
+document.getElementById("start").addEventListener("click",startTimer);
+document.getElementById("stop").addEventListener("click",stopTimer);
+document.getElementById("reset").addEventListener("click",resetTimer);
+
+document.getElementById("daliyChartStatus").addEventListener("click",dailyChartStatus);
+document.getElementById("weeklyChartStatus").addEventListener("click",weeklyChartStatus);
+
+document.getElementById("goDashboard").addEventListener("click",()=>{
+    window.location.href = "track.html";
+});
+document.getElementById("deleteTask").addEventListener("click",()=>{
+    if(confirm ("Are you sure you want to delete this task?")) {
+        tasks.splice(taskIndex,1);
+        localStorage.setItem("tasks",JSON.stringify(tasks));
+        window.location.href = "track.html";
+    }
+})
