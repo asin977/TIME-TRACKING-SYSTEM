@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "track.html";
     return;
   }
+  document.getElementById("taskName").textContent = taskData.taskName || "";
+  document.getElementById("taskTag").textContent = taskData.taskTag || "";
+  document.getElementById("taskDescription").textContent = taskData.description || "";
 
   if (!taskData.sessions) taskData.sessions = [];
   if (!taskData.totalDuration) taskData.totalDuration = "00:00:00";
@@ -105,8 +108,7 @@ function renderAllTaskSessions() {
   taskData.sessions.forEach((s, i) => {
     const sessionDiv = document.createElement("div");
     sessionDiv.className = "record";
-    // <h2>Task Details</h2>
-    sessionDiv.innerHTML = `
+   sessionDiv.innerHTML = `
     <div class="head"><strong class="strong">TIMER ${i + 1}</strong></div>
       <div class="session">
         <strong class="one">Session ${i + 1}</strong><br>
@@ -144,3 +146,5 @@ function clearSessions() {
 document.getElementById("start").addEventListener("click", startTimer);
 document.getElementById("stop").addEventListener("click", stopTimer);
 document.getElementById("reset").addEventListener("click", resetTimer);
+
+

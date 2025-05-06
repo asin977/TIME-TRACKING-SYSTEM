@@ -306,23 +306,23 @@ document.getElementById("deleteTask").addEventListener("click",()=>{
 
  
                                                                                                                                             
-const urlParams = new URLSearchParams(window.location.search);
-const taskIndex = urlParams.get("taskIndex");
+// const urlParams = new URLSearchParams(window.location.search);
+// const taskIndex = urlParams.get("taskIndex");
 
-const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-const taskData = tasks[taskIndex];
+// const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+// const taskData = tasks[taskIndex];
 
-const elapsedTimeEl = document.getElementById("elapsedTime");
-const startTimeEl = document.getElementById("startTime");
-const endTimeEl = document.getElementById("endTime");
-const recordStartTimeEl = document.getElementById("recordStartTime");
-const recordEndTimeEl = document.getElementById("recordEndTime");
-const recordEndDateEl = document.getElementById("recordEndDate");
-const taskDurationEl = document.getElementById("taskDuration");
-const allTasksListEl = document.getElementById("allTasksList");
+// const elapsedTimeEl = document.getElementById("elapsedTime");
+// const startTimeEl = document.getElementById("startTime");
+// const endTimeEl = document.getElementById("endTime");
+// const recordStartTimeEl = document.getElementById("recordStartTime");
+// const recordEndTimeEl = document.getElementById("recordEndTime");
+// const recordEndDateEl = document.getElementById("recordEndDate");
+// const taskDurationEl = document.getElementById("taskDuration");
+// const allTasksListEl = document.getElementById("allTasksList");
 
-let startTime;
-let timerInterval;
+// let startTime;
+// let timerInterval;
 
 document.addEventListener("DOMContentLoaded", () => {
   if (!taskData) {
@@ -381,7 +381,7 @@ function stopTimer() {
 
   taskData.sessions.push(session);
 
-  // Recalculate total duration
+  
   let totalSeconds = 0;
   taskData.sessions.forEach(sess => {
     const [h, m, s] = sess.duration.split(":").map(Number);
@@ -619,7 +619,7 @@ function clearSessions() {
   }
 }
 
-// Button event listeners
+
 document.getElementById("start").addEventListener("click", startTimer);
 document.getElementById("stop").addEventListener("click", stopTimer);
 document.getElementById("reset").addEventListener("click", resetTimer);

@@ -166,7 +166,7 @@ function startTask() {
         taskName,
         taskTag,
         description,
-        startDate:new Date().toLocaleDateString();
+        startDate:new Date().toLocaleDateString(),
         sessions:[],
         totalDuration:"00:00:00"
       };
@@ -202,8 +202,17 @@ function searchTasks() {
      filtered.forEach(task => {
         const div = document.createElement("div");
         div.classList.add("search-result");
-        div.innerHTML = `<strong>`
+        div.innerHTML = `<strong>${task.taskName}</strong><br> ${task.taskTag}<br> ${task.totalDuration}<button class="clear" onclick="deleteSearch()">DELETE</button>`;
+        resultsDiv.appendChild(div);
 
-     })
+     });
+
 
 }
+
+function parseDuration(durationStr) {
+  const [hh,mm,ss]= durationStr.split(":").map(Number);
+  return hh+ mm / 60 + ss / 3600;
+}
+
+document.addEventListener("DOMContentLoaded",renderTaskTable);
