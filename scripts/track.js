@@ -1,8 +1,8 @@
-let taskList = JSON.parse(localStorage.getItem('tasks')) || [];
+let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 const taskTableBody = document.getElementById("taskTableBody");
 
 function saveTaskToLocalStorage() {
-   localStorage.setItem("tasks", JSON.stringify(taskList));
+  localStorage.setItem("tasks", JSON.stringify(taskList));
 }
 
 function renderTaskTable() {
@@ -10,10 +10,10 @@ function renderTaskTable() {
   taskList.forEach((task, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-        <td>${task.taskName}</td>
-        <td>${task.startDate || "--/--/----"}</td>
-        <td>${task.totalDuration}</td>
-        <td><button class="resume" onclick="resumeTask(${index})">🕒 Resume</button></td>
+      <td>${task.taskName}</td>
+      <td>${task.startDate || "--/--/----"}</td>
+      <td>${task.totalDuration}</td>
+      <td><button class="resume" onclick="resumeTask(${index})">🕒 Resume</button></td>
     `;
     taskTableBody.appendChild(row);
   });
@@ -26,12 +26,12 @@ function startTask() {
 
   if (taskName && taskTag && description) {
     const taskData = {
-        taskName,
-        taskTag,
-        description,
-        startDate: new Date().toLocaleDateString(),
-        sessions: [],
-        totalDuration: "00:00:00"
+      taskName,
+      taskTag,
+      description,
+      startDate: new Date().toLocaleDateString(),
+      sessions: [],
+      totalDuration: "00:00:00"
     };
     taskList.push(taskData);
     saveTaskToLocalStorage();
@@ -65,7 +65,11 @@ function searchTasks() {
   filtered.forEach(task => {
     const div = document.createElement("div");
     div.classList.add("search-result");
-    div.innerHTML = `<strong>📑 ${task.taskName}</strong><br>📌 ${task.taskTag}<br>🕒 ${task.totalDuration}<button class="clear" onclick="deleteSearch()">DELETE</button>`;
+    div.innerHTML = `
+      <strong>📑 ${task.taskName}</strong><br>
+      📌 ${task.taskTag}<br>
+      🕒 ${task.totalDuration}
+      <button class="clear" onclick="deleteSearch()">DELETE</button>`;
     resultsDiv.appendChild(div);
   });
 }
@@ -76,8 +80,4 @@ function deleteSearch() {
 
 document.addEventListener("DOMContentLoaded", () => {
   renderTaskTable();
-  dailyChartStatus();
-  weeklyChartStatus();
-  monthlyChartStatus();
 });
-
