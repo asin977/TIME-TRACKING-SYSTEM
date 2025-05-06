@@ -4,7 +4,6 @@
 html {
     box-sizing: border-box;
 }
-
 *, *:after, *:before {
     box-sizing: inherit;
 }
@@ -103,7 +102,7 @@ button {
     font-size: 14px;
 }
 button:hover {
-    background-color: rgb(42, 2, 71);
+    background-color: rgb(42, 41, 43);
 }
 .divider {
     margin: 20px 0;
@@ -203,7 +202,7 @@ footer {
         bottom:-54%;
     }
     footer {
-        margin-top:1238px;
+        margin-top:1272px;
     }
 }
 @media screen and (min-width:425px) {
@@ -222,7 +221,7 @@ footer {
         max-width:500px;
         display: flex;
         flex-direction: column;
-        margin-top:12px;
+        margin-top:2px;
     }
     .main-container {
         display:flex;
@@ -231,7 +230,7 @@ footer {
     }
     .container2 {
         max-width: 500px;
-        bottom:-49%;
+        bottom:-58%;
     }
     footer{
         font-size:18px;

@@ -55,7 +55,7 @@ header {
     
 }
 .search-result {
-    font-size:18px;
+    font-size:20px;
     margin-top:12px;
     margin-bottom:12px;
 }
@@ -102,22 +102,8 @@ input, button {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-#showDailyStatus  {
-    background-color:black;
-    font-weight:bold;
-    font-size:18px;
-    cursor:pointer;
-    max-width:87%;
-    margin-left:17px;
-    margin-top:17px;
-    border:none;
-    box-shadow:4px 9px 16px rgba(0,0,0,0.5);
-}
 .table-header {
     margin-left:-9px;
-}
-#showDailyStatus:hover{
-    background-color:#2A0247;
 }
 
 table {
@@ -153,6 +139,7 @@ thead{
     font-weight:bold;
     font-size:18px;
     cursor:pointer;
+    margin-top:25px;
 }
 .details {
     list-style-type:none;
@@ -167,13 +154,13 @@ thead{
     border-radius:10px;
     box-shadow: 0px 4px 20px rgba(204, 204, 204, 0.7);
 }
-canvas {
-    background-color: #fff;
-    border-radius:10px;
-    padding:10px;
-    max-width:500px;
-    width:100%;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
+.search-result  {
+   text-align: center;
+   background-color:black;
+   color:#fff;
+   font-size:18px;
+   margin-bottom:12px;
+   box-shadow: 0px 4px 20px rgba(5, 4, 4, 0.7);
 }
 .delete-records {
     font-weight:bold;
@@ -205,7 +192,8 @@ canvas {
     .task-container {
         max-width:349px;
         padding:20px;
-}
+    }
+   
 }
 @media screen and (min-width:425px) {
     .titles {
@@ -231,6 +219,9 @@ canvas {
     #description {
         font-size:18px;
     }
+    #taskTableBody {
+        font-size:18px;
+    }
     footer {
         font-size:18px;
     }
@@ -249,6 +240,9 @@ canvas {
     .name {
         top:16px;
     }
+    #taskTableBody {
+        font-size:19px;
+    }
 }
 @media screen and (min-width:960px) {
     .main-containers {
@@ -264,7 +258,10 @@ canvas {
     .task-container{
         margin-left:12px;
         max-width:518px;
-}
+    }
+    #taskTableBody {
+        font-size:20px;
+    }
 }
 @media  screen and (min-width:1148px) {
     .main-containers {
@@ -275,6 +272,9 @@ canvas {
     }
     .task-container {
         max-width:750px;
+    }
+    #taskTableBody {
+        font-size:21px;
     }
 }
 @media screen and (min-width:1440px) {
@@ -294,6 +294,9 @@ canvas {
     table {
         margin-left:0px;
     }
+    #taskTableBody {
+        font-size:22px;
+    }
   }
 @media screen and (min-width:1920px) {
     #charts {
@@ -303,5 +306,7 @@ canvas {
     .chart-container {
         top:-3%;
     }
+    #taskTableBody {
+        font-size:25px;
+    }
 }
-

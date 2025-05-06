@@ -49,7 +49,7 @@ a {
     box-shadow:4px 9px 16px rgba(0,0,0,0.5);
 }
 #showDailyStatus:hover{
-    background-color:#2A0247;
+    background-color: rgb(42, 41, 43);
 }
 button {
     width:100%;
@@ -72,7 +72,7 @@ button {
     box-shadow:4px 9px 16px rgba(0,0,0,0.5);
 }
 #weeklyCharts:hover{
-     background-color: #2A0247;
+    background-color: rgb(42, 41, 43);
 }
 #charts {
     display:flex;
@@ -92,6 +92,17 @@ button {
     cursor:pointer;
     color:#fff;
     max-width:87%;
+}
+#monthyCharts:hover{
+    background-color: rgb(42, 41, 43);
+}
+canvas {
+    background-color: #fff;
+    border-radius:10px;
+    padding:10px;
+    max-width:500px;
+    width:100%;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
 }
 footer {
     background-color:#fff;

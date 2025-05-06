@@ -2,7 +2,7 @@ let taskList = JSON.parse(localStorage.getItem('tasks')) || [];
 const taskTableBody = document.getElementById("taskTableBody");
 
 function saveTaskToLocalStorage() {
-  localStorage.setItem("tasks", JSON.stringify(taskList));
+   localStorage.setItem("tasks", JSON.stringify(taskList));
 }
 
 function renderTaskTable() {
@@ -10,10 +10,10 @@ function renderTaskTable() {
   taskList.forEach((task, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${task.taskName}</td>
-      <td>${task.startDate || "--/--/----"}</td>
-      <td>${task.totalDuration}</td>
-      <td><button class="resume" onclick="resumeTask(${index})">🕒 Resume</button></td>
+        <td>${task.taskName}</td>
+        <td>${task.startDate || "--/--/----"}</td>
+        <td>${task.totalDuration}</td>
+        <td><button class="resume" onclick="resumeTask(${index})">🕒 Resume</button></td>
     `;
     taskTableBody.appendChild(row);
   });
@@ -26,12 +26,12 @@ function startTask() {
 
   if (taskName && taskTag && description) {
     const taskData = {
-      taskName,
-      taskTag,
-      description,
-      startDate: new Date().toLocaleDateString(),
-      sessions: [],
-      totalDuration: "00:00:00"
+        taskName,
+        taskTag,
+        description,
+        startDate: new Date().toLocaleDateString(),
+        sessions: [],
+        totalDuration: "00:00:00"
     };
     taskList.push(taskData);
     saveTaskToLocalStorage();
@@ -69,14 +69,15 @@ function searchTasks() {
     resultsDiv.appendChild(div);
   });
 }
+
 function deleteSearch() {
-   
+  alert("This delete function is a placeholder. Implement if needed.");
 }
 
-function parseDuration(durationStr) {
-  const [hh, mm, ss] = durationStr.split(":").map(Number);
-  return hh + mm / 60 + ss / 3600;
-}
+document.addEventListener("DOMContentLoaded", () => {
+  renderTaskTable();
+  dailyChartStatus();
+  weeklyChartStatus();
+  monthlyChartStatus();
+});
 
-
-document.addEventListener("DOMContentLoaded", renderTaskTable);
