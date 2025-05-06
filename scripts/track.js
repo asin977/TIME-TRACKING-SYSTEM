@@ -11,9 +11,9 @@ function renderTaskTable() {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${task.taskName}</td>
-      <td>${task.startDate}</td>
+      <td>${task.startDate || "--/--/----"}</td>
       <td>${task.totalDuration}</td>
-      <td><button class="resume" onclick="resumeTask(${index})">🕒  Resume</button></td>
+      <td><button class="resume" onclick="resumeTask(${index})">🕒 Resume</button></td>
     `;
     taskTableBody.appendChild(row);
   });
@@ -29,7 +29,7 @@ function startTask() {
       taskName,
       taskTag,
       description,
-      startTaskDate: new Date().toLocaleString(),
+      startDate: new Date().toLocaleDateString(),
       sessions: [],
       totalDuration: "00:00:00"
     };
@@ -57,29 +57,34 @@ function searchTasks() {
   const query = document.getElementById("searchInput").value.trim().toLowerCase();
   const resultsDiv = document.getElementById("searchResults");
   resultsDiv.innerHTML = "";
-  const filtered = taskList.filter(task => task.taskName.toLowerCase().includes(query) || task.taskTag.toLowerCase().includes(query));
+  const filtered = taskList.filter(task =>
+    task.taskName.toLowerCase().includes(query) ||
+    task.taskTag.toLowerCase().includes(query)
+  );
+
   filtered.forEach(task => {
     const div = document.createElement("div");
     div.classList.add("search-result");
-    div.innerHTML = `<strong>Task Name:📑${task.taskName}</strong> <br> Task Tag:📌 ${task.taskTag} <br> Total Duration:🕒 ${task.totalDuration} <button class="clear">🗑️ DELETE</button>`;
+    div.innerHTML = `<strong>📑 ${task.taskName}</strong><br>📌 ${task.taskTag}<br>🕒 ${task.totalDuration}<button class="clear">🗑️ DELETE</button>`;
     resultsDiv.appendChild(div);
-    
   });
 }
 
-document.addEventListener("DOMContentLoaded", renderTaskTable);
+function parseDuration(durationStr) {
+  const [hh, mm, ss] = durationStr.split(":").map(Number);
+  return hh + mm / 60 + ss / 3600;
+}
 
 function dailyChartStatus() {
-  
   const ctx = document.getElementById("dailyChart").getContext("2d");
   new Chart(ctx, {
     type: "bar",
     data: {
       labels: taskList.map(task => task.taskName),
       datasets: [{
-        label:"Total Duration (in hours)",
+        label: "Total Duration (hrs)",
         data: taskList.map(task => parseDuration(task.totalDuration)),
-        backgroundColor: ["darkred", "goldenrod", "orange", "pink","lightgreen"]
+        backgroundColor: ["darkred", "goldenrod", "orange", "pink", "lightgreen"]
       }]
     }
   });
@@ -92,16 +97,28 @@ function weeklyChartStatus() {
     data: {
       labels: taskList.map(task => task.taskName),
       datasets: [{
-        label: "Total Duration (in hours)",
+        label: "Total Duration (hrs)",
         data: taskList.map(task => parseDuration(task.totalDuration)),
-        backgroundColor: ["darkred", "goldenrod", "blue", "pink","lightgreen"]
+        backgroundColor: ["darkred", "goldenrod", "blue", "pink", "lightgreen"]
       }]
     }
   });
 }
 
-function parseDuration(durationStr) {
-  const [hh, mm, ss] = durationStr.split(":").map(Number);
-  return hh * 60 + mm + ss / 60;
+function monthlyChartStatus() {
+  const ctx = document.getElementById("monthlyChart").getContext("2d");
+  new Chart(ctx, {
+    type:"bar",
+    data: {
+      labels:taskList.map(task => task.taskName),
+      datasets: [{
+        label: "Total Duration (hrs)",
+        data:taskList.map(task => parseDuration(task.totalDuration)),
+        backgroundColor: ["darkred", "goldenrod", "blue", "pink", "lightgreen"]
+
+      }]
+    }
+  })
 }
 
+document.addEventListener("DOMContentLoaded", renderTaskTable);

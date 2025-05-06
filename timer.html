@@ -12,35 +12,32 @@
     <img src="img/save-time.png" alt="save-time">
     <h3 class="name">TimeWise Tracker</h3>
   </div>
+
   <div class="container">
     
     <div class="records">
       <h2 class="headerss">RECORDED TIMERS</h2>
       <div id="recordsList" class="record">
-        <h2 class='details'>📝 Task Details</h2>
-        <p><strong>Task Name:</strong> <span id="taskName"></span></p>
-        <p><strong>Task Tag:</strong> <span id="taskTag"></span></p>
-        <p><strong>Task Description:</strong> <span id="taskDescription"></span></p>
-        <p><strong>Start Date:</strong> <span id="recordStartDate"></span></p>
-        <p><strong>End Date:</strong> <span id="recordEndDate"></span></p>
-        <p><strong>Start Time:</strong> <span id="recordStartTime"></span></p>
-        <p><strong>End Time:</strong> <span id="recordEndTime"></span></p>
-        <p><strong>Duration:</strong> <span id="taskDuration"></span></p>
-        <button class="clear" id="deleteTask">🗑️ Delete</button>
-        <button class="dashboard" id="goDashboard">⬅️ Dashboard</button>
+            <p><strong>Task Name:</strong> <span id="taskName"></span></p>
+            <p><strong>Task Tag:</strong> <span id="taskTag"></span></p>
+            <p><strong>Task Description:</strong> <span id="taskDescription"></span></p>
       </div>
     </div>
 
+  
     <div class="timer-box">
       <h2 class="live">🕔 LIVE TIMER</h2>
+      
       <div class="display-row elapsed-row">
         <span class="label"></span>
         <span class="value" id="elapsedTime">00:00:00</span>
       </div>
+
       <div class="display-rows">
         <span class="label">Start</span>
         <span class="value" id="startTime">--:--:--</span>
       </div>
+
       <div class="display-rows">
         <span class="label">End</span>
         <span class="value" id="endTime">--:--:--</span>
@@ -51,16 +48,13 @@
         <button id="stop" disabled>Stop</button>
         <button id="reset" disabled>Reset</button>
       </div>
-      <div class="controls">
-        <button id="clearAll">Clear All Records</button>
+
+      
+      <div class="controls" style="margin-top: 10px;">
+        <button onclick="window.location.href='track.html'">⬅️ Back to Dashboard</button>
       </div>
     </div>
   </div>
-
-  <!-- <div class="recorded-tasks">
-    <h2 class="titles">TIMER2 - All Task Records</h2>
-    <div id="allTasksList"></div>
-  </div> -->
 
   <script src="scripts/timer.js"></script>
 </body>

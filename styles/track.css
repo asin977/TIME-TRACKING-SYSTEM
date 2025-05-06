@@ -173,6 +173,13 @@ thead{
     padding:12px;
     max-width:588px;
 }
+.monthly {
+    background-color:black;
+    font-weight:bold;
+    font-size:18px;
+    cursor:pointer;
+
+}
 .clear {
     font-weight:bold;
     font-size:18px;
@@ -295,7 +302,7 @@ canvas {
         width:2000px;
      }
     #charts {
-        margin-top:33px;
+        margin-top:-10px;
         margin:58px;
         width:460px;
     }
@@ -307,5 +314,13 @@ canvas {
         margin-left:0px;
     }
   }
-  
+@media screen and (min-width:1920px) {
+    #charts {
+        margin-top:-10px;
+
+    }
+    .chart-container {
+        top:-3%;
+    }
+}
 
