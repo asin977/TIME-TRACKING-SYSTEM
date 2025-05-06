@@ -325,6 +325,7 @@ p {
     }
     .name{
         font-size:21px;
+        top:18px;
     }
 }
 @media screen and (min-width:768px) {
@@ -364,6 +365,7 @@ p {
     }
     .record div {
         margin: 4px 0;
+        font-size:18px;
     }
     .timer-box {
         flex-grow: 1;
@@ -479,5 +481,8 @@ p {
     }
     .task-container {
         max-width:788px;
+    }
+    .dashboard {
+        margin-top:20px;
     }
 }

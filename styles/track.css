@@ -35,7 +35,7 @@ header {
 .track{
     background-color:black;
     font-weight:bold;
-    font-size:18px;
+    font-size:19px;
     cursor:pointer;
 }
 .main-containers{
@@ -246,7 +246,9 @@ canvas {
         font-size:16px;
         padding:8px;
     }
-    
+    .name {
+        top:16px;
+    }
 }
 @media screen and (min-width:960px) {
     .main-containers {

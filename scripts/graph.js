@@ -1,4 +1,4 @@
-
+Chart.register();
 function dailyChartStatus() {
     const ctx = document.getElementById("dailyChart").getContext("2d");
     new Chart(ctx, {

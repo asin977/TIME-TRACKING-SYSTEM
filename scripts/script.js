@@ -60,14 +60,14 @@ function signIn() {
     const loginPassword = document.getElementById('loginPassword').value;
 
      const storedUser = JSON.parse(localStorage.getItem(loginFirstName));
-
-     if(storedUser && storedUser.passWord === loginPassword) {
-        alert(`Welcome,${storedUser.firstName}...`)
-     }else  {
-        alert('Invalid UserName or Password..');
+     if (storedUser &&  storedUser.passWord === loginPassword) {
+        alert(`Welcome ,${storedUser.firstName}...!\nWorkspace: ${storedUser.workSpace|| "N/A"}\nRole: ${storedUser.jobRole || "N/A"}`);
+     }else {
+      alert("Invalid username or password.");
      }
+  }
 
-}
+
 const signin = document.getElementById('signIn');
 signin.addEventListener('click',signIn);
 

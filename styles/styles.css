@@ -236,7 +236,9 @@ footer {
     footer{
         font-size:18px;
     }
-    
+    input{
+        font-size:18px;
+    }
 }
 @media screen and (min-width:1020px) {
      .main-container {
