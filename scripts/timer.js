@@ -66,7 +66,6 @@ function stopTimer() {
 
   taskData.sessions.push(session);
 
-  // Recalculate total duration
   let totalSeconds = 0;
   taskData.sessions.forEach(sess => {
     const [h, m, s] = sess.duration.split(":").map(Number);
@@ -141,7 +140,7 @@ function clearSessions() {
   }
 }
 
-// Button event listeners
+
 document.getElementById("start").addEventListener("click", startTimer);
 document.getElementById("stop").addEventListener("click", stopTimer);
 document.getElementById("reset").addEventListener("click", resetTimer);

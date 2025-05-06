@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DASHBOARD</title>
+    <link rel="stylesheet" href="styles/graph.css">
+    <link rel="icon" href="img/dashboard.png">
+</head>
+<body>
+    <div class="header">
+        <img src="img/save-time.png" alt="save-time">
+        <h3 class="name">TimeWise Tracker</h3>
+        <a href="track.html"><img src="img/three.png"></a>
+    </div>
+    <div class="chart-container">
+        <div id="charts">
+    
+      <button id="showDailyStatus" onclick="dailyChartStatus()">📊 Show Today's Chart</button>
+            <canvas id="dailyChart"></canvas>
+            <button id="weeklyCharts" class="weekly" onclick="weeklyChartStatus()">📅 Weekly Summary</button>
+            <canvas id="weeklyChart"></canvas>
+            <button id="monthyCharts" class="monthly" onclick="monthlyChartStatus()">🗓️ Monthly Summary</button>
+            <canvas id="monthlyChart"></canvas>
+        </div>
+      </div>
+    <footer>
+    <div class="footer-content">
+        <p>&copy; 2025 TimeWise Tracker. All rights reserved.</p>
+        <p>Built with JavaScript, inspired by the rhythm of life — to help you take back your time.</p>
+        <div class="footer-links">
+            <a href="#about">About</a> 
+            <a href="#features">Features</a> 
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
+    </footer>
+    <script src="scripts/graph.js"></script>
+</body>
+</html>
