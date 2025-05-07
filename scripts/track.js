@@ -1,3 +1,28 @@
+window.addEventListener("DOMContentLoaded", () => {
+  const profileNameSpan = document.getElementById("profileName");
+  const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+
+  if (loggedInUser && loggedInUser.firstName) {
+      profileNameSpan.textContent = loggedInUser.firstName;
+  } else {
+      profileNameSpan.textContent = "Guest";
+  }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const profileNameSpan = document.getElementById("profileName");
+  const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+
+  if (!loggedInUser) {
+      alert("You must be signed in to view the dashboard.");
+      window.location.href = "index.html";
+      return;
+  }
+
+  profileNameSpan.textContent = loggedInUser.firstName;
+});
+
+
 let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 const taskTableBody = document.getElementById("taskTableBody");
 
@@ -57,26 +82,39 @@ function searchTasks() {
   const query = document.getElementById("searchInput").value.trim().toLowerCase();
   const resultsDiv = document.getElementById("searchResults");
   resultsDiv.innerHTML = "";
+
   const filtered = taskList.filter(task =>
     task.taskName.toLowerCase().includes(query) ||
     task.taskTag.toLowerCase().includes(query)
   );
 
-  filtered.forEach(task => {
+  if (filtered.length === 0) {
+    resultsDiv.innerHTML = "<p>No matching tasks found.</p>";
+    return;
+  }
+
+  filtered.forEach((task, i) => {
+    const resultId = `search-result-${i}`;
     const div = document.createElement("div");
     div.classList.add("search-result");
+    div.id = resultId;
     div.innerHTML = `
       <strong>📑 ${task.taskName}</strong><br>
       📌 ${task.taskTag}<br>
       🕒 ${task.totalDuration}
-      <button class="clear" onclick="deleteSearch()">DELETE</button>`;
+      <button class="clear" onclick="removeSearchResult('${resultId}')">DELETE</button>
+    `;
     resultsDiv.appendChild(div);
   });
 }
-
-function deleteSearch() {
-  alert("This delete function is a placeholder. Implement if needed.");
+function removeSearchResult(resultId) {
+  const resultEl = document.getElementById(resultId);
+  if (resultEl) {
+    resultEl.remove();
+  }
 }
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   renderTaskTable();

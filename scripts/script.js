@@ -56,16 +56,23 @@ const createaccount = document.getElementById('account');
 createaccount.addEventListener('click',createAccount);
 
 function signIn() {
-    const loginFirstName = document.getElementById('loginFirstName').value.trim()
+    const loginFirstName = document.getElementById('loginFirstName').value.trim();
     const loginPassword = document.getElementById('loginPassword').value;
 
-     const storedUser = JSON.parse(localStorage.getItem(loginFirstName));
-     if (storedUser &&  storedUser.passWord === loginPassword) {
-        alert(`Welcome ,${storedUser.firstName}...!\nWorkspace: ${storedUser.workSpace|| "N/A"}\nRole: ${storedUser.jobRole || "N/A"}`);
-     }else {
-      alert("Invalid username or password.");
-     }
-  }
+    const storedUser = JSON.parse(localStorage.getItem(loginFirstName));
+    if (storedUser && storedUser.passWord === loginPassword) {
+        alert(`Welcome, ${storedUser.firstName}...!\nWorkspace: ${storedUser.workSpace || "N/A"}\nRole: ${storedUser.jobRole || "N/A"}`);
+        
+        
+        sessionStorage.setItem("loggedInUser", JSON.stringify(storedUser));
+
+       
+        window.location.href = "track.html";
+    } else {
+        alert("Invalid username or password.");
+    }
+}
+
 
 
 const signin = document.getElementById('signIn');
