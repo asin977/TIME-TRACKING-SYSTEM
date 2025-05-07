@@ -1,16 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const taskIndex = parseInt(urlParams.get("taskIndex"), 10);
-
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-  // Check for valid index
   if (isNaN(taskIndex) || taskIndex < 0 || taskIndex >= tasks.length || !tasks[taskIndex]) {
     alert("Task not found.");
     window.location.href = "track.html";
     return;
   }
-
   const taskData = tasks[taskIndex];
   const elapsedTimeEl = document.getElementById("elapsedTime");
   const startTimeEl = document.getElementById("startTime");
@@ -100,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderAllTaskSessions() {
     recordsList.innerHTML = `
+      <h2 class="details">Task Details</h2>
       <p><strong>Task Name:</strong> <span id="taskName">${taskData.taskName}</span></p>
       <p><strong>Task Tag:</strong> <span id="taskTag">${taskData.taskTag}</span></p>
       <p><strong>Task Description:</strong> <span id="taskDescription">${taskData.description}</span></p>

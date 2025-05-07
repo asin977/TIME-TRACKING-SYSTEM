@@ -88,6 +88,7 @@ p {
 }
 .details {
     color:#fff;
+    border-bottom:1px solid #fff;
 }
 .task {
     color:#fff;
@@ -345,7 +346,6 @@ p {
     .records h2 {
         margin-top: 0;
         font-size: 2.2rem;
-        border-bottom: 1px solid #444;
         padding-bottom: 8px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
        
@@ -381,7 +381,7 @@ p {
 
     .display-rows {
         width: 100%;
-        max-width:484px;
+        max-width:515px;
         padding: 30px;
         display: flex;
         border-radius: 2px;

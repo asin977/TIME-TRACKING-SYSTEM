@@ -63,18 +63,13 @@ function signIn() {
     if (storedUser && storedUser.passWord === loginPassword) {
         alert(`Welcome, ${storedUser.firstName}...!\nWorkspace: ${storedUser.workSpace || "N/A"}\nRole: ${storedUser.jobRole || "N/A"}`);
         
-        
         sessionStorage.setItem("loggedInUser", JSON.stringify(storedUser));
 
-       
         window.location.href = "track.html";
     } else {
         alert("Invalid username or password.");
     }
 }
-
-
-
 const signin = document.getElementById('signIn');
 signin.addEventListener('click',signIn);
 
