@@ -2,23 +2,23 @@ Chart.register();
 
 const taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 
-function parseDuration(durationStr) {
-  const [hh, mm, ss] = durationStr.split(":").map(Number);
-  return hh + mm / 60 + ss / 3600;
-}
+// function parseDuration(durationStr) {
+//   const [hh, mm, ss] = durationStr.split(":").map(Number);
+//   return hh;
+// }
 
-function getWeekday(dateStr) {
-  const [month, day, year] = dateStr.split("/");
-  const date = new Date(`${year}-${month}-${day}`);
-  return date.toLocaleDateString("en-US", { weekday: "long" });
-}
+// function getWeekday(dateStr) {
+//   const [month, day, year] = dateStr.split("/");
+//   const date = new Date(`${year}-${month}-${day}`);
+//   return date.toLocaleDateString("en-US", { weekday: "long" });
+// }
 
-function getWeekOfMonth(dateStr) {
-  const [month, day, year] = dateStr.split("/");
-  const date = new Date(`${year}-${month}-${day}`);
-  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-  return Math.ceil((date.getDate() + firstDay.getDay()) / 7); // returns 1,2,3,4,5
-}
+// function getWeekOfMonth(dateStr) {
+//   const [month, day, year] = dateStr.split("/");
+//   const date = new Date(`${year}-${month}-${day}`);
+//   const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+//   return Math.ceil((date.getDate() + firstDay.getDay()) / 7);
+// }
 
 function dailyChartStatus() {
   const ctx = document.getElementById("dailyChart").getContext("2d");
@@ -96,7 +96,7 @@ function monthlyChartStatus() {
 
   taskList.forEach(task => {
     if (task.startDate) {
-      const weekIndex = getWeekOfMonth(task.startDate) - 1; // 0-based index
+      const weekIndex = getWeekOfMonth(task.startDate) - 1;
       if (weekIndex >= 0 && weekIndex < 5) {
         durationsByWeek[weekIndex] += parseDuration(task.totalDuration);
       }

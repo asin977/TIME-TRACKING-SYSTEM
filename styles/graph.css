@@ -10,6 +10,9 @@ html {
 }
 
 body {
+    background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7), rgba(60, 60, 60, 0.7)),
+                url('graphs.png'); 
     background-color:black;
 }
 .header {
@@ -141,9 +144,37 @@ footer {
 }
 @media screen and (min-width:760px) {
     #charts {
-        margin-left:105px;
+        margin-left:216px;
     }
     #showDailyStatus{
         font-size:19px;
+    }
+}
+@media screen and (min-width:1026px) {
+    #charts {
+        margin-left:320px;
+    }
+}
+@media screen and (min-width:1148px) {
+    #charts {
+        margin-left:550px;
+    }
+    .name {
+        font-size:21px;
+    }
+}
+
+@media screen and (min-width:1920px) {
+    .chart-container {
+       display:flex;
+       flex-direction: column;
+       justify-content: center;
+       align-content: center;
+    }
+    #charts {
+        margin-left:450px;
+    }
+    .name {
+        font-size:21px;
     }
 }

@@ -61,7 +61,7 @@ function signIn() {
 
     const storedUser = JSON.parse(localStorage.getItem(loginFirstName));
     if (storedUser && storedUser.passWord === loginPassword) {
-        alert(`Welcome, ${storedUser.firstName}...!\nWorkspace: ${storedUser.workSpace || "N/A"}\nRole: ${storedUser.jobRole || "N/A"}`);
+        alert(`Welcome, ${storedUser.firstName}...\nWorkspace: ${storedUser.workSpace || "N/A"}\nRole: ${storedUser.jobRole || "N/A"}`);
         
         sessionStorage.setItem("loggedInUser", JSON.stringify(storedUser));
 
