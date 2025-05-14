@@ -1,133 +1,56 @@
-Chart.register();
-
-const taskList = JSON.parse(localStorage.getItem("tasks")) || [];
-
-// function parseDuration(durationStr) {
-//   const [hh, mm, ss] = durationStr.split(":").map(Number);
-//   return hh;
-// }
-
-// function getWeekday(dateStr) {
-//   const [month, day, year] = dateStr.split("/");
-//   const date = new Date(`${year}-${month}-${day}`);
-//   return date.toLocaleDateString("en-US", { weekday: "long" });
-// }
-
-// function getWeekOfMonth(dateStr) {
-//   const [month, day, year] = dateStr.split("/");
-//   const date = new Date(`${year}-${month}-${day}`);
-//   const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-//   return Math.ceil((date.getDate() + firstDay.getDay()) / 7);
-// }
-
-function dailyChartStatus() {
-  const ctx = document.getElementById("dailyChart").getContext("2d");
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: taskList.map(task => task.taskName),
-      datasets: [{
-        label: "Total Duration (hrs)",
-        data: taskList.map(task => parseDuration(task.totalDuration)),
-        backgroundColor: ["darkred", "darkblue", "yellow", "darkgray", "goldenrod"]
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: { display: true, text: "Hours" }
-        }
-      }
-    }
-  });
+function parseDurationToHours(durationStr) {
+  const [h, m, s] = durationStr.split(":").map(Number);
+  return h + m / 60 + s / 3600;
 }
 
-function weeklyChartStatus() {
-  const ctx = document.getElementById("weeklyChart").getContext("2d");
-  const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-  const durationsByDay = {
-    Monday: 0,
-    Tuesday: 0,
-    Wednesday: 0,
-    Thursday: 0,
-    Friday: 0
+function renderWeeklyBarGraph() {
+  const taskList = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  
+  const weekData = {
+      Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0, Sun: 0
   };
 
   taskList.forEach(task => {
-    if (task.startDate) {
-      const day = getWeekday(task.startDate);
-      if (weekdays.includes(day)) {
-        durationsByDay[day] += parseDuration(task.totalDuration);
-      }
-    }
+      const day = new Date(task.startDate).getDay(); // 0=Sun, 1=Mon, ...
+      const hours = parseDurationToHours(task.totalDuration);
+      const dayMap = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      weekData[dayMap[day]] += hours;
   });
 
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: weekdays,
-      datasets: [{
-        label: "Total Duration (hrs)",
-        data: weekdays.map(day => durationsByDay[day]),
-        backgroundColor: ["#f39c12", "#2980b9", "#27ae60", "#8e44ad", "#c0392b"]
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: { display: true, text: "Hours" }
-        }
-      }
-    }
-  });
-}
+  const maxDuration = Math.max(...Object.values(weekData));
 
-function monthlyChartStatus() {
-  const ctx = document.getElementById("monthlyChart").getContext("2d");
+  const yAxisLabels = document.getElementById("yAxisLabels");
+  const barsContainer = document.getElementById("barsContainer");
+  const xAxisLabels = document.getElementById("xAxisLabels");
 
-  const weekLabels = ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"];
-  const durationsByWeek = [0, 0, 0, 0, 0];
+  yAxisLabels.innerHTML = "";
+  barsContainer.innerHTML = "";
+  xAxisLabels.innerHTML = "";
 
-  taskList.forEach(task => {
-    if (task.startDate) {
-      const weekIndex = getWeekOfMonth(task.startDate) - 1;
-      if (weekIndex >= 0 && weekIndex < 5) {
-        durationsByWeek[weekIndex] += parseDuration(task.totalDuration);
-      }
-    }
-  });
 
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: weekLabels,
-      datasets: [{
-        label: "Total Duration (hrs)",
-        data: durationsByWeek,
-        backgroundColor: ["#ffcd56", "#36a2eb", "#4bc0c0", "#9966ff", "#ff6384"]
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: { display: true, text: "Hours" }
-        }
-      }
-    }
+  for (let i = 5; i >= 0; i--) {
+      const label = document.createElement("div");
+      label.textContent = ((maxDuration / 5) * i).toFixed(1) + "h";
+      yAxisLabels.appendChild(label);
+  }
+
+  
+  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  days.forEach(day => {
+      const barHeightPercent = maxDuration === 0 ? 0 : (weekData[day] / maxDuration) * 100;
+
+      const bar = document.createElement("div");
+      bar.className = "bar";
+      bar.style.height = `${barHeightPercent}%`;
+      bar.textContent = weekData[day].toFixed(1);
+
+      barsContainer.appendChild(bar);
+
+      const label = document.createElement("div");
+      label.textContent = day;
+      xAxisLabels.appendChild(label);
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  dailyChartStatus();
-  weeklyChartStatus();
-  monthlyChartStatus();
-});
+document.querySelector(".show").addEventListener("click", renderWeeklyBarGraph);

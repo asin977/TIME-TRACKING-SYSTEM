@@ -16,12 +16,27 @@
     </div>
     <div class="chart-container">
         <div id="charts">
-            <canvas id="dailyChart"></canvas>
-            <button id="showDailyStatus" onclick="dailyChartStatus()">📊 Show Today's Chart</button>
-            <canvas id="weeklyChart"></canvas>
-            <button id="weeklyCharts" class="weekly" onclick="weeklyChartStatus()">📅 Weekly Summary</button>
-            <canvas id="monthlyChart"></canvas>
-            <button id="monthyCharts" class="monthly" onclick="monthlyChartStatus()">🗓️ Monthly Summary</button>
+            <!-- <div id="dailyGraphContainer">
+                <h3>📊 Today's Task Durations</h3>
+                <div id="dailyGraph"></div>
+            </div> -->
+            <div id="weeklyBarGraph" class="bar-graph">
+                <div class="y-axis" id="yAxisLabels"></div>
+                <div class="bars" id="barsContainer"></div>
+                <div class="x-axis" id="xAxisLabels"></div>
+            </div>
+            
+            <div id="weeklyGraphContainer">
+                <h3>📅 Weekly Task Durations</h3>
+                <div id="weeklyGraph"></div>
+                <button class="show">📊 Show</button>
+            </div>
+            
+            <!-- <div id="monthlyGraphContainer">
+                <h3>🗓️ Monthly Task Durations</h3>
+                <div id="monthlyGraph"></div>
+            </div> -->
+            
         </div>
     </div>
     <footer>
@@ -39,4 +54,4 @@
     <script src="scripts/track.js"></script>
 </body>
 </html>
-
+we need to Built a bar-graph using html,css & js where the hours should be dynamically plotted  with the same max-duration we obtained from the track.js on the y-axix and mon,tues,wed,thurs,friday,sat,sun on the x-axis.

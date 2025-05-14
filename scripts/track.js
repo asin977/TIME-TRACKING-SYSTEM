@@ -1,4 +1,4 @@
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded",() => {
   const profileNameSpan = document.getElementById("profileName");
   const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
 
@@ -39,9 +39,75 @@ function renderTaskTable() {
       <td>${task.startDate || "--/--/----"}</td>
       <td>${task.totalDuration}</td>
       <td><button class="resume" onclick="resumeTask(${index})">🕒 Resume</button></td>
+      <td><button class="delete" onclick="deleteTask(${index})">Delete</button></td>
     `;
     taskTableBody.appendChild(row);
   });
+}
+function renderBarChart() {
+  const barChart = document.getElementById("barChart");
+  const xLabels = document.getElementById("xLabels");
+  const yLabels = document.getElementById("yLabels");
+  barChart.querySelectorAll(".bar").forEach(e => e.remove());
+  yLabels.innerHTML = "";
+  xLabels.innerHTML = "";
+
+  const durations = taskList.map(task => parseDurationToHours(task.totalDuration));
+  const maxDuration = Math.max(...durations);
+
+  for (let i = 5; i >= 0; i--) {
+    const span = document.createElement("span");
+    span.textContent = ((maxDuration / 5) * i).toFixed(1) + "h";
+    yLabels.appendChild(span);
+  }
+
+  taskList.forEach(task => {
+    const barHeightPercent = (parseDurationToHours(task.totalDuration) / maxDuration) * 100;
+
+    const bar = document.createElement("div");
+    bar.className = "bar";
+    bar.style.height = `${barHeightPercent}%`;
+    bar.textContent = parseDurationToHours(task.totalDuration).toFixed(1);
+
+    barChart.appendChild(bar);
+
+    const label = document.createElement("div");
+    label.textContent = task.taskName;
+    xLabels.appendChild(label);
+  });
+}
+
+function renderTaskGraph() {
+  const graphContainer = document.getElementById("taskDurationGraph");
+  graphContainer.innerHTML = "";
+
+  const totalSeconds = taskList.reduce((sum, task) => sum + parseDuration(task.totalDuration), 0);
+
+  if (totalSeconds === 0) {
+    graphContainer.innerHTML = "<p>No task durations to display.</p>";
+    return;
+  }
+  taskList.forEach(task => {
+    const taskSeconds = parseDuration(task.totalDuration);
+    const widthPercent = (taskSeconds / totalSeconds) * 100;
+
+    const label = document.createElement("div");
+    label.textContent = `${task.taskName} (${task.totalDuration})`;
+
+    const bar = document.createElement("div");
+    bar.className = "task-bar";
+    bar.style.width = `${widthPercent}%`;
+    bar.style.backgroundColor = getRandomColor();
+    bar.textContent = task.totalDuration;
+
+    graphContainer.appendChild(label);
+    graphContainer.appendChild(bar);
+  });
+}
+
+function getRandomColor() {
+  const hue = Math.floor(Math.random() * 360);
+  return `hsl(${hue}, 70%, 60%)`;
 }
 
 function startTask() {
@@ -122,3 +188,4 @@ function removeSearchResult(resultId) {
 document.addEventListener("DOMContentLoaded", () => {
   renderTaskTable();
 });
+

@@ -40,7 +40,7 @@ header {
     font-size:16px;
     position:absolute;
     bottom:-5%;
-    left:-1%;
+    left:1%;
     font-size:20px;
 
 }
@@ -362,3 +362,5 @@ p {
         left:0%;
     }
 }
+
+

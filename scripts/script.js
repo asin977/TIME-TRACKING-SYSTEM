@@ -49,7 +49,7 @@ function createAccount() {
         passWord
     }
     localStorage.setItem(userName,JSON.stringify(user));
-    alert("You have successfully created your Account.Please Sign In..");
+    alert(`You have successfully created your account.This is your username: ${firstName}\nThis is your password: ${passWord} Use it for future reference..`);
 }
 
 const createaccount = document.getElementById('account');
