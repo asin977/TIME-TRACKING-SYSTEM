@@ -218,12 +218,12 @@ p {
         width:283px;
     }
     .task-container {
-        max-width:349px;
+        max-width:360px;
         padding:20px;
         margin-top:15px;
     }
     table {
-    margin-left:-7px;
+    margin-left:-26px;
    }
 }
 @media screen and (min-width:425px) {

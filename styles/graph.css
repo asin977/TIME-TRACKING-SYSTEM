@@ -10,9 +10,9 @@ html {
 }
 
 body {
-    background-image: 
+    /* background-image: 
                 linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7), rgba(60, 60, 60, 0.7)),
-                url('graphs.png'); 
+                url('graphs.png');  */
     background-color:black;
 }
 .header {
@@ -141,6 +141,73 @@ footer {
     text-decoration: none;
     margin: 0 8px;
     font-weight: bold;
+}
+.graph-bar-container {
+    margin: 10px 0;
+}
+
+.graph-bar-label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.graph-bar {
+    height: 25px;
+    background-color: steelblue;
+    color: white;
+    padding-left: 10px;
+    line-height: 25px;
+    border-radius: 5px;
+    width: 0%;
+    transition: width 0.5s ease-in-out;
+}
+
+h3 {
+    margin-top: 20px;
+}
+.bar-graph {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    width: 100%;
+    height: 300px;
+    margin: 20px 0;
+}
+
+.y-axis {
+    grid-row: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 12px;
+    height: 100%;
+}
+
+.bars {
+    grid-row: 2 / 3;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.bars .bar {
+    width: 30px;
+    background-color: #4CAF50;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    color: white;
+    font-size: 10px;
+    border-radius: 4px;
+    transition: height 0.5s ease;
+}
+
+.x-axis {
+    grid-row: 3 / 4;
+    display: flex;
+    justify-content: space-around;
+    font-size: 12px;
 }
 
 .footer-links a:hover {

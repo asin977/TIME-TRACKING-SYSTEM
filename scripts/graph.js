@@ -1,24 +1,29 @@
+let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
+
 function parseDurationToHours(durationStr) {
+  if (!durationStr || !durationStr.includes(":")) return 0;
   const [h, m, s] = durationStr.split(":").map(Number);
-  return h + m / 60 + s / 3600;
+  return (h || 0) + (m || 0) / 60 + (s || 0) / 3600;
 }
 
-function renderWeeklyBarGraph() {
-  const taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 
-  
-  const weekData = {
-      Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0, Sun: 0
-  };
+function renderWeeklyBarGraph() {
+  const weekData = { Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0, Sun: 0 };
+  const dayMap = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 
   taskList.forEach(task => {
-      const day = new Date(task.startDate).getDay(); // 0=Sun, 1=Mon, ...
-      const hours = parseDurationToHours(task.totalDuration);
-      const dayMap = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-      weekData[dayMap[day]] += hours;
+    if (!task.startDate || !task.totalDuration) return; 
+
+    const dayIndex = new Date(task.startDate).getDay();
+    const hours = parseDurationToHours(task.totalDuration);
+    if (!isNaN(hours)) {
+      weekData[dayMap[dayIndex]] += hours;
+    }
   });
 
-  const maxDuration = Math.max(...Object.values(weekData));
+  const durations = Object.values(weekData);
+  const maxDuration = Math.max(...durations, 1); 
 
   const yAxisLabels = document.getElementById("yAxisLabels");
   const barsContainer = document.getElementById("barsContainer");
@@ -30,27 +35,79 @@ function renderWeeklyBarGraph() {
 
 
   for (let i = 5; i >= 0; i--) {
-      const label = document.createElement("div");
-      label.textContent = ((maxDuration / 5) * i).toFixed(1) + "h";
-      yAxisLabels.appendChild(label);
+    const label = document.createElement("div");
+    const value = ((maxDuration / 5) * i).toFixed(1);
+    label.textContent = `${value}h`;
+    yAxisLabels.appendChild(label);
   }
 
   
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   days.forEach(day => {
-      const barHeightPercent = maxDuration === 0 ? 0 : (weekData[day] / maxDuration) * 100;
+    const barHeightPercent = (weekData[day] / maxDuration) * 100;
 
-      const bar = document.createElement("div");
-      bar.className = "bar";
-      bar.style.height = `${barHeightPercent}%`;
-      bar.textContent = weekData[day].toFixed(1);
+    const bar = document.createElement("div");
+    bar.className = "bar";
+    bar.style.height = `${barHeightPercent}%`;
+    bar.textContent = weekData[day].toFixed(1) || "0";
 
-      barsContainer.appendChild(bar);
+    barsContainer.appendChild(bar);
 
-      const label = document.createElement("div");
-      label.textContent = day;
-      xAxisLabels.appendChild(label);
+    const label = document.createElement("div");
+    label.textContent = day;
+    xAxisLabels.appendChild(label);
   });
 }
+
+function renderTaskTable() {
+  const taskTableBody = document.getElementById("taskTableBody");
+  taskTableBody.innerHTML = "";
+
+  taskList.forEach((task, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${task.taskName || "-"}</td>
+      <td>${task.startDate || "--/--/----"}</td>
+      <td>${task.totalDuration || "00:00:00"}</td>
+      <td><button class="resume" onclick="resumeTask(${index})">🕒 Resume</button></td>
+      <td><button class="delete" onclick="deleteTask(${index})">Delete</button></td>
+    `;
+    taskTableBody.appendChild(row);
+  });
+
+  renderWeeklyBarGraph();
+}
+
+
+function resumeTask(index) {
+  window.location.href = `timer.html?taskIndex=${index}`;
+}
+
+
+function deleteTask(index) {
+  taskList.splice(index, 1);
+  saveTaskToLocalStorage();
+  renderTaskTable();
+}
+
+function saveTaskToLocalStorage() {
+  localStorage.setItem("tasks", JSON.stringify(taskList));
+}
+
+
+window.addEventListener("DOMContentLoaded", () => {
+  const profileNameSpan = document.getElementById("profileName");
+  const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+
+  if (!loggedInUser) {
+    alert("You must be signed in to view the dashboard.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  profileNameSpan.textContent = loggedInUser.firstName || "Guest";
+  renderTaskTable();
+});
+
 
 document.querySelector(".show").addEventListener("click", renderWeeklyBarGraph);
