@@ -2,20 +2,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const taskIndex = parseInt(urlParams.get("taskIndex"), 10);
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
   if (isNaN(taskIndex) || taskIndex < 0 || taskIndex >= tasks.length || !tasks[taskIndex]) {
     alert("Task not found.");
     window.location.href = "track.html";
     return;
   }
+
   const taskData = tasks[taskIndex];
   const elapsedTimeEl = document.getElementById("elapsedTime");
   const startTimeEl = document.getElementById("startTime");
   const endTimeEl = document.getElementById("endTime");
   const recordsList = document.getElementById("recordsList");
 
+  
   document.getElementById("taskName").textContent = taskData.taskName || "";
   document.getElementById("taskTag").textContent = taskData.taskTag || "";
-  document.getElementById("taskDescription").textContent = taskData.description || "";
+  document.getElementById("taskDescription").textContent = taskData.Description || "";
 
   if (!taskData.sessions) taskData.sessions = [];
   if (!taskData.totalDuration) taskData.totalDuration = "00:00:00";
@@ -99,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <h2 class="details">Task Details</h2>
       <p><strong>Task Name:</strong> <span id="taskName">${taskData.taskName}</span></p>
       <p><strong>Task Tag:</strong> <span id="taskTag">${taskData.taskTag}</span></p>
-      <p><strong>Task Description:</strong> <span id="taskDescription">${taskData.description}</span></p>
+      <p><strong>Task Description:</strong> <span id="taskDescription">${taskData.taskDescription}</span></p>
       <hr>
     `;
 
@@ -114,10 +117,10 @@ document.addEventListener("DOMContentLoaded", () => {
       sessionDiv.innerHTML = `
         <div class="head"><strong class="strong">TIMER ${i + 1}</strong></div>
         <div class="session">
-          <strong class="one">Session ${i + 1}</strong><br>
-          Start: ${s.startTime} (${s.startDate})<br>
-          End: ${s.endTime} (${s.endDate})<br>
-          Duration: ${s.duration}<br><br>
+            <strong class="one">Session ${i + 1}</strong><br>
+            Start: ${s.startTime} (${s.startDate})<br>
+            End: ${s.endTime} (${s.endDate})<br>
+            Duration: ${s.duration}<br><br>
         </div>
       `;
       recordsList.appendChild(sessionDiv);
@@ -149,4 +152,3 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("stop").addEventListener("click", stopTimer);
   document.getElementById("reset").addEventListener("click", resetTimer);
 });
-
