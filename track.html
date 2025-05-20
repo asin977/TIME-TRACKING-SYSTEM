@@ -5,71 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TASK TABLE</title>
   <link rel="stylesheet" href="styles/styles.css">
-  <link rel="icon" href="task.png">
   <link rel="stylesheet" href="styles/track.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="task.png">
 </head>
 <body>
   <header>
-    <a href="graph.html">
-      <img src="img/profile-user.png" alt="Profile-user Logo">
-      <span id="profileName"></span>
-    </a>
-    
+    <div class="profile-wrapper" onclick="toggleProfileDetails()">
+      <img src="img/profile-user.png" alt="Profile-user Logo" />
+      <div class="tooltip-content" id="profileTooltip">
+        <a href="graph.html">Dashboard</a>
+        <span>Profile Details</span>
+        <span id="tooltipName">Name:</span>
+        <span id="tooltipEmail">Email:</span>
+      </div>
+    </div>
     <h3 class="name">TimeWise Tracker</h3>
-    <a href="index.html" id  class="names logoutBtn"><button class="button">LogOut</button></a>
-
+    <a href="index.html" class="names logoutBtn"><button class="button">LogOut</button></a>
   </header>
 
   <div class="main-containers">
     <div class="task-container">
-        <h2 class="title">⏰ TIME TRACKER</h2>
+      <h2 class="title">⏰ TIME TRACKER</h2>
 
-        <label for="taskName">Task Name:</label>
-        <input type="text" id="taskName" placeholder="Enter your task here *" required>
+      <label for="taskName">Task Name:</label>
+      <input type="text" id="taskName" placeholder="Enter your task here *" required>
 
-        <label for="taskTag">Task Tag:</label>
-        <input type="text" id="taskTag" placeholder="Enter the task tag if any">
+      <label for="taskTag">Task Tag:</label>
+      <input type="text" id="taskTag" placeholder="Enter the task tag if any">
 
-        <label for="description">Description:</label>
-        <textarea id="description" placeholder="Task description if necessary.."></textarea>
+      <label for="description">Description:</label>
+      <textarea id="description" placeholder="Task description if necessary.."></textarea>
 
-        <button class="track" onclick="startTask()">Track your Time ➡️</button>
-        <button class="delete-records" onclick="resetTask()">Delete All Records</button>
+      <button class="track" onclick="startTask()">Track your Time ➡️</button>
+      <button class="delete-records" onclick="resetTask()">Delete All Records</button>
 
-        <div class="search-section">
-            <input type="text" id="searchInput" placeholder="Search by task/tag name">
-            <button class="search" onclick="searchTasks()">SEARCH</button>
-            <div id="searchResults" class="search-results"></div>
-        </div>
+      <div class="search-section">
+        <input type="text" id="searchInput" placeholder="Search by task/tag name">
+        <button class="search" onclick="searchTasks()">SEARCH</button>
+        <div id="searchResults" class="search-results"></div>
+      </div>
 
-        <table id="tasktable">
-            <caption><strong>Your Tasks</strong></caption>
-            <thead class="table-header">
-            <tr>
-                <th>Task</th>
-                <th>Start Date</th>
-                <th>Duration</th>
-                <th>Action</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody id="taskTableBody"></tbody>
-          </table>
+      <table id="tasktable">
+        <caption><strong>Your Tasks</strong></caption>
+        <thead class="table-header">
+          <tr>
+            <th>Task</th>
+            <th>Start Date</th>
+            <th>Duration</th>
+            <th>Action</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody id="taskTableBody"></tbody>
+      </table>
+
+      <img src="down-arrow.png" alt="down-arrow" class="image" id="showMoreBtn">
     </div>
   </div>
+
   <footer>
     <div class="footer-content">
       <p>&copy; 2025 TimeWise Tracker. All rights reserved.</p>
       <p>Built with JavaScript, inspired by the rhythm of life — to help you take back your time.</p>
       <div class="footer-links">
-          <a href="#about">About</a> 
-          <a href="#features">Features</a> 
-          <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
       </div>
     </div>
   </footer>
+
   <script src="scripts/track.js"></script>
+  
 </body>
 </html>
-

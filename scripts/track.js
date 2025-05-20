@@ -1,11 +1,25 @@
-if (typeof taskList === "undefined") {
-  let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
+let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 
-  function parseDurationToHours(durationStr) {
-    if (!durationStr || !durationStr.includes(":")) return 0;
-    const [h, m, s] = durationStr.split(":").map(Number);
-    return (h || 0) + (m || 0) / 60 + (s || 0) / 3600;
-  }
+function saveTaskToLocalStorage() {
+  localStorage.setItem("tasks", JSON.stringify(taskList));
+}
+
+function parseDurationToHours(durationStr) {
+  if (!durationStr || !durationStr.includes(":")) return 0;
+  const [h, m, s] = durationStr.split(":").map(Number);
+  return (h || 0) + (m || 0) / 60 + (s || 0) / 3600;
+}
+
+const name = localStorage.getItem("profileName") || "N/A";
+const email = localStorage.getItem("profileEmail") || "N/A";
+document.getElementById("tooltipName").textContent = `Name: ${name}`;
+document.getElementById("tooltipEmail").textContent = `Email: ${email}`;
+
+function toggleProfileDetails() {
+  document.querySelector('.profile-wrapper').classList.toggle('show');
+}
+
+
 
   function renderWeeklyBarGraph() {
     const weekData = { Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0, Sun: 0 };
@@ -65,10 +79,13 @@ if (typeof taskList === "undefined") {
 
   function renderTaskTable() {
     const taskTableBody = document.getElementById("taskTableBody");
-    if (!taskTableBody) return;
-
+    const showMoreBtn = document.getElementById("showMoreBtn");
+  
+    if (!taskTableBody || !showMoreBtn) return;
+  
     taskTableBody.innerHTML = "";
-
+  
+    const visibleLimit = 5;
     taskList.forEach((task, index) => {
       const row = document.createElement("tr");
       row.innerHTML = `
@@ -78,12 +95,21 @@ if (typeof taskList === "undefined") {
         <td><button class="resume" onclick="resumeTask(${index})">🕒 Resume</button></td>
         <td><button class="delete" onclick="deleteTask(${index})">🗑️</button></td>
       `;
+      
+      if (index >= visibleLimit) row.classList.add("hidden-row");
       taskTableBody.appendChild(row);
     });
-
+  
+    
+    if (taskList.length > visibleLimit) {
+      showMoreBtn.style.display = "block";
+    } else {
+      showMoreBtn.style.display = "none";
+    }
+  
     renderWeeklyBarGraph();
   }
-
+  
   function resumeTask(index) {
     if (index >= 0 && index < taskList.length) {
       window.location.href = `timer.html?taskIndex=${index}`;
@@ -127,8 +153,7 @@ if (typeof taskList === "undefined") {
         🕒 ${task.totalDuration}
         <div class="clear" onclick="removeSearchResult('${resultId}')">
                     <svg height="30" preserveAspectRatio="none" viewBox="0 0 64 64" width="30" xmlns="http://www.w3.org/2000/svg"><path d="m12.458008 20.291992h39.083984v39.583008h-39.083984z" fill="#fff"/><path d="m55.7714844 14.652832h-2.8564453v-3.277832c0-1.0454102-.8476563-1.8930664-1.8935547-1.8930664h-9.0634766v-5.3569336c0-1.1044922-.8955078-2-2-2h-15.9160156c-1.1044922 0-2 .8955078-2 2v5.3569336h-9.0629883c-1.0454102 0-1.8930664.8476563-1.8930664 1.8930664v3.277832h-2.8574219c-1.1816406 0-2.1391602.9575195-2.1391602 2.1391602v7.1245117c0 1.1816406.9575195 2.1391602 2.1391602 2.1391602h2.2294922v33.8193359c0 1.1044922.8955078 2 2 2h39.0839844c1.1044922 0 2-.8955078 2-2v-33.8193359h2.2294922c1.1816406 0 2.1396484-.9575195 2.1396484-2.1391602v-7.1245117c0-1.1816406-.9580078-2.1391602-2.1396484-2.1391602zm-29.7294922-8.527832h11.9160156v3.3569336h-11.9160156zm23.5 51.75h-35.0839844v-31.8193359h35.0839844z" fill="#182985"/><path d="m22.125 51.1513672c-1.0043945 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8139648-1.8183594 1.8183594-1.8183594s1.8183594.8139649 1.8183594 1.8183594v17.3330078c0 1.0039063-.8139649 1.8183594-1.8183594 1.8183594z" fill="#e80000"/><path d="m41.875 51.1513672c-1.0039063 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8144531-1.8183594 1.8183594-1.8183594s1.8183594.8139649 1.8183594 1.8183594v17.3330078c0 1.0039063-.8144531 1.8183594-1.8183594 1.8183594z" fill="#e80000"/><path d="m32 51.1513672c-1.0043945 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8139648-1.8183594 1.8183594-1.8183594 1.0039063 0 1.8183594.8139648 1.8183594 1.8183594v17.3330078c0 1.0039063-.8144531 1.8183594-1.8183594 1.8183594z" fill="#e80000"/><g fill="#182985"><path d="m22.125 51.1513672c-1.0043945 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8139648-1.8183594 1.8183594-1.8183594s1.8183594.8139649 1.8183594 1.8183594v17.3330078c0 1.0039063-.8139649 1.8183594-1.8183594 1.8183594z"/><path d="m41.875 51.1513672c-1.0039063 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8144531-1.8183594 1.8183594-1.8183594s1.8183594.8139649 1.8183594 1.8183594v17.3330078c0 1.0039063-.8144531 1.8183594-1.8183594 1.8183594z"/><path d="m32 51.1513672c-1.0043945 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8139648-1.8183594 1.8183594-1.8183594 1.0039063 0 1.8183594.8139648 1.8183594 1.8183594v17.3330078c0 1.0039063-.8144531 1.8183594-1.8183594 1.8183594z"/></g></svg>
-  
-        </div>
+      </div>
       `;
       resultsDiv.appendChild(div);
     });
@@ -146,8 +171,8 @@ if (typeof taskList === "undefined") {
     const taskTag = taskTagInput?.value.trim() || "";
     const taskDescription = taskDescriptionInput?.value.trim() || "";
   
-    const startDate = new Date().toISOString().split("T")[0]; // yyyy-mm-dd
-    const startTime = new Date().toLocaleTimeString();         // HH:MM:SS
+    const startDate = new Date().toISOString().split("T")[0]; 
+    const startTime = new Date().toLocaleTimeString(); 
   
     const newTask = {
       taskName,
@@ -158,7 +183,8 @@ if (typeof taskList === "undefined") {
       totalDuration: "00:00:00",
       sessions: []
     };
-  
+   
+    
     taskList.push(newTask);
     saveTaskToLocalStorage();
   
@@ -188,6 +214,22 @@ if (typeof taskList === "undefined") {
     renderTaskTable();
   });
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const showMoreBtn = document.getElementById("showMoreBtn");
+    showMoreBtn?.addEventListener("click", () => {
+      const hiddenRows = document.querySelectorAll(".hidden-row");
+      hiddenRows.forEach(row => row.style.display = "table-row");
+      showMoreBtn.style.display = "none"; 
+    });
+  });
+  function toggleProfileDetails() {
+    document.querySelector('.profile-wrapper').classList.toggle('show');
+  }
+  window.addEventListener('DOMContentLoaded', () => {
+    const name = localStorage.getItem('userName') || "Not Provided";
+    const email = localStorage.getItem('userEmail') || "Not Provided";
+    document.getElementById('tooltipName').textContent = "Name: " + name;
+    document.getElementById('tooltipEmail').textContent = "Email: " + email;
+  });
   document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph);
-}
 

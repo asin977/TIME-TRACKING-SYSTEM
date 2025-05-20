@@ -125,3 +125,6 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph);
+
+
+

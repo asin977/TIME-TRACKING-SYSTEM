@@ -9,18 +9,38 @@ window.addEventListener("DOMContentLoaded",() => {
     }
   });
   
-  window.addEventListener("DOMContentLoaded", () => {
-    const profileNameSpan = document.getElementById("profileName");
-    const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
   
-    if (!loggedInUser) {
-        alert("You must be signed in to view the dashboard.");
-        window.location.href = "index.html";
-        return;
-    }
-  
-    profileNameSpan.textContent = loggedInUser.firstName;
-  });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const profileNameSpan = document.getElementById("profileName");
+  const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+
+  if (!loggedInUser) {
+    alert("You must be signed in to view the dashboard.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  if (profileNameSpan) {
+    profileNameSpan.textContent = loggedInUser.firstName || "Guest";
+  }
+
+  renderTaskTable();
+
+
+  const scrollArrow = document.getElementById("scrollArrow");
+  const taskTableBody = document.getElementById("taskTableBody");
+
+  if (scrollArrow && taskTableBody) {
+    scrollArrow.addEventListener("click", () => {
+      const rows = taskTableBody.getElementsByTagName("tr");
+      if (rows.length > 5) {
+        rows[5].scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
+});
+
   
   
   let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -176,6 +196,11 @@ window.addEventListener("DOMContentLoaded",() => {
       resultsDiv.appendChild(div);
     });
   }
+ 
+
+  
+  
+
   function removeSearchResult(resultId) {
     const resultEl = document.getElementById(resultId);
     if (resultEl) {
@@ -188,3 +213,5 @@ window.addEventListener("DOMContentLoaded",() => {
   document.addEventListener("DOMContentLoaded", () => {
     renderTaskTable();
   });
+
+  
