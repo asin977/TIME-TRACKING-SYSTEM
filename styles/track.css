@@ -229,9 +229,7 @@ p {
     position: relative;
     display: inline-block;
   }
-
-
- .tooltip-content {
+.tooltip-content {
     display: none;
     position: absolute;
     top: 110%;
@@ -335,7 +333,7 @@ p {
         font-size:15px;
     }
     table {
-        margin-left:-14px;
+        margin-left:-20px;
     }
     input{
         font-size:18px;
@@ -351,10 +349,29 @@ p {
     }
     footer {
         font-size:18px;
+        margin-top:42px;
     }
     #profileName {
         left:0px;
     }
+    .image {
+        position:absolute;
+        top:83%;
+        }
+    .name {
+        top:19px;
+    }    
+    .tooltip-content {
+        font-size:18px;
+        left:240%;
+        background-color:#fff;
+    }
+    .tooltip-content span, .tooltip-content a {
+        display: block;
+        margin-bottom: 6px;
+        color:black;
+        text-decoration: none;
+      }
 }
 @media screen and (min-width:768px) {
     .task-container {
@@ -375,6 +392,20 @@ p {
     }
     p{
         font-size:19px;
+    }
+    .image {
+    position:absolute;
+    top:87%;
+    }
+    footer{
+        margin-top:11px;
+    }
+    button {
+        padding:17px;
+    }
+    .tooltip-content {
+        font-size:18px;
+        right:80%;
     }
 }
 @media screen and (min-width:960px) {
@@ -418,6 +449,16 @@ p {
     #profileName {
         left:0%;
     }
+    .tooltip-content {
+        display: none;
+        position: absolute;
+        top: 110%;
+        right:150%;
+        background-color:#fff;
+        color:black;
+        padding-left:30px;
+        padding-right:35px;
+        border-radius: 6px;
 }
 @media screen and (min-width:1440px) {
      .task-container {
@@ -442,6 +483,34 @@ p {
     #profileName {
         left:0%;
     }
+    .image {
+        position:absolute;
+        right:30%;
+        }
+    .tooltip-content {
+        display: none;
+        position: absolute;
+        top: 110%;
+        right:150%;
+        background-color:#fff;
+        color:black;
+        padding-left:20px;
+        padding-right:25px;
+        border-radius: 6px;
+        font-size: 14px;
+        z-index: 10;
+        min-width: 200px;
+        font-weight:bold;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        }     
+    .tooltip-content span, .tooltip-content a {
+        display: block;
+        margin-bottom: 6px;
+        color: black;
+        font-size:20px;
+        text-decoration: none;
+        }
+    
   }
 @media screen and (min-width:1920px) {
     #charts {
@@ -457,6 +526,25 @@ p {
     #profileName {
         left:0%;
     }
+    .image {
+        position:absolute;
+        left:40%;
+        }
+    .tooltip-content {
+        display: none;
+        position: absolute;
+        top: 110%;
+        right: 0;
+        background-color:#fff;
+        color: black;
+        padding: 10px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        z-index: 10;
+        min-width: 200px;
+        font-weight:bold;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        }    
 }
 
-
+}

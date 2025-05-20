@@ -232,4 +232,3 @@ function toggleProfileDetails() {
     document.getElementById('tooltipEmail').textContent = "Email: " + email;
   });
   document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph);
-
