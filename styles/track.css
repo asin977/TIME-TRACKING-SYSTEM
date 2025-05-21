@@ -281,7 +281,7 @@ p {
     display: none;
     position: absolute;
     top: 110%;
-    right: 0;
+    left:200%;
     background-color:black;
     color: #fff;
     padding: 10px 14px;
@@ -306,7 +306,9 @@ p {
   .profile-wrapper.show .tooltip-content {
     display: block;
   } 
-
+.profile {
+    color:darkred;
+}
 @media screen and (min-width:375px) {
     textarea{
         width:283px;
@@ -319,6 +321,13 @@ p {
     table {
     margin-left:-14px;
    }
+   .tooltip-content span, .tooltip-content a {
+    display: block;
+    margin-bottom: 6px;
+    color:#fff;
+    text-decoration: none;
+    font-size:16px;
+  }
 }
 @media screen and (min-width:425px) {
     .titles {
@@ -333,7 +342,7 @@ p {
         font-size:15px;
     }
     table {
-        margin-left:-20px;
+        margin-left:-28px;
     }
     input{
         font-size:18px;
@@ -356,7 +365,7 @@ p {
     }
     .image {
         position:absolute;
-        top:83%;
+        top:82%;
         }
     .name {
         top:19px;
@@ -364,12 +373,14 @@ p {
     .tooltip-content {
         font-size:18px;
         left:240%;
-        background-color:#fff;
+        background-color:black;
+        color:#fff;
+        min-width: 250px;
     }
     .tooltip-content span, .tooltip-content a {
         display: block;
         margin-bottom: 6px;
-        color:black;
+        color:#fff;
         text-decoration: none;
       }
 }
@@ -491,7 +502,7 @@ p {
         display: none;
         position: absolute;
         top: 110%;
-        right:150%;
+        left:300%;
         background-color:#fff;
         color:black;
         padding-left:10px;

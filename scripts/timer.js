@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const taskData = tasks[taskIndex];
 
-  
   if (taskNameEl) taskNameEl.textContent = taskData.taskName || "";
   if (taskTagEl) taskTagEl.textContent = taskData.taskTag || "";
   if (taskDescEl) taskDescEl.textContent = taskData.taskDescription || "";
@@ -106,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <h2 class="details">Task Details</h2>
       <p><strong>Task Name:</strong> ${taskData.taskName || ""}</p>
       <p><strong>Task Tag:</strong> ${taskData.taskTag || ""}</p>
-      <p><strong>Task Description:</strong> ${taskData.taskDescription || ""}</p>
+      <p><strong>Task Description:</strong> ${taskData.taskDescription || "No description provided."}</p>
       <hr>
     `;
 
@@ -156,5 +155,4 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("stop").addEventListener("click", stopTimer);
   document.getElementById("reset").addEventListener("click", resetTimer);
 });
-
 
