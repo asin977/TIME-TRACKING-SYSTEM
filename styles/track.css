@@ -260,7 +260,7 @@ p {
     border-width: 6px;
     border-style: solid;
     border-color: transparent transparent #333 transparent;
-  }
+  } 
 
   .tooltip-content span {
     display: block;
@@ -275,7 +275,7 @@ p {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-  }
+  } 
 
   .tooltip-content {
     display: none;
@@ -305,7 +305,7 @@ p {
 
   .profile-wrapper.show .tooltip-content {
     display: block;
-  }
+  } 
 
 @media screen and (min-width:375px) {
     textarea{
@@ -494,12 +494,12 @@ p {
         right:150%;
         background-color:#fff;
         color:black;
-        padding-left:20px;
-        padding-right:25px;
+        padding-left:10px;
+        padding-right:10px;
         border-radius: 6px;
         font-size: 14px;
         z-index: 10;
-        min-width: 200px;
+        min-width: 250px;
         font-weight:bold;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }     
@@ -509,7 +509,7 @@ p {
         color: black;
         font-size:20px;
         text-decoration: none;
-        }
+        } 
     
   }
 @media screen and (min-width:1920px) {
@@ -534,17 +534,19 @@ p {
         display: none;
         position: absolute;
         top: 110%;
-        right: 0;
+        left:350%;
         background-color:#fff;
         color: black;
-        padding: 10px 14px;
+        padding-left:10px;
+        padding-right:10px;
         border-radius: 6px;
         font-size: 14px;
         z-index: 10;
-        min-width: 200px;
+        min-width: 260px;
         font-weight:bold;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }    
 }
 
 }
+

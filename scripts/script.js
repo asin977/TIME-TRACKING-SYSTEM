@@ -7,20 +7,20 @@ function createAccount() {
     const passWord = document.getElementById('createpassword').value.trim();
     const otherJob = document.getElementById('otherjob').value.trim();
 
-
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(!emailPattern.test(email)) {
-        alert("please enter a valid email address.");
+    if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
         return;
     }
 
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-    if(!passwordPattern.test(passWord)) {
-        alert("password must be atleast 8 charecters and must include:\n"  + 
-            "• one uppercase letter\n" +
-              "• one lowercase letter\n" +
-              "• one number\n" +
-              "• one special character"
+    if (!passwordPattern.test(passWord)) {
+        alert(
+            "Password must be at least 8 characters and must include:\n" +
+            "• One uppercase letter\n" +
+            "• One lowercase letter\n" +
+            "• One number\n" +
+            "• One special character"
         );
         return;
     }
@@ -32,12 +32,12 @@ function createAccount() {
 
     const userName = firstName.toLowerCase();
     const existingUser = localStorage.getItem(userName);
-     
-    if(existingUser) {
-        alert(`You have already created an account.Please Sign In.Your username is ${userName} and password is ${passWord} use it for future reference.`);
+
+    if (existingUser) {
+        alert(`You have already created an account.\nPlease Sign In.\nYour username is: ${userName}\nYour password is: ${passWord}`);
         return;
     }
-   
+
     const finalJob = jobRole === "other" ? otherJob : jobRole;
 
     const user = {
@@ -45,23 +45,28 @@ function createAccount() {
         lastName,
         email,
         workSpace,
-        jobRole : finalJob,
+        jobRole: finalJob,
         passWord
-    }
-    localStorage.setItem(userName,JSON.stringify(user));
-    alert(`You have successfully created your account.This is your username: ${firstName}\nThis is your password: ${passWord} Use it for future reference..`);
+    };
+
+    localStorage.setItem(userName, JSON.stringify(user));
+    alert(`Account created successfully!\nUsername: ${firstName}\nPassword: ${passWord}\nUse these to sign in.`);
+
+    
+    window.location.href = "track.html";
 }
 
-const createaccount = document.getElementById('account');
-createaccount.addEventListener('click',createAccount);
+document.getElementById('account').addEventListener('click', createAccount);
 
 function signIn() {
     const loginFirstName = document.getElementById('loginFirstName').value.trim();
     const loginPassword = document.getElementById('loginPassword').value;
 
-    const storedUser = JSON.parse(localStorage.getItem(loginFirstName));
+    const storedUser = JSON.parse(localStorage.getItem(loginFirstName.toLowerCase()));
+
     if (storedUser && storedUser.passWord === loginPassword) {
-        alert(`Welcome, ${storedUser.firstName}...\nWorkspace: ${storedUser.workSpace || "N/A"}\nRole: ${storedUser.jobRole || "N/A"}`);
+        alert(`Welcome, ${storedUser.firstName}!\nWorkspace: ${storedUser.workSpace || "N/A"}\nRole: ${storedUser.jobRole || "N/A"}`);
+
         
         sessionStorage.setItem("loggedInUser", JSON.stringify(storedUser));
 
@@ -70,6 +75,5 @@ function signIn() {
         alert("Invalid username or password.");
     }
 }
-const signin = document.getElementById('signIn');
-signin.addEventListener('click',signIn);
 
+document.getElementById('signIn').addEventListener('click', signIn);

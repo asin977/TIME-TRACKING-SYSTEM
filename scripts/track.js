@@ -1,3 +1,20 @@
+window.addEventListener('DOMContentLoaded', () => {
+  const userDataStr = sessionStorage.getItem('loggedInUser');
+  if (!userDataStr) {
+    
+    window.location.href = "index.html";
+    return;
+  }
+  const userData = JSON.parse(userDataStr);
+
+  const tooltipName = document.getElementById('tooltipName');
+  const tooltipEmail = document.getElementById('tooltipEmail');
+
+  if (tooltipName) tooltipName.textContent = `Name: ${userData.firstName || "N/A"}`;
+  if (tooltipEmail) tooltipEmail.textContent = `Email: ${userData.email || "N/A"}`;
+});
+
+
 let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 
 function saveTaskToLocalStorage() {
@@ -10,18 +27,7 @@ function parseDurationToHours(durationStr) {
   return (h || 0) + (m || 0) / 60 + (s || 0) / 3600;
 }
 
-const name = localStorage.getItem("profileName") || "N/A";
-const email = localStorage.getItem("profileEmail") || "N/A";
-document.getElementById("tooltipName").textContent = `Name: ${name}`;
-document.getElementById("tooltipEmail").textContent = `Email: ${email}`;
-
-function toggleProfileDetails() {
-  document.querySelector('.profile-wrapper').classList.toggle('show');
-}
-
-
-
-  function renderWeeklyBarGraph() {
+function renderWeeklyBarGraph() {
     const weekData = { Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0, Sun: 0 };
     const dayMap = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -85,7 +91,7 @@ function toggleProfileDetails() {
   
     taskTableBody.innerHTML = "";
   
-    const visibleLimit = 5;
+    const visibleLimit = 4;
     taskList.forEach((task, index) => {
       const row = document.createElement("tr");
       row.innerHTML = `
@@ -225,10 +231,6 @@ function toggleProfileDetails() {
   function toggleProfileDetails() {
     document.querySelector('.profile-wrapper').classList.toggle('show');
   }
-  window.addEventListener('DOMContentLoaded', () => {
-    const name = localStorage.getItem('userName') || "Not Provided";
-    const email = localStorage.getItem('userEmail') || "Not Provided";
-    document.getElementById('tooltipName').textContent = "Name: " + name;
-    document.getElementById('tooltipEmail').textContent = "Email: " + email;
-  });
+  
   document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph);
+
