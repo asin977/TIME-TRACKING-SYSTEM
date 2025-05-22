@@ -445,7 +445,7 @@ p {
     }
     .task-container{
         margin-left:246px;
-        max-width:518px;
+        max-width:652px;
     }
     #taskTableBody {
         font-size:20px;
@@ -487,7 +487,7 @@ p {
 @media screen and (min-width:1440px) {
      .task-container {
         margin-left:250px;
-        width:2000px;
+        width:5000px;
      }
     #charts {
         margin-top:-10px;
@@ -515,7 +515,7 @@ p {
         display: none;
         position: absolute;
         top: 110%;
-        left:300%;
+        left:400%;
         background-color:#fff;
         color:black;
         padding-left:10px;
