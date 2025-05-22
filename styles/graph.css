@@ -255,6 +255,7 @@ h3 {
     align-items: end;
     gap: 10px;
     height: 100%;
+    margin-bottom:-99px;
   }
   
   .bar {
@@ -269,9 +270,9 @@ h3 {
   
   .bar .duration {
     font-size: 10px;
-    color:black;
+    color:#fff;
     padding: 2px 4px;
-    background: rgba(0, 0, 0, 0.6);
+    background:black;
     border-radius: 3px;
     margin-bottom: 3px;
   }
