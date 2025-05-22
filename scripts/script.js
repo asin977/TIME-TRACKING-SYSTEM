@@ -3,9 +3,9 @@ function createAccount() {
     const lastName = document.getElementById('lastName').value.trim();
     const email = document.getElementById('email').value.trim(); 
     const workSpace = document.getElementById('workspace').value.trim();
-    const jobRole = document.getElementById('jobrole').value;
+    const jobRole = document.getElementById('jobRole').value;
     const passWord = document.getElementById('createpassword').value.trim();
-    const otherJob = document.getElementById('otherjob').value.trim();
+    // const otherJob = document.getElementById('otherjob').value.trim();
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
@@ -50,7 +50,7 @@ function createAccount() {
     };
 
     localStorage.setItem(userName, JSON.stringify(user));
-    alert(`Account created successfully!\nUsername: ${firstName}\nPassword: ${passWord}\nUse these to sign in.`);
+    alert(`Account created successfully!\nUsername: ${firstName}\nPassword: ${passWord}\nRemember these details to Sign-In.`);
 
     
     window.location.href = "track.html";
