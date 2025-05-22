@@ -281,7 +281,7 @@ p {
     display: none;
     position: absolute;
     top: 110%;
-    left:200%;
+    left:264%;
     background-color:black;
     color: #fff;
     padding: 10px 14px;
@@ -329,6 +329,9 @@ p {
     font-size:16px;
     margin-left:10px;
   }
+  .tooltip-content {
+    left:324%;
+  }
 }
 @media screen and (min-width:425px) {
     .titles {
@@ -373,7 +376,7 @@ p {
     }    
     .tooltip-content {
         font-size:18px;
-        left:240%;
+        left:381%;
         background-color:black;
         color:#fff;
         min-width: 250px;
@@ -387,7 +390,7 @@ p {
 }
 @media screen and (min-width:768px) {
     .task-container {
-        max-width:500px;
+        max-width:543px;
     }
     table {
         margin-left:0px;
@@ -417,8 +420,17 @@ p {
     }
     .tooltip-content {
         font-size:18px;
-        right:80%;
+        left:118px;
+        background-color:#fff;
+        color:black;
     }
+    .tooltip-content span, .tooltip-content a {
+        display: block;
+        margin-bottom: 6px;
+        color:black;
+        text-decoration: none;
+        font-size:17px;
+      }
 }
 @media screen and (min-width:960px) {
     .main-containers {
@@ -511,7 +523,7 @@ p {
         border-radius: 6px;
         font-size: 14px;
         z-index: 10;
-        min-width: 250px;
+        min-width:300px;
         font-weight:bold;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }     

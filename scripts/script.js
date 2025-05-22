@@ -37,9 +37,7 @@ function createAccount() {
         alert(`You have already created an account.\nPlease Sign In.\nYour username is: ${userName}\nYour password is: ${passWord}`);
         return;
     }
-
     const finalJob = jobRole === "other" ? otherJob : jobRole;
-
     const user = {
         firstName,
         lastName,
@@ -52,8 +50,6 @@ function createAccount() {
     localStorage.setItem(userName, JSON.stringify(user));
     alert(`Account created successfully!\nUsername: ${firstName}\nPassword: ${passWord}\nRemember these details to Sign-In.`);
 
-    
-    window.location.href = "track.html";
 }
 
 document.getElementById('account').addEventListener('click', createAccount);
