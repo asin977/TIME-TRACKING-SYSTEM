@@ -5,8 +5,7 @@ function createAccount() {
     const workSpace = document.getElementById('workspace').value.trim();
     const jobRole = document.getElementById('jobRole').value;
     const passWord = document.getElementById('createpassword').value.trim();
-    // const otherJob = document.getElementById('otherjob').value.trim();
-
+    
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
         alert("Please enter a valid email address.");
@@ -81,16 +80,17 @@ function toggleOtherJob() {
       otherInput.classList.add("hidden");
     }
   }
-// document.getElementById("togglePassword").addEventListener("click", function () {
-//     const passwordField = document.getElementById("createPassword");
-//     const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
-//     passwordField.setAttribute("type", type);
-//   });
+document.getElementById("togglePassword").addEventListener("click", function () {
+    const passwordField = document.getElementById("createpassword");
+    const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+    passwordField.setAttribute("type", type);
+  });
 
-// document.getElementById("toggleLoginPassword").addEventListener("click", function () {
-//     const passwordField = document.getElementById("loginPassword");
-//     const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
-//     passwordField.setAttribute("type", type);
-// });
+document.getElementById("toggleLoginPassword").addEventListener("click", function () {
+    const passwordField = document.getElementById("loginPassword");
+    const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+    passwordField.setAttribute("type", type);
+});
 
 document.getElementById('signIn').addEventListener('click', signIn);
+

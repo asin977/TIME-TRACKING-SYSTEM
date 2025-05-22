@@ -353,6 +353,36 @@ document.addEventListener("DOMContentLoaded",()=> {
 });
 
 
+function resumeTask() {
+    if (index >= 0 && index < taskList.length) {
+        window.location.href = `timer.html?taskIndex = ${index}`;
+    } else {
+        alert("Invalid task Index");
+    }
+}
+
+function saveTaskToLocalStorage() {
+    localStorage.setItem("tasks",JSON.stringify(taskList));
+}
+
+window.addEventListener("DOMContentLoaded",()=> {
+    const profileNameSpan = document.getElementById("profileName");
+    const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+
+    if (!loggedInUser) {
+        alert("You must be signed in to view the dashboard.");
+        window.location.href ="index.html";
+        return;
+    }
+
+    if (profileNameSpan) {
+        profileNameSpan.textContent = loggedInUser.firstName || "Guest";
+    }
+
+    renderTaskTable();
+});
+
+document.querySelector(".show")?.addEventListener("click",renderDailyTaskGraph);
 
 
 
