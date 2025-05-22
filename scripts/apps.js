@@ -1,179 +1,250 @@
-document.addEventListener("DOMContentLoaded",()=> {
-    const taskNameEl = document.getElementById("taskName");
-    const taskTagEl = document.getElementById("taskTag");
-    const taskDescEl = document.getElementById("taskDescription");
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const taskIndex = parseInt(urlParams.get("taskIndex"),10);
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-    if (isNaN(taskIndex) || taskIndex < 0 || taskIndex >= tasks.length || !tasks[taskIndex]) {
-        alert("Tasks not found");
-        window.location.href = "track.html";
+window.addEventListener("DOMContentLoaded",()=> {
+    const userDataStr = sessionStorage.getItem("loggedInUser");
+    if (!userDataStr) {
+        window.location.href = "index.html";
         return;
     }
-    const taskData = tasks[taskIndex];
 
-    if (taskNameEl) taskNameEl.textContent = taskData.taskName || "";
-    if (taskTagEl) taskTagEl.textContent = taskData.taskTag || "";
-    if (taskDescEl) taskDescEl.textContent = taskData.taskDescription || "";
+    const userData = JSON.parse(userDataStr);
 
-    const elapsedTimeEl = document.getElementById("elapsedTime");
-    const startTimeEl = document.getElementById("startTime");
-    const endTimeEl = document.getElementById("endTime");
-    const recordsList = document.getElementById("recordsList");
+    const tooltipName = document.getElementById("tooltipName");
+    const tooltipEmail = document.getElementById("tooltipEmail");
 
-    if (!taskData.sessions) taskData.sessions = [];
-    if (!taskData.totalDuration) taskData.totalDuration = "00:00:00";
+    if (tooltipName) tooltipName.textContent = `Name: ${userData.firstName || "N/A"}`;
 
-    let startTime;
-    let timerInterval;
-
-    renderAllTaskSessions();
-    resetTimer();
-
-    function timeFormatting(sec) {
-        const h = String(Math.floor(sec / 3600)).padStart(2,"0");
-        const m = String(Math.floor((sec % 3600)/60)).padStart(2,'0');
-        const s = String(sec % 60).padStart(2,"0");
-        return `${h}:${m}:${s}`;
-    }
-
-    function startTimer() {
-        startTime = new Date();
-        startTimeEl.textContent = startTime.toLocaleTimeString();
-
-        document.getElementById("start").disabled = true;
-        document.getElementById("stop").disabled = false;
-        document.getElementById("reset").disabled = false;
-
-        timerInterval = setInterval(()=> {
-            const now = new Date();
-            const diff = Math.floor((now-startTime)/1000);
-            elapsedTimeEl.textContent = timeFormatting(diff);
-        },1000);
-    }
-
-    function stopTimer() {
-        clearInterval(timerInterval);
-
-        const endTime = new Date();
-        const durationSec = Math.floor((endTime - startTime)/1000);
-        const durationStr = timeFormatting(durationSec);
-
-        const session = {
-            startDate: taskData.startDate || new Date().toLocaleDateString(),
-            startTime : startTime.toLocaleTimeString(),
-            endTime:endTime.toLocaleTimeString(),
-            duration : durationStr
-        };
-
-        taskData.sessions.push(session);
-
-        let totalSeconds = 0;
-        taskData.sessions.forEach(sess => {
-            const [h,m,s] = sess.duration.split(":").map(Number);
-            totalSeconds += h * 3600 + m * 60 + s;
-        });
-
-        taskData.totalDuration = timeFormatting(totalSeconds);
-        endTimeEl.textContent = session.endTime;
-        elapsedTimeEl.textContent = durationStr;
-
-        tasks[taskIndex] = taskData;
-        localStorage.setItem("tasks",JSON.stringify(tasks));
-
-        renderAllTaskSessions();
-    }
-
-    function resetTimer() {
-        clearInterval(timerInterval);
-        elapsedTimeEl.textContent = "00:00:00";
-        startTimeEl.textContent = "--:--:--";
-        endTimeEl.textContent = "--:--:--";
-
-        document.getElementById("start").disabled = false;
-        document.getElementById("stop").disabled = true;
-        document.getElementById("reset").disabled = true;
-    }
-
-    function renderAllTaskSessions() {
-        recordsList.innerHTML = `
-           <h2 class="details">Task Details</h2>
-           <p><strong>Task Name:</strong>${taskData.taskName || ""}</p>
-           <p><strong>Task Tag:</strong>${taskData.taskTag || ""}</p>
-           <p><strong>Task Description:</strong>${taskData.taskDescription || ""}</p>
-           <hr>
-
-        `;
-        if (taskData.sessions.length === 0) {
-            recordsList.innerHTML += `<p>No sessions recorded yet</p>`;
-            return;
-        }
-        taskData.sessions.forEach((s,i)=> {
-            const sessionDiv = document.createElement("div");
-            sessionDiv.className ="record";
-            sessionDiv.innerHTML = `
-            <div class="head"><strong class = "strong">TIMER ${i + 1}</strong></div>
-            <div class="session">
-            <strong class="one">Session ${i + 1}</strong><br>
-            Start:${s.startTime} (${s.startDate})<br>
-            End:${s.endTime} (${s.endDate})<br>
-            Duration: ${s.duration}<br><br>
-            </div>
-            `;
-            recordsList.appendChild(sessionDiv)
-        });
-
-        const totalDiv = document.createElement("div");
-        totalDiv.innerHTML = `<strong>Total Duration:${taskData.totalDuration}</strong>`;
-        recordsList.appendChild(totalDiv);
-
-        const clearBtn = document.createElement("button");
-        clearBtn.textContent = "clear Sessions";
-        clearBtn.className = 'clear';
-        clearBtn.addEventListener("click",clearSessions);
-        recordsList.appendChild(clearBtn);
-    }
-
-    function clearSessions() {
-        if (confirm("Clear all sessions for this task")) {
-            taskData.sessions = [];
-            taskData.totalDuration = "00:00:00";
-            tasks[taskIndex] = taskData;
-            localStorage.setItem("tasks",JSON.stringify(tasks));
-            resetTimer();
-            renderAllTaskSessions();
-        }
-    }
-
-        document.getElementById("start").addEventListener("click",startTimer);
-        document.getElementById("stop").addEventListener("click",stopTimer);
-        document.getElementById("reset").addEventListener("click",resetTimer);
-    
-      
-})
-
-// track.js
+    if (tooltipEmail) tooltipEmail.textContent = `Email: ${userData.email || "N/A"}`;
+});
 
 let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 
 function saveTaskToLocalStorage() {
     localStorage.setItem("tasks",JSON.stringify(taskList));
+
 }
 
 function parseDurationToHours(durationStr) {
     if (!durationStr || !durationStr.includes(":")) return 0;
     const [h,m,s] = durationStr.split(":").map(Number);
     return (h || 0) + (m || 0) / 60 + (s || 0) / 3600;
+}
+
+function renderTaskTable() {
+    const taskTableBody = document.getElementsById("taskTableBody");
+    const showMoreBtn = document.getElementById("showMoreBtn");
+
+    if (!taskTableBody || !showMoreBtn) return;
+
+    taskTableBody.innerHTML = "";
+
+    const visibleLimit = 4;
+    taskList.forEach((task,index)=> {
+        row.innerHTML = `
+             <td>${task.taskName || "-"}</td>
+             <td>${task.startDate || "--/--/--"}</td>
+             <td>${task.totalDuration}</td>
+             <td><button class="resume" onclick ="resumeTask(${index})">Resume</button></td>
+             <td><button class= "delete" onclick="deleteTask(${index})">Delete</button></td>
+        `;
+
+        if (index >= visibleLimit) row.classList.add("hidden-row");
+        taskTableBody.appendChild(row);
+    });
+
+    if (taskList.length > visibleLimit) {
+        showMoreBtn.style.display = "block";
+    } else {
+        showMoreBtn.style.display = 'none';
+    }
+    renderWeeklyBarGraph();
+}
+
+function deleteTask(index) {
+    if (index >= 0  && index < taskList.length) {
+        taskList.splice(index,1);
+        saveTaskToLocalStorage();
+        renderTaskTable();
+    } else {
+        alert("invalid task index")
+    }
+}
+
+function resumeTask(index) {
+    if (index >= 0 && index < taskList.length) {
+        window.location.href = `timer.html?taskIndex = ${index}`;
+    } else {
+        alert ("Invalid task index");
+    };
+}
+
+function searchTasks() {
+    const query = document.getElementById("searchInput").value.trim().toLowerCase();
+    const resultsDiv = document.getElementById("searchResults");
+    resultsDiv.innerHTML = "";
+
+    const filtered = taskList.filter(task => 
+        task.taskName.toLowerCase().includes(query) ||
+        task.taskTag.toLowerCase().includes(query)
+    );
+    if (filtered.length === 0) {
+        resultsDiv.innerHTML = "<p>Oops!...No Matching resuts found</p>"
+        return;
+    }
+
+    filtered.forEach((task,i)=>{
+        const resultId = `search-result-${i}`;
+        const div = document.createElement("div");
+        div.classList.add("search-result");
+        div.id = resultId;
+        div.innerHTML = `
+             <strong> ${task.taskName}</strong><br>
+             ${task.taskTag}<br>
+             ${task.totalDuration}
+            <div class="clear" onclick="removeSearchResult('${resultId}')">
+             ❌
+             </div>
+        `;
+    })
+};
+
+function removeSearchResult(resultId) {
+    const resultEl = document.getElementById(resultId);
+    if (resultEl) resultEl.remove();
+}
+
+function startTask() {
+    const taskNameInput = document.getElementById("taskName");
+    const taskTagInput = document.getElementById("taskTag");
+    const taskDescriptionInput = document.getElementById("taskDescription");
+
+    const taskName = taskNameInput?.value.trim() || "Unnamed Task";
+    const taskTag = taskTagInput?.value?.trim() || "";
+    const taskDescription = taskDescriptionInput?.value?.trim() || "";
+
+    const startDate = new Date().toISOString().split("T")[0];
+    const startTime  = new Date().toLocaleTimeString();
+
+    const newTask = {
+        taskName,
+        taskTag,
+        taskDescription,
+        startDate,
+        startTime,
+        totalDuration:"00:00:00",
+        sessions : []
+    };
+
+    taskList.push(newTask);
+    saveTaskToLocalStorage();
+
+    const taskIndex = taskList.length - 1;
+    window.location.href = `timer.html?taskIndex = ${taskIndex}`;
 
 }
 
-const name = localStorage.getItem("profileName") || "N/A";
-const email = localStorage.getItem("profileEmail") || "N/A";
-document.getElementById("tooltipName").textContent = `Name: ${name}`;
-document.getElementById("tooltipEmail").textContent = `Email:${email}`;
+function saveTaskToLocalStorage() {
+    localStorage.setItem("tasks",JSON.stringify(taskList));
+}
 
-function toggleProfileDetails() {
-    document.querySelector('.profile-wrapper').classList.toggle("show");
+window.addEventListener("DOMContentLoaded",()=>{
+    const profileNameSpan = document.getElementById("profileName");
+    const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+
+    if (!loggedInUser) {
+        alert("You must be signed in to view the dashboard.");
+        window.location.href = "index.html";
+        return;
+
+    }
+
+
+    if(profileNameSpan) {
+        profileNameSpan.textContent = loggedInUser.firstName || "Guest";
+    }
+    renderTaskTable();
+ });
+
+ document.addEventListener("DOMContentLoaded",function () {
+    const showMoreBtn = document.getElementsById("showMoreBtn");
+    showMoreBtn?.addEventListener("click",()=> {
+        const hiddenRows = document.querySelectorAll(".hidden-rows");
+        hiddenRows.forEach(row => row.style.display ="table-row");
+        showMoreBtn.style.display = "none";
+    });
+ })
+
+ function toggleProfileDetails() {
+    document.querySelector(".profile-wrapper").classList.toggle('show');
+
+ }
+
+ document.querySelector(".show")?.addEventListener("click",renderWeeklyBarGraph);
+
+ //script.js
+ 
+ function createAccount() {
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const workSpace = document.getElementById('workspace').value.trim();
+    const jobRole = document.getElementById('jobrole').value.trim();
+    const passWord = document.getElementById('createPassword').value.trim();
+    const otherJob = document.getElementById('otherJob').value.trim();
+
+    
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (! emailPattern.test(email)) {
+       alert("Please enter a valid email address..");
+       
+    }
+}
+
+function renderWeeklyBarGraph() {
+    const weekData = {mon:0,Tue:0,Wed:0,Thur:0,Fri:0,Sat:0,Sun:0};
+    const dayMap = ["Sun","Mon","Tue","wed","Thurs","Fri","Sat"];
+
+    taskList.forEach(task => {
+        if (!task.startDate || !task.totalDuration) return;
+        const dayIndex = new Date(task.startDate).getDay();
+        const hours = parseDurationToHours(task.totalDuration);
+        if (!isNaN(hours)) {
+            weekData[dayMap[dayIndex]] += hours;
+        }
+    });
+
+    const durations = Object.values(weekData);
+    const maxDuration = Math.max(...durations,1);
+
+    const yAxisLabels = document.getElementById("yaxisLabels");
+    const barsContainer = document.getElementById("barsContainer");
+    const xAxisLabels = document.getElementById("xaxisLabels");
+
+    if (!yAxisLabels || !barsContainer || !xAxisLabels) return;
+
+    yAxisLabels.innerHTML = "";
+    barsContainer.innerHTML = "";
+    xAxisLabels.innerHTML = "";
+
+    const yFragment = document.createElementFragment();
+    for (let i = 5; i >= 0; i--) {
+        const label = document.createElement("div");
+        label.textContent = `${((maxDuration / 5) * i).toFixed(1)}h`;
+        yFragment.appendChild(label);
+    }
+    yAxisLabels.appendChild(yFragment);
+
+    const days = ["Mon","Tues","Wed","Thurs","Fri","Sat","Sun"];
+    const barsFragment = document.createElementFragment();
+    const xLabelsFragment = document.createDocumentFragment();
+
+    days.forEach(day => {
+        const barHeightPercent = (weekData[day]/maxDuration) * 100;
+        
+        const bar = document.createElement("div");
+        bar.className = "bar";
+        bar.style.height = `${barHeightPercent}%`;
+        bar.textContent = weekData[day].toFixed(1) || "0";
+        barsFragment.appendChild(bar);
+
+        
+    })
 }

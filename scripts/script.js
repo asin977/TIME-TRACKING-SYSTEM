@@ -12,7 +12,7 @@ function createAccount() {
         alert("Please enter a valid email address.");
         return;
     }
-
+   
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
     if (!passwordPattern.test(passWord)) {
         alert(
@@ -75,5 +75,26 @@ function signIn() {
         alert("Invalid username or password.");
     }
 }
+
+function toggleOtherJob() {
+    const jobSelect = document.getElementById("jobRole");
+    const otherInput = document.getElementById("otherJob");
+    if (jobSelect.value === "Other") {
+      otherInput.classList.remove("hidden");
+    } else {
+      otherInput.classList.add("hidden");
+    }
+  }
+// document.getElementById("togglePassword").addEventListener("click", function () {
+//     const passwordField = document.getElementById("createPassword");
+//     const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+//     passwordField.setAttribute("type", type);
+//   });
+
+// document.getElementById("toggleLoginPassword").addEventListener("click", function () {
+//     const passwordField = document.getElementById("loginPassword");
+//     const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+//     passwordField.setAttribute("type", type);
+// });
 
 document.getElementById('signIn').addEventListener('click', signIn);

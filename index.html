@@ -27,19 +27,29 @@
             <input type="text" id="email" placeholder="Email *"required>
             <input type="text" id="workspace" placeholder="Workspace(Company/Institution)">
     
-            <select name="job" id="jobrole" required>
-                <option value="">-- Select Job Role--</option>
-                <option value="developer">developer</option>
-                <option value="teacher">Teacher</option>
-                <option value="doctor">Doctor</option>
-                <option value="architect">Architect</option>
-                <option value="student">Student</option>
-                <option value="other">Other</option>
-            </select>
-            <input type="text" id="otherjob" placeholder="Please specify your job role">
+            <select name="job" id="jobRole" onchange="toggleOtherJob()">
+                <option value="">-- Select Job Role --</option>
+                <option value="Developer">Developer</option>
+                <option value="Designer">Designer</option>
+                <option value="Project Manager">Project Manager</option>
+                <option value="QA Tester">QA Tester</option>
+                <option value="Student">Student</option>
+                <option value="Other">Other</option>
+              </select>
+              <input type="text" id="otherJob" class="hidden" placeholder="Please specify your job role">
+          
     
             <div class="password-wrapper">
                 <input type="password" id="createpassword" placeholder="Create Password *"required>
+                <svg id="togglePassword" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 
+                    9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 
+                    0-8.268-2.943-9.542-7z" />
+                </svg>
             </div>
             <button id="account">Create Account</button>
             <div class="divider">OR</div>
@@ -50,6 +60,15 @@
             
             <div class="password-wrapper">
                 <input type="password" id="loginPassword" placeholder="Password *"required>
+                <svg id="toggleLoginPassword" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 
+                    9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 
+                    0-8.268-2.943-9.542-7z" />
+                </svg>
             </div>
             <button id="signIn">Sign In</button>
     
