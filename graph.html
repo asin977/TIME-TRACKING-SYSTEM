@@ -18,10 +18,15 @@
         <span id="profileName"></span>
 
         <div id="charts">
-            <!-- <div id="dailyGraphContainer">
-                <h3>📊 Today's Task Durations</h3>
-                <div id="dailyGraph"></div>
-            </div> -->
+            <div id="dailyTaskGraph" class="bar-graph-container">
+                <div class="y-axis" id="dailyYAxis"></div>
+                <div class="bars-wrapper">
+                  <div class="bars" id="dailyBars"></div>
+                  <div class="x-axis" id="dailyXAxis"></div>
+                </div>
+              </div>
+              
+              
             <div id="weeklyBarGraph" class="bar-graph">
                 <div class="y-axis" id="yAxisLabels"></div>
                 <div class="bars" id="barsContainer"></div>
@@ -62,3 +67,5 @@
 
 </body>
 </html>
+
+

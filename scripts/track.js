@@ -26,6 +26,28 @@ function parseDurationToHours(durationStr) {
   const [h, m, s] = durationStr.split(":").map(Number);
   return (h || 0) + (m || 0) / 60 + (s || 0) / 3600;
 }
+function startTask() {
+  const taskName = document.getElementById("taskName").value.trim();
+  const taskTag = document.getElementById("taskTag").value.trim();
+
+  if (!taskName || !taskTag) {
+    alert("⚠️ Please enter both the Task Name and Task Tag before tracking your time.");
+    return;
+  }
+  const description = document.getElementById("description").value.trim();
+  const startTime = new Date();
+
+  const task = {
+    name: taskName,
+    tag: taskTag,
+    description: description,
+    startTime: startTime.toISOString(),
+    sessions: []
+  };
+
+  sessionStorage.setItem("currentTask", JSON.stringify(task));
+  window.location.href = "timer.html";
+}
 
 function renderWeeklyBarGraph() {
     const weekData = { Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0, Sun: 0 };
@@ -174,7 +196,11 @@ function renderWeeklyBarGraph() {
     const taskNameInput = document.getElementById("taskName");
     const taskTagInput = document.getElementById("taskTag");
     const taskDescriptionInput = document.getElementById("taskDescription");
-  
+
+    if(!taskNameInput && !taskTagInput) {
+      alert("Please fill all the required columns...");
+    }
+
     const taskName = taskNameInput?.value.trim() || "Unnamed Task";
     const taskTag = taskTagInput?.value.trim() || "";
     const taskDescription = taskDescriptionInput?.value.trim() || "";

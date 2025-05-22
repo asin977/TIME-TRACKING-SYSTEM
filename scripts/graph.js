@@ -128,3 +128,68 @@ document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph)
 
 
 
+function renderDailyTaskGraph() {
+  const taskList = JSON.parse(localStorage.getItem("tasks") || "[]");
+  const today = new Date().toISOString().split("T")[0];
+
+  const dailyTaskDurations = {};
+
+  taskList.forEach(task => {
+    if (!task.startDate || !task.totalDuration) return;
+    if (task.startDate.startsWith(today)) {
+      const hours = parseDurationToHours(task.totalDuration);
+      if (!isNaN(hours)) {
+        dailyTaskDurations[task.taskName] = (dailyTaskDurations[task.taskName] || 0) + hours;
+      }
+    }
+  });
+
+  const taskNames = Object.keys(dailyTaskDurations);
+  const durations = taskNames.map(name => dailyTaskDurations[name]);
+
+  const yAxis = document.getElementById("dailyYAxis");
+  const barsContainer = document.getElementById("dailyBars");
+  const xAxis = document.getElementById("dailyXAxis");
+
+  yAxis.innerHTML = "";
+  barsContainer.innerHTML = "";
+  xAxis.innerHTML = "";
+
+  if (taskNames.length === 0) {
+    barsContainer.innerHTML = "<p>No tasks done today.</p>";
+    return;
+  }
+
+  const maxHours = Math.max(...durations, 1);
+
+  
+  for (let i = 10; i >= 0; i--) {
+    const labelValue = (maxHours / 10) * i;
+    const label = document.createElement("div");
+    label.textContent = labelValue.toFixed(1);
+    yAxis.appendChild(label);
+  }
+
+  taskNames.forEach(taskName => {
+    const hours = dailyTaskDurations[taskName];
+    const barHeightPercent = (hours / maxHours) * 100;
+
+    const bar = document.createElement("div");
+    bar.className = "bar";
+    bar.style.height = `${barHeightPercent}%`;
+
+    const durationLabel = document.createElement("span");
+    durationLabel.className = "duration";
+    durationLabel.textContent = hours.toFixed(2);
+    bar.appendChild(durationLabel);
+    barsContainer.appendChild(bar);
+
+    const xLabel = document.createElement("div");
+    xLabel.textContent = taskName.length > 8 ? taskName.slice(0, 8) + "…" : taskName;
+    xAxis.appendChild(xLabel);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderDailyTaskGraph();
+});

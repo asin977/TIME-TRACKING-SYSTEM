@@ -41,8 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-  
-  
   let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
   const taskTableBody = document.getElementById("taskTableBody");
   
@@ -135,6 +133,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const taskTag = document.getElementById("taskTag").value.trim();
     const description = document.getElementById("description").value.trim();
   
+    if(!taskName && !taskTag) {
+      alert("Please fill all the required fields before tracking the time..");
+      return;
+    }
+
     if (taskName && taskTag && description) {
       const taskData = {
         taskName,
@@ -197,21 +200,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
  
-
-  
-  
-
   function removeSearchResult(resultId) {
     const resultEl = document.getElementById(resultId);
     if (resultEl) {
       resultEl.remove();
     }
   }
-  
-  
-  
+
   document.addEventListener("DOMContentLoaded", () => {
     renderTaskTable();
   });
+  
+  
+
+  
+  
+  
 
   
