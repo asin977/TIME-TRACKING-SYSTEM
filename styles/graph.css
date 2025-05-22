@@ -180,7 +180,7 @@ h3 {
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
-    font-size: 15px;
+    font-size:18px;
     height: 100%;
     margin-right:19px;
 }
@@ -209,7 +209,7 @@ h3 {
     grid-row: 3 / 4;
     display: flex;
     justify-content: space-around;
-    font-size: 15px;
+    font-size:15px;
     margin-left:-65px;
 }
 
@@ -238,7 +238,6 @@ h3 {
     height: 300px;
 
   }
-  
   .bars-wrapper {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -269,14 +268,12 @@ h3 {
   }
   
   .bar .duration {
-    font-size: 10px;
+    font-size: 14px;
     color:#fff;
     padding: 2px 4px;
     background:black;
     border-radius: 3px;
-    margin-bottom: 3px;
   }
-  
   .x-axis {
     display: grid;
     grid-auto-flow: column;
@@ -296,7 +293,9 @@ h3 {
     footer {
         margin-top:105px;
     }
-
+    .y-axis {
+        font-size:20px;
+    }
 }
 @media screen and (min-width:760px) {
     #charts {

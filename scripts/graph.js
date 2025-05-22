@@ -185,7 +185,7 @@ function renderDailyTaskGraph() {
     barsContainer.appendChild(bar);
 
     const xLabel = document.createElement("div");
-    xLabel.textContent = taskName.length > 8 ? taskName.slice(0, 8) + "…" : taskName;
+    xLabel.textContent = taskName.length > 8 ? taskName.slice(0, 8) + "---" : taskName;
     xAxis.appendChild(xLabel);
   });
 }

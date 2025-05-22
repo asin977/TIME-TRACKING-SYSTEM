@@ -158,7 +158,7 @@ input:focus {
 .container2 {
     background: #fff;
     position: absolute;
-    bottom:-50%;
+    bottom:-56%;
     margin-left: 9px;
     margin-right: 9px;
     font-weight: 100;
@@ -224,7 +224,7 @@ footer {
         bottom:-54%;
     }
     footer {
-        margin-top:1272px;
+        margin-top:1241px;
     }
 }
 @media screen and (min-width:425px) {
@@ -252,10 +252,11 @@ footer {
     }
     .container2 {
         max-width: 500px;
-        bottom:-53%;
+        bottom:-58%;
     }
     footer{
         font-size:18px;
+        margin-top:1279px;
     }
     input{
         font-size:18px;
@@ -338,13 +339,17 @@ footer {
         top:55%;
         right:8%;
         max-height:239px;
+        font-size:19px;
         
     }
     .container {
         margin-left:60px;
     }
+    footer {
+        margin-top:910px;
+    }
 }
-@media screen and (min-width:1440px) {
+@media screen and (min-width:1200px) {
     .container{
         margin-left:100px;
     }
@@ -368,5 +373,10 @@ footer {
         right:10%;
         max-width:596px;
     }
+    footer {
+        margin-top:905px;
+    }
 }
+
+
 
