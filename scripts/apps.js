@@ -12,5 +12,72 @@ function createAccount() {
         return;
     }
 
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*/d)(?=.*[\W_]).{8,}
-;}
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    if (!passwordPattern.test(passWord)) {
+        alert(
+            "password must be atleast 8 characters and must include:\n"+
+            "One uppercase letter\n"+
+            "One lowercase letter\n"+
+            "One number\n"+
+            "One special charecter"
+        )
+        return;
+    
+        if (!firstName || !email || !jobRole || !passWord) {
+            alert ("Please fill all the required fields.")
+            return;
+        }
+        const userName = firstName.toLowerCase();
+        const existingUser = localStorage.getItem(userName);
+
+        if (existingUser) {
+            alert (`You have already created an account.\nPlease Sign In.\nYour username is: ${userName}\nYour password is: ${passWord}`);
+            return;
+        }
+        const finalJob = jobRole === "other" ? otherJob : jobRole;
+        const user = {
+            firstName,
+            lastName,
+            email,
+            workSpace,
+            jobRole : finalJob,
+            passWord
+        };
+        localStorage.setItem(userName,JSON.stringify(user));
+        alert (`Account created successfully!\nUsername:${firstName}\nPassword:${passWord}\nRemember these details to sign-In.`);
+    }
+    document.getElementById('account').addEventListener('click',createAccount);
+
+    function signIn() {
+        const loginFirstName = document.getElementById('loginFirstName').value.trim();
+        const loginPassword = document.getElementById('loginPassword').value;
+
+        const storedUser = JSON.parse(localStorage.getItem(loginFirstName.toLowerCase()));
+
+        if (storedUser && storedUser.passWord === loginPassword) {
+            alert(`Welcome,${storedUser.firstName}!\nWorkspace:${storedUser.workSpace || "N/A"}`);
+
+            sessionStorage.setItem("loggedInUser",JSON.stringify(storedUser));
+
+            window,location.href = "track.html";
+
+        }else {
+            alert("Invalid username or password.")
+        }
+    }
+
+}
+
+function toggleOtherJob() {
+    const jobSelect = document.getElementById("jobRole");
+    const otherInput = document.getElementById('otherJob');
+    if(jobSelect.value === "other") {
+        otherInput.classList.remove("hidden");
+
+    }else {
+        otherInput.classList.add("hidden");
+    }
+}
+document.getElementById("toggleLoginpassword").addEventListener()
+
+
