@@ -46,9 +46,12 @@ header {
 
 }
 .resume {
-    padding:3px;
+    padding:6px;
     font-weight:bold;
-    font-size:12px;
+    font-size:16px;
+}
+.edit {
+    font-size:16px;
 }
 .title {
     color:#222222;
@@ -134,7 +137,7 @@ table {
     width:100%;
     border-collapse:collapse;
     margin-top:20px;
-    margin-left:-24px;
+    margin-left:2px;
 }
 th, td {
     padding:10px;
@@ -216,7 +219,7 @@ p {
 }
 .image {
     position:absolute;
-    top:83%;
+    top:87%;
     left:47%;
     width:20px;
     height:20px;
@@ -306,7 +309,17 @@ p {
   .profile-wrapper.show .tooltip-content {
     display: block;
   } 
-
+  .edit {
+    font-weight:bold;
+  }
+  
+  .search-result a:hover {
+    text-decoration: underline;
+  }
+  .search-result a{
+    color:#fff;
+    font-weight:bold;
+  }
 @media screen and (min-width:375px) {
     textarea{
         width:283px;
@@ -317,7 +330,7 @@ p {
         margin-top:15px;
     }
     table {
-    margin-left:-14px;
+    margin-left:2px;
    }
    .tooltip-content span, .tooltip-content a {
     display: block;
@@ -344,7 +357,7 @@ p {
         font-size:15px;
     }
     table {
-        margin-left:-28px;
+        margin-left:0px;
     }
     input{
         font-size:18px;
@@ -367,7 +380,7 @@ p {
     }
     .image {
         position:absolute;
-        top:82%;
+        top:86%;
         }
     .name {
         top:19px;
@@ -414,7 +427,9 @@ p {
         margin-top:11px;
     }
     button {
-        padding:17px;
+        padding:8px;
+        font-size:16px;
+    
     }
     .tooltip-content {
         font-size:18px;
@@ -429,6 +444,15 @@ p {
         text-decoration: none;
         font-size:17px;
       }
+    .resume {
+        max-width:158px;
+    }
+    .edit {
+        max-width:158px;
+    }
+    .delete {
+        max-width:158px;
+    }
 }
 @media screen and (min-width:960px) {
     .main-containers {
