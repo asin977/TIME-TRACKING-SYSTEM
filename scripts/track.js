@@ -9,9 +9,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const tooltipName = document.getElementById('tooltipName');
   const tooltipEmail = document.getElementById('tooltipEmail');
+  const tooltipWorkSpace = document.getElementById('tooltipworkSpace');
 
   if (tooltipName) tooltipName.textContent = `Name: ${userData.firstName || "N/A"}`;
   if (tooltipEmail) tooltipEmail.textContent = `Email: ${userData.email || "N/A"}`;
+  if (tooltipWorkSpace) tooltipWorkSpace.textContent = `WorkSpace:${userData.workSpace || "N/A"}`;
 });
 
 

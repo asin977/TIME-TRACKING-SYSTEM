@@ -306,9 +306,7 @@ p {
   .profile-wrapper.show .tooltip-content {
     display: block;
   } 
-.profile {
-    color:darkred;
-}
+
 @media screen and (min-width:375px) {
     textarea{
         width:283px;
