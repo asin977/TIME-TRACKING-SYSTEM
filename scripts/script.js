@@ -94,3 +94,4 @@ document.getElementById("toggleLoginPassword").addEventListener("click", functio
 
 document.getElementById('signIn').addEventListener('click', signIn);
 
+

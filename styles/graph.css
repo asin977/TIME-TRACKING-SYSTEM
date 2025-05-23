@@ -285,7 +285,12 @@ h3 {
     margin-top: 5px;
     padding-left: 60px;
   }
-  
+  #profileName {
+    color:#fff;
+    font-weight:bold;
+    font-size:20px;
+    font-family:"Inconsolata";
+  }
 @media screen and (min-width:425px) {
     #showDailyStatus{
         font-size:18px;
@@ -419,4 +424,6 @@ h3 {
     justify-content: space-around;
     font-size: 12px;
 }
+
+
 

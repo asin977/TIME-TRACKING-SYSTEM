@@ -40,6 +40,10 @@ function renderWeeklyBarGraph() {
   }
   yAxisLabels.appendChild(yFragment);
 
+
+  const height = Math.min(400, maxDuration * 50); 
+  barsContainer.style.height = `${height}px`;
+
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const barsFragment = document.createDocumentFragment();
   const xLabelsFragment = document.createDocumentFragment();
@@ -126,8 +130,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
 document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph);
 
-
-
 function renderDailyTaskGraph() {
   const taskList = JSON.parse(localStorage.getItem("tasks") || "[]");
   const today = new Date().toISOString().split("T")[0];
@@ -163,6 +165,9 @@ function renderDailyTaskGraph() {
   const maxHours = Math.max(...durations, 1);
 
   
+  const height = Math.min(400, maxHours * 50);
+  barsContainer.style.height = `${height}px`;
+
   for (let i = 10; i >= 0; i--) {
     const labelValue = (maxHours / 10) * i;
     const label = document.createElement("div");
@@ -193,3 +198,4 @@ function renderDailyTaskGraph() {
 document.addEventListener("DOMContentLoaded", () => {
   renderDailyTaskGraph();
 });
+
