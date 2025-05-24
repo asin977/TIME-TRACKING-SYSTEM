@@ -229,7 +229,17 @@ thead {
     cursor: pointer;
     margin-top: 30px;
 }
-
+.show-more {
+    font-weight:bold;
+    font-size:18px;
+    max-width: 250px;
+}
+.button-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .details {
     list-style-type: none;
     font-family: sans-serif;

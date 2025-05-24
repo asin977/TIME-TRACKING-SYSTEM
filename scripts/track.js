@@ -106,18 +106,6 @@ function renderWeeklyBarGraph() {
     const totalBadge = document.getElementById("totalHoursBadge");
     if (totalBadge) totalBadge.textContent = `Total: ${totalHours}h this week`;
   }
-  
-  function resetTask() {
-    if (confirm("Are you sure? Do you want to reset all the tasks?")) {
-        localStorage.removeItem("tasks");
-        taskList = [];
-        document.querySelector("#tasktable tbody").innerHTML = "";
-        document.getElementById("activeTasks").innerHTML = "";
-        for (const id in taskTimers) clearInterval(taskTimers[id].interval);
-        taskTimers = {};
-        
-    }
-}
 
   function renderTaskTable() {
     const taskTableBody = document.getElementById("taskTableBody");
@@ -142,19 +130,44 @@ function renderWeeklyBarGraph() {
           </div>
         </td>
       `;
-  
       if (index >= visibleLimit) row.classList.add("hidden-row");
       taskTableBody.appendChild(row);
     });
   
     if (taskList.length > visibleLimit) {
       showMoreBtn.style.display = "block";
+      showMoreBtn.textContent = "Show More";
     } else {
       showMoreBtn.style.display = "none";
     }
   
     renderWeeklyBarGraph();
   }
+  document.addEventListener("DOMContentLoaded", function () {
+    const showMoreBtn = document.getElementById("showMoreBtn");
+  
+    if (!showMoreBtn) return;
+  
+    let expanded = false;
+  
+    showMoreBtn.addEventListener("click", () => {
+      const hiddenRows = document.querySelectorAll(".hidden-row");
+      if (!expanded) {
+        hiddenRows.forEach(row => row.style.display = "table-row");
+        showMoreBtn.textContent = "Show Less";
+      } else {
+        hiddenRows.forEach(row => row.style.display = "none");
+        showMoreBtn.textContent = "Show More";
+      }
+      expanded = !expanded;
+    });
+  });
+  
+
+  function toggleProfileDetails() {
+    document.querySelector('.profile-wrapper').classList.toggle('show');
+  }
+  
   
   
   function resumeTask(index) {
@@ -268,20 +281,29 @@ function renderWeeklyBarGraph() {
     renderTaskTable();
   });
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const showMoreBtn = document.getElementById("showMoreBtn");
-    showMoreBtn?.addEventListener("click", () => {
-      const hiddenRows = document.querySelectorAll(".hidden-row");
-      hiddenRows.forEach(row => row.style.display = "table-row");
-      showMoreBtn.style.display = "none"; 
-    });
-  });
-  function toggleProfileDetails() {
-    document.querySelector('.profile-wrapper').classList.toggle('show');
+function saveEdit(index) {
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const editedName = document.getElementById(`editName${index}`).value.trim();
+    const editedStartDate = document.getElementById(`editStartDate${index}`).value.trim();
+    const editedDuration = document.getElementById(`editDuration${index}`).value.trim();
+  
+    if (editedName === "") {
+      alert("Task name is required!");
+      return;
+    }
+  
+    tasks[index].name = editedName;
+    tasks[index].startDate = editedStartDate;
+    tasks[index].duration = editedDuration;
+  
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    renderTasks();
   }
   
+  function clearInputFields() {
+    document.getElementById("taskName").value = "";
+    document.getElementById("taskTag").value = "";
+    document.getElementById("description").value = "";
+  }
+
   document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph);
-
-
-
-  
