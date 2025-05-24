@@ -65,8 +65,7 @@ header {
 .title {
     color: #222222;
     text-align: center;
-    font-size: 2rem;
-    margin-bottom: 20px;
+    font-size: 1.7rem;
 }
 
 .track {
@@ -77,11 +76,10 @@ header {
     max-width: 250px;
 }
 
-/* .main-containers{
-    display:flex;
-    justify-content: center;
-    align-content: center;
-} */
+.task {
+    margin-top: 30px;
+}
+
 .task-container {
     background-color: #fff;
     padding-top: 10px;
@@ -229,17 +227,20 @@ thead {
     cursor: pointer;
     margin-top: 30px;
 }
+
 .show-more {
-    font-weight:bold;
-    font-size:18px;
+    font-weight: bold;
+    font-size: 18px;
     max-width: 250px;
 }
+
 .button-cont {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 .details {
     list-style-type: none;
     font-family: sans-serif;
@@ -272,10 +273,12 @@ thead {
     max-width: 250px;
 
 }
-.delete{
-    font-weight:bold;
-    font-size:16px;
+
+.delete {
+    font-weight: bold;
+    font-size: 16px;
 }
+
 .chart-container {
     display: flex;
     justify-content: center;
@@ -365,7 +368,7 @@ p {
 .profile-wrapper img {
     width: 40px;
     height: 40px;
-    
+
 }
 
 .tooltip-content {
@@ -505,12 +508,14 @@ p {
         color: #fff;
         text-decoration: none;
     }
+
     .profile-wrapper img {
-        margin-left:12px;
-        
+        margin-left: 12px;
+
     }
+
     #profileName {
-        left:10px;
+        left: 10px;
     }
 }
 
@@ -519,6 +524,7 @@ p {
     .task-container {
         padding-left: 60px;
         padding-right: 60px;
+        padding-top: 50px;
     }
 
     table {
@@ -608,6 +614,10 @@ p {
         justify-content: center;
         align-items: center;
     }
+
+    .task {
+        margin-top: 40px;
+    }
 }
 
 @media screen and (min-width:960px) {
@@ -633,6 +643,7 @@ p {
     .task-container {
         padding-left: 70px;
         padding-right: 70px;
+        padding-top:40px;
     }
 
     .image {
@@ -643,8 +654,13 @@ p {
         margin-top: 2px;
         padding: 14px;
     }
+
     #profileName {
-        left:1%;
+        left: 1%;
+    }
+
+    .task {
+        margin-top: 50px;
     }
 }
 
@@ -690,13 +706,23 @@ p {
     .task-container {
         padding-left: 80px;
         padding-right: 80px;
+        padding-top:40px;
     }
 
     .name {
         display: none;
     }
+
     #profileName {
-        left:1%;
+        left: 1%;
+    }
+
+    .title {
+        font-size: 2.2rem;
+    }
+
+    .task {
+        margin-top: 60px;
     }
 
     @media screen and (min-width:1440px) {
@@ -709,6 +735,7 @@ p {
         .task-container {
             padding-left: 100px;
             padding-right: 100px;
+            padding-top:56px;
         }
 
         .resume {
@@ -763,11 +790,19 @@ p {
         .name {
             display: none;
         }
+
         #profileName {
-            left:1%;
-            margin:0;
+            left: 1%;
+            margin: 0;
         }
-    
+
+        .title {
+            font-size: 2.2rem;
+        }
+
+        .task {
+            margin-top: 70px;
+        }
     }
 
     @media screen and (min-width:1875px) {
@@ -775,20 +810,25 @@ p {
             margin-top: -10px;
 
         }
+
         .chart-container {
             top: -3%;
         }
+
         #taskTableBody {
             font-size: 25px;
         }
+
         #profileName {
             left: 0%;
         }
+
         .image {
             position: absolute;
             left: 45%;
-            bottom:100%;
+            bottom: 100%;
         }
+
         .tooltip-content {
             display: none;
             position: absolute;
@@ -806,8 +846,17 @@ p {
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }
     }
+
     #profileName {
-        left:1%;
-        margin:0;
+        left: 1%;
+        margin: 0;
+    }
+
+    .title {
+        font-size: 2.3rem;
+    }
+
+    .task {
+        margin-top: 80px;
     }
 }
