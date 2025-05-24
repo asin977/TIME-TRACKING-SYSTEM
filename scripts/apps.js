@@ -78,6 +78,95 @@ function toggleOtherJob() {
         otherInput.classList.add("hidden");
     }
 }
-document.getElementById("toggleLoginpassword").addEventListener()
+document.getElementById("toggleLoginpassword").addEventListener("click",function () {
+    const passwordField = document.getElementById("loginPassword");
+    const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+    passwordField.setAttribute("type",type);
+
+});
+
+document.getElementById("signIn").addEventListener("click",signIn);
 
 
+
+
+let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function parseDurationToHours(durationStr) {
+    if (!durationStr || !durationStr.includes(":")) return 0;
+    const [h,m,s] = durationStr.split(":").map(Number);
+    return (h || 0) + (m || 0) / 60 + (s || 0) / 3600;
+}
+
+function renderWeeklyBarGraph() {
+    const weekData = {Mon:0,Tue:0,Wed:0,Thu:0,Fri:0,Sat:0,Sun:0}
+    const dayMap = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+    taskList.forEach(task => {
+        if (!task.startDate || !task.totalDuration) return;
+        const dayIndex = new Date(task.startDate).getDate();
+        const hours = parseDurationToHours(task.totalDuration);
+        if (!isNaN(hours)) {
+            weekData[dayMap[dayIndex]] += hours;
+        }
+    });
+
+    const durations = Object.values(weekData);
+    const maxDuration = Math.max(...durations,1);
+
+    const yAxisLabels = document.getElementById("yAxisLabels");
+    const barsContainer = document.getElementById("barsContainer");
+    const xAxisLabels = document.getElementById("xAxisLabels");
+
+    if (!yAxisLabels || !barsContainer || !xAxisLabels) return;
+
+    yAxisLabels.innerHTML = "";
+    barsContainer.innerHTML = "";
+    xAxisLabels.innerHTML = "";
+
+    const yFragment = document.createDocumentFragment();
+    for (let i = 5; i >= 0;i--) {
+        const label = document.createElement("div");
+        label.textContent = `${((maxDuration/5)*i).toFixed(1)}h`;
+        yFragment.appendChild(label);
+
+    }
+    yAxisLabels.appendChild(yFragment);
+
+    const height = Math.min(400,maxDuration*50);
+    barsContainer.style.height = `${height}px`;
+
+    const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+    const barsFragment = document.createDocumentFragment();
+    const xLabelsFragment = document.createDocumentFragment();
+
+    days.forEach(day => {
+        const barHeightPercent  = (weekData[day]/maxDuration)*100;
+
+        const bar = document.createElement("div");
+        bar.className = "bar";
+        bar.style.height = `${barHeightPercent}%`;
+        bar.textContent = weekData[day].toFixed(1) || "0";
+        barsFragment.appendChild(label);
+    });
+
+    barsContainer.appendChild(label);
+    xAxisLabels.appendChild(label);
+}
+
+function renderTaskTable() {
+    const taskTableBody = document.getElementById("taskTableBody");
+    if (!taskTableBody) return;
+
+    taskTableBody.innerHTML = "";
+    const fragment = document.createDocumentFragment();
+
+    taskList.forEach((task,index)=> {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td></td>
+            <td></td>
+            <td></td>
+        `
+    })
+}

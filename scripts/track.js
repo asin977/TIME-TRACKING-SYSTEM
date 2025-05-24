@@ -138,7 +138,7 @@ function renderWeeklyBarGraph() {
           <div class="more"> 
             <button class="resume" onclick="resumeTask(${index})">🕒 Resume</button>
             <button class="edit" onclick="editTask(${index})">✏️ Edit</button>
-            <button class="delete" onclick="deleteTask(${index})">🗑️</button>
+            <button class="delete" onclick="deleteTask(${index})">🗑️ Delete</button>
           </div>
         </td>
       `;

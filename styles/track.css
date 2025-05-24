@@ -262,7 +262,10 @@ thead {
     max-width: 250px;
 
 }
-
+.delete{
+    font-weight:bold;
+    font-size:16px;
+}
 .chart-container {
     display: flex;
     justify-content: center;
