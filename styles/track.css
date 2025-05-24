@@ -5,256 +5,330 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    position:relative;
+    position: relative;
 }
+
 img {
-    width:50px;
-    height:50px;
-    margin-left:-4px;
+    width: 50px;
+    height: 50px;
+    margin-left: -4px;
 }
+
 header {
-    background-color:#fff;
+    background-color: #fff;
     display: flex;
     align-items: center;
     box-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
     border-bottom: 2px solid #fff;
     position: relative;
     z-index: 1;
-    padding:12px;
+    padding: 12px;
 }
+
 .names {
     margin: 0px;
     position: absolute;
     right: 14px;
-    top:35px;
+    top: 35px;
 }
-.button{
-    font-weight:bold;
-    color:#fff;
-    border-radius:50px;
-    padding:5px 8px;
+
+.button {
+    font-weight: bold;
+    color: #fff;
+    border-radius: 50px;
+    padding: 5px 8px;
+    margin-top: 6px;
 }
+
 #profileName {
     margin-left: 8px;
     font-weight: bold;
-    color:black;
-    font-size:16px;
-    position:absolute;
-    bottom:-5%;
-    left:1%;
-    font-size:20px;
+    color: black;
+    font-size: 16px;
+    position: absolute;
+    bottom: -5%;
+    left: 1%;
+    font-size: 20px;
 
 }
+
 .resume {
-    padding:6px;
-    font-weight:bold;
-    font-size:16px;
+    padding: 6px;
+    font-weight: bold;
+    font-size: 16px;
 }
+
 .edit {
-    font-size:16px;
+    font-size: 16px;
 }
+
 .title {
-    color:#222222;
+    color: #222222;
     text-align: center;
-    font-size:2rem;
-    margin-bottom:20px;
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
-.track{
-    background-color:black;
-    font-weight:bold;
-    font-size:19px;
-    cursor:pointer;
+
+.track {
+    background-color: black;
+    font-weight: bold;
+    font-size: 19px;
+    cursor: pointer;
+    max-width: 250px;
 }
-.main-containers{
+
+/* .main-containers{
     display:flex;
     justify-content: center;
     align-content: center;
-}
+} */
 .task-container {
     background-color: #fff;
-    padding:10px;
-    margin-left:2px;
-    border-radius:10px;
-    box-shadow:4px 9px 16px rgba(0,0,0,0.5);
-    margin-top:8px;
-    margin-right:2px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-left: 2px;
+    border-radius: 10px;
+    box-shadow: 4px 9px 16px rgba(0, 0, 0, 0.5);
+    margin-top: 8px;
+    margin-right: 2px;
     overflow-x: hidden;
-    
+
 }
+
 .search-result {
-    font-size:25px;
-    margin-top:12px;
-    margin-bottom:12px;
+    font-size: 25px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+
 }
+
 textarea {
-    margin-top:10px;
-    width:261px;
-    height:130px;
+    margin-top: 10px;
+
 }
+
 label {
-    display:block;
-    margin-top:10px;
-    font-weight:bold;
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
 }
+
 .search-section {
-    margin-top:20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+
 .search {
-    font-weight:bold;
-    font-size:18px;
+    font-weight: bold;
+    font-size: 18px;
+    max-width: 250px;
+
 }
+
+.more-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #description {
-    padding:12px;
-    font-family:sans-serif;
-    font-size:15px;
-    border:1px solid #ccc;
+    padding: 12px;
+    font-family: sans-serif;
+    font-size: 15px;
+    border: 1px solid #ccc;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
 }
+
 #description:hover {
-    transform: scale(1.02); 
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+    transform: scale(1.02);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
-#desciption:active,:focus{
-    outline:none;
+
+#desciption:active,
+:focus {
+    outline: none;
 }
+
 #taskDate {
-    border:1px solid #ccc;
-    
+    border: 1px solid #ccc;
+
 }
-input, button {
-    width:100%;
-    padding:10px;
-    margin-top:6px;
-    border-radius:5px;
+
+input,
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 5px;
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: black;
+    color: #fff;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
 .table-header {
-    margin-left:-9px;
+    margin-left: -9px;
 }
 
 table {
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-    margin-left:2px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-left: -18px;
 }
-th, td {
-    padding:10px;
-    border:1px solid #ccc;
-    text-align:center;
-}
-th {
-    background-color:#eeee;
-}
-.reset {
-    width:100%;
-    padding:10px;
-}
-caption {
-    font-size:26px;
-    margin-bottom:10px;
-}
-caption {
-    margin-top:15px;
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ccc;
     text-align: center;
 }
-thead{
-    margin-top:12px;
+
+th {
+    background-color: #eeee;
 }
+
+.reset {
+    width: 100%;
+    padding: 10px;
+}
+
+caption {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+caption {
+    margin-top: 15px;
+    text-align: center;
+}
+
+thead {
+    margin-top: 12px;
+}
+
 .clear {
-    font-weight:bold;
-    font-size:18px;
-    cursor:pointer;
-    margin-top:30px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 30px;
 }
+
 .details {
-    list-style-type:none;
-    font-family:sans-serif;
-    font-size:18px;
-    color:rgb(22, 1, 1);
-    margin-left:12px;
+    list-style-type: none;
+    font-family: sans-serif;
+    font-size: 18px;
+    color: rgb(22, 1, 1);
+    margin-left: 12px;
 }
+
 .detail-cont {
     background-color: #ccc;
-    padding:5px;
-    border-radius:10px;
+    padding: 5px;
+    border-radius: 10px;
     box-shadow: 0px 4px 20px rgba(204, 204, 204, 0.7);
 }
-.search-result  {
-   text-align: center;
-   background-color:black;
-   margin-top:10px;
-   color:#fff;
-   font-size:18px;
-   margin-bottom:12px;
-   box-shadow: 0px 4px 20px rgba(5, 4, 4, 0.7);
+
+.search-result {
+    text-align: center;
+    background-color: black;
+    margin-top: 10px;
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 12px;
+    box-shadow: 0px 4px 20px rgba(5, 4, 4, 0.7);
 }
+
 .delete-records {
-    font-weight:bold;
-    font-size:18px;
-    cursor:pointer;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    max-width: 250px;
+
 }
+
 .chart-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; 
+    flex-direction: column;
     margin: 20px auto;
-    max-width:529px; 
+    max-width: 529px;
 }
- footer {
-    background-color:#fff;
-    color:black;
+
+footer {
+    background-color: #fff;
+    color: black;
     text-align: center;
     padding: 20px 10px;
     font-family: 'Inconsolata', monospace;
     font-size: 15px;
-    margin-top:12px;
+    margin-top: 12px;
     position: relative;
+    border: none;
 }
+
 p {
-    font-size:18px;
-    font-weight:bold;
+    font-size: 18px;
+    font-weight: bold;
 }
+
 .image {
-    position:absolute;
-    top:87%;
-    left:47%;
-    width:20px;
-    height:20px;
+    position: absolute;
+    top: 87%;
+    left: 47%;
+    width: 20px;
+    height: 20px;
 }
+
 .hidden-row {
     display: none;
-  }
- 
- .profile-wrapper {
+}
+
+.profile-wrapper {
     position: relative;
     display: inline-block;
-  }
+}
+
 .tooltip-content {
     display: none;
     position: absolute;
     top: 110%;
     left: 161%;
     transform: translateX(-50%);
-    background-color:#fff;
-    color:black;
+    background-color: #fff;
+    color: black;
     padding: 15px 20px;
     border-radius: 6px;
     font-size: 18px;
-    font-weight:bold;
+    font-weight: bold;
     text-align: center;
     white-space: nowrap;
     z-index: 1;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  }
+}
 
-  .profile-wrapper:hover .tooltip-content {
+.profile-wrapper:hover .tooltip-content {
     display: block;
-  }
+}
 
-  .tooltip-content::before {
+.tooltip-content::before {
     content: "";
     position: absolute;
     top: -6px;
@@ -263,29 +337,30 @@ p {
     border-width: 6px;
     border-style: solid;
     border-color: transparent transparent #333 transparent;
-  } 
+}
 
-  .tooltip-content span {
+.tooltip-content span {
     display: block;
-  }  
-  .profile-wrapper {
+}
+
+.profile-wrapper {
     position: relative;
     display: inline-block;
     cursor: pointer;
-  }
+}
 
-  .profile-wrapper img {
+.profile-wrapper img {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-  } 
+    
+}
 
-  .tooltip-content {
+.tooltip-content {
     display: none;
     position: absolute;
     top: 110%;
-    left:264%;
-    background-color:black;
+    left: 264%;
+    background-color: black;
     color: #fff;
     padding: 10px 14px;
     border-radius: 6px;
@@ -293,306 +368,433 @@ p {
     z-index: 10;
     min-width: 200px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  }
+}
 
-  .tooltip-content span, .tooltip-content a {
+.tooltip-content span,
+.tooltip-content a {
     display: block;
     margin-bottom: 6px;
     color: white;
     text-decoration: none;
-  }
-
-  .tooltip-content a:hover {
-    text-decoration: underline;
-  }
-
-  .profile-wrapper.show .tooltip-content {
-    display: block;
-  } 
-  .edit {
-    font-weight:bold;
-  }
-  
-  .search-result a:hover {
-    text-decoration: underline;
-  }
-  .search-result a{
-    color:#fff;
-    font-weight:bold;
-  }
-@media screen and (min-width:375px) {
-    textarea{
-        width:283px;
-    }
-    .task-container {
-        max-width:360px;
-        padding:20px;
-        margin-top:15px;
-    }
-    table {
-    margin-left:2px;
-   }
-   .tooltip-content span, .tooltip-content a {
-    display: block;
-    margin-bottom: 6px;
-    color:#fff;
-    text-decoration: none;
-    font-size:16px;
-    margin-left:10px;
-  }
-  .tooltip-content {
-    left:324%;
-  }
 }
+
+.tooltip-content a:hover {
+    text-decoration: underline;
+}
+
+.profile-wrapper.show .tooltip-content {
+    display: block;
+}
+
+.edit {
+    font-weight: bold;
+}
+
+.search-result a:hover {
+    text-decoration: underline;
+}
+
+.search-result a {
+    color: #fff;
+    font-weight: bold;
+}
+
+@media screen and (min-width:375px) {
+    .task-container {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    table {
+        margin-left: 2px;
+    }
+
+    .tooltip-content span,
+    .tooltip-content a {
+        display: block;
+        margin-bottom: 6px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    .tooltip-content {
+        left: 324%;
+    }
+}
+
 @media screen and (min-width:425px) {
     .titles {
-        right:73px;
+        right: 73px;
         max-width: 0%;
     }
+
     .task-container {
-        max-width:381px;
-        padding:17px;
+        padding-left: 40px;
+        padding-right: 40px;
     }
-    .resume{
-        font-size:15px;
+
+    .resume {
+        font-size: 15px;
     }
+
     table {
-        margin-left:0px;
+        margin-left: 0px;
     }
-    input{
-        font-size:18px;
+
+    input {
+        font-size: 18px;
     }
+
     label {
-        font-size:18px;
+        font-size: 18px;
     }
+
     #description {
-        font-size:18px;
+        font-size: 18px;
     }
+
     #taskTableBody {
-        font-size:18px;
+        font-size: 18px;
     }
+
     footer {
-        font-size:18px;
-        margin-top:42px;
+        font-size: 18px;
+        margin-top: 16px;
     }
+
     #profileName {
-        left:0px;
+        left: 0px;
     }
+
     .image {
-        position:absolute;
-        top:86%;
-        }
+        position: absolute;
+        top: 86%;
+    }
+
     .name {
-        top:19px;
-    }    
+        top: 19px;
+    }
+
     .tooltip-content {
-        font-size:18px;
-        left:381%;
-        background-color:black;
-        color:#fff;
+        font-size: 18px;
+        left: 381%;
+        background-color: black;
+        color: #fff;
         min-width: 250px;
     }
-    .tooltip-content span, .tooltip-content a {
+
+    .tooltip-content span,
+    .tooltip-content a {
         display: block;
         margin-bottom: 6px;
-        color:#fff;
+        color: #fff;
         text-decoration: none;
-      }
+    }
+    .profile-wrapper img {
+        margin-left:12px;
+        
+    }
+    #profileName {
+        left:10px;
+    }
 }
+
 @media screen and (min-width:768px) {
+
     .task-container {
-        max-width:543px;
+        padding-left: 60px;
+        padding-right: 60px;
     }
+
     table {
-        margin-left:0px;
+        margin-left: 0px;
     }
+
     .resume {
-        font-size:16px;
-        padding:8px;
+        font-size: 16px;
+        padding: 8px;
     }
+
     .name {
-        top:16px;
+        top: 24px;
+        right: 12%;
     }
+
+    .names {
+        top: 12px;
+    }
+
     #taskTableBody {
-        font-size:19px;
+        font-size: 19px;
     }
-    p{
-        font-size:19px;
+
+    p {
+        font-size: 19px;
     }
+
+    .more-btn {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        justify-content: center;
+        align-items: center;
+    }
+
     .image {
-    position:absolute;
-    top:87%;
+        position: absolute;
+        top: 87%;
     }
-    footer{
-        margin-top:11px;
+
+    footer {
+        margin-top: 11px;
     }
+
     button {
-        padding:8px;
-        font-size:16px;
-    
+        padding: 8px;
+        font-size: 16px;
+
     }
+
+    .button {
+        margin-top: 10px;
+    }
+
     .tooltip-content {
-        font-size:18px;
-        left:118px;
-        background-color:#fff;
-        color:black;
+        font-size: 18px;
+        left: 118px;
+        background-color: #fff;
+        color: black;
     }
-    .tooltip-content span, .tooltip-content a {
+
+    .tooltip-content span,
+    .tooltip-content a {
         display: block;
         margin-bottom: 6px;
-        color:black;
+        color: black;
         text-decoration: none;
-        font-size:17px;
-      }
-    .resume {
-        max-width:158px;
+        font-size: 17px;
     }
+
+    .resume {
+        max-width: 158px;
+    }
+
     .edit {
-        max-width:158px;
+        max-width: 158px;
     }
+
     .delete {
-        max-width:158px;
+        max-width: 158px;
+    }
+
+    .more {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
+
 @media screen and (min-width:960px) {
-    .main-containers {
-        display:flex;
-        justify-content:space-between;
-    }
     .chart-container {
-        position:absolute;
-        top:3%;
-        right:0%;
-        max-width:449px;
+        position: absolute;
+        top: 3%;
+        right: 0%;
+        max-width: 449px;
     }
-    .task-container{
-        margin-left:246px;
-        max-width:652px;
-    }
+
     #taskTableBody {
-        font-size:20px;
+        font-size: 20px;
     }
+
     #profileName {
-        left:0%;
+        left: 0%;
     }
-}
-@media  screen and (min-width:1148px) {
-    .main-containers {
-        margin-left:200px;
+
+    .more-btn {
+        gap: 40px;
     }
-    .chart-container {
-        margin-right:150px;
-    }
+
     .task-container {
-        max-width:750px;
+        padding-left: 70px;
+        padding-right: 70px;
     }
-    #taskTableBody {
-        font-size:21px;
-    }
-    p{
-        font-size:22px;
-    }
-    #profileName {
-        left:0%;
-    }
-    .tooltip-content {
-        display: none;
-        position: absolute;
-        top: 110%;
-        right:150%;
-        background-color:#fff;
-        color:black;
-        padding-left:30px;
-        padding-right:35px;
-        border-radius: 6px;
-}
-@media screen and (min-width:1440px) {
-     .task-container {
-        margin-left:250px;
-        width:5000px;
-     }
-    #charts {
-        margin-top:-10px;
-        margin:58px;
-        width:460px;
-    }
-    .resume {
-        padding:8px;
-        font-size:18px;
-    }
-    table {
-        margin-left:0px;
-    }
-    #taskTableBody {
-        font-size:22px;
-    }
-    #profileName {
-        left:0%;
-    }
-    .image {
-        position:absolute;
-        right:30%;
-        }
-    .tooltip-content {
-        display: none;
-        position: absolute;
-        top: 110%;
-        left:400%;
-        background-color:#fff;
-        color:black;
-        padding-left:10px;
-        padding-right:10px;
-        border-radius: 6px;
-        font-size: 14px;
-        z-index: 10;
-        min-width:300px;
-        font-weight:bold;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-        }     
-    .tooltip-content span, .tooltip-content a {
-        display: block;
-        margin-bottom: 6px;
-        color: black;
-        font-size:20px;
-        text-decoration: none;
-        } 
-    
-  }
-@media screen and (min-width:1920px) {
-    #charts {
-        margin-top:-10px;
 
+    .image {
+        top: 95%;
     }
+
+    .button {
+        margin-top: 2px;
+        padding: 14px;
+    }
+    #profileName {
+        left:1%;
+    }
+}
+
+@media screen and (min-width:1148px) {
+    .more {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+    }
+
     .chart-container {
-        top:-3%;
+        margin-right: 150px;
     }
+
     #taskTableBody {
-        font-size:25px;
+        font-size: 21px;
     }
+
+    p {
+        font-size: 22px;
+    }
+
     #profileName {
-        left:0%;
+        left: 0%;
     }
-    .image {
-        position:absolute;
-        left:40%;
-        }
+
     .tooltip-content {
         display: none;
         position: absolute;
         top: 110%;
-        left:350%;
-        background-color:#fff;
+        right: 150%;
+        background-color: #fff;
         color: black;
-        padding-left:10px;
-        padding-right:10px;
+        padding-left: 30px;
+        padding-right: 35px;
         border-radius: 6px;
-        font-size: 14px;
-        z-index: 10;
-        min-width: 260px;
-        font-weight:bold;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-        }    
-}
+    }
 
-}
+    .image {
+        top: 85%;
+    }
 
+    .task-container {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+
+    .name {
+        display: none;
+    }
+    #profileName {
+        left:1%;
+    }
+
+    @media screen and (min-width:1440px) {
+        #charts {
+            margin-top: -10px;
+            margin: 58px;
+            width: 460px;
+        }
+
+        .task-container {
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        .resume {
+            padding: 8px;
+            font-size: 18px;
+        }
+
+        table {
+            margin-left: 0px;
+        }
+
+        #taskTableBody {
+            font-size: 22px;
+        }
+
+        #profileName {
+            left: 0%;
+        }
+
+        .image {
+            position: absolute;
+            right: 30%;
+            top: 85%;
+        }
+
+        .tooltip-content {
+            display: none;
+            position: absolute;
+            top: 110%;
+            left: 400%;
+            background-color: #fff;
+            color: black;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            z-index: 10;
+            min-width: 300px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .tooltip-content span,
+        .tooltip-content a {
+            display: block;
+            margin-bottom: 6px;
+            color: black;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        .name {
+            display: none;
+        }
+        #profileName {
+            left:1%;
+            margin:0;
+        }
+    
+    }
+
+    @media screen and (min-width:1875px) {
+        #charts {
+            margin-top: -10px;
+
+        }
+        .chart-container {
+            top: -3%;
+        }
+        #taskTableBody {
+            font-size: 25px;
+        }
+        #profileName {
+            left: 0%;
+        }
+        .image {
+            position: absolute;
+            left: 45%;
+            bottom:100%;
+        }
+        .tooltip-content {
+            display: none;
+            position: absolute;
+            top: 110%;
+            left: 350%;
+            background-color: #fff;
+            color: black;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            z-index: 10;
+            min-width: 260px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        }
+    }
+    #profileName {
+        left:1%;
+        margin:0;
+    }
+}

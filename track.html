@@ -28,7 +28,7 @@
 
   <div class="main-containers">
     <div class="task-container">
-      <h2 class="title">⏰ TIME TRACKER</h2>
+      <h2 class="title">⏰ TIMEWISE TRACKER</h2>
 
       <label for="taskName">Task Name:</label>
       <input type="text" id="taskName" placeholder="Enter your task here *" required>
@@ -38,9 +38,10 @@
 
       <label for="description">Description:</label>
       <textarea id="description" placeholder="Task description if necessary.."></textarea>
-
-      <button class="track" onclick="startTask()">Track your Time ➡️</button>
-      <button class="delete-records" onclick="resetTask()">Delete All Records</button>
+      <div class="more-btn">
+        <button class="track" onclick="startTask()">Track your Time ➡️</button>
+        <button class="delete-records" onclick="resetTask()">Delete All Records</button>
+      </div>
 
       <div class="search-section">
         <input type="text" id="searchInput" placeholder="Search by task/tag name">

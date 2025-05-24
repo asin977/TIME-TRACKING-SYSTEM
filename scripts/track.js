@@ -106,6 +106,18 @@ function renderWeeklyBarGraph() {
     const totalBadge = document.getElementById("totalHoursBadge");
     if (totalBadge) totalBadge.textContent = `Total: ${totalHours}h this week`;
   }
+  
+  function resetTask() {
+    if (confirm("Are you sure? Do you want to reset all the tasks?")) {
+        localStorage.removeItem("tasks");
+        taskList = [];
+        document.querySelector("#tasktable tbody").innerHTML = "";
+        document.getElementById("activeTasks").innerHTML = "";
+        for (const id in taskTimers) clearInterval(taskTimers[id].interval);
+        taskTimers = {};
+        
+    }
+}
 
   function renderTaskTable() {
     const taskTableBody = document.getElementById("taskTableBody");
@@ -123,9 +135,11 @@ function renderWeeklyBarGraph() {
         <td>${task.startDate || "--/--/----"}</td>
         <td>${task.totalDuration || "00:00:00"}</td>
         <td>
-          <button class="resume" onclick="resumeTask(${index})">🕒 Resume</button>
-          <button class="edit" onclick="editTask(${index})">✏️ Edit</button>
-          <button class="delete" onclick="deleteTask(${index})">🗑️</button>
+          <div class="more"> 
+            <button class="resume" onclick="resumeTask(${index})">🕒 Resume</button>
+            <button class="edit" onclick="editTask(${index})">✏️ Edit</button>
+            <button class="delete" onclick="deleteTask(${index})">🗑️</button>
+          </div>
         </td>
       `;
   
