@@ -158,7 +158,7 @@ input:focus {
 .container2 {
     background: #fff;
     position: absolute;
-    bottom:-56%;
+    bottom:-58%;
     margin-left: 9px;
     margin-right: 9px;
     font-weight: 100;
@@ -187,7 +187,7 @@ footer {
     padding: 20px 10px;
     font-family: 'Inconsolata', monospace;
     font-size: 14px;
-    margin-top:1250px;
+    margin-top:1311px;
     position: relative;
     border:10px solid black;
 }
@@ -221,7 +221,7 @@ footer {
     }
     
     .container2 {
-        bottom:-54%;
+        bottom:-49%;
     }
     footer {
         margin-top:1241px;
