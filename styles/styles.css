@@ -127,7 +127,7 @@ button:hover {
     margin:0px;
     position:absolute;
     right:14px;
-    top:22px;
+    top:16px;
 }
 input:focus {
     outline: none;
@@ -232,7 +232,7 @@ footer {
         font-size:30px;
     }
     .container2 {
-        bottom:-53%;
+        bottom:-49%;
     }
     .name {
         font-size:21px;
@@ -252,7 +252,7 @@ footer {
     }
     .container2 {
         max-width: 500px;
-        bottom:-58%;
+        bottom:-53%;
     }
     footer{
         font-size:18px;
