@@ -89,7 +89,7 @@ function renderWeeklyBarGraph(isPreviousWeek = false) {
 document.getElementById("toggleWeekBtn").addEventListener("click", () => {
   showPreviousWeek = !showPreviousWeek;
   renderWeeklyBarGraph(showPreviousWeek);
-  document.getElementById("toggleWeekBtn").textContent = showPreviousWeek ? "📊 Current Week ➡️" : "📊 ⬅️ Previous Week";
+  document.getElementById("toggleWeekBtn").textContent = showPreviousWeek ? "📊 Current Week ➡️" : " ⬅️ 📊 Previous Week";
 });
 
 

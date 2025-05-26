@@ -41,7 +41,6 @@ header {
 }
 
 #profileName {
-    margin-left: 8px;
     font-weight: bold;
     color: black;
     font-size: 16px;
@@ -388,8 +387,8 @@ p {
 .tooltip-content {
     display: none;
     position: absolute;
-    top: 110%;
-    left: 264%;
+    top:155%;
+    left:388%;
     background-color: black;
     color: #fff;
     padding: 10px 14px;
@@ -399,14 +398,17 @@ p {
     min-width: 200px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
-
 .tooltip-content span,
 .tooltip-content a {
-    display: block;
-    margin-bottom: 6px;
-    color: white;
-    text-decoration: none;
-}
+        display: block;
+        margin-bottom: 6px;
+        color:#fff;
+        font-size: 20px;
+        text-decoration: none;
+        background-color:#222222;
+        padding:20px;
+        padding-right:10px;
+    }
 
 .tooltip-content a:hover {
     text-decoration: underline;
@@ -441,16 +443,21 @@ p {
 
     .tooltip-content span,
     .tooltip-content a {
-        display: block;
-        margin-bottom: 6px;
-        color: #fff;
-        text-decoration: none;
-        font-size: 16px;
-        margin-left: 10px;
-    }
-
+            display: block;
+            margin-bottom: 6px;
+            color:#fff;
+            font-size: 20px;
+            text-decoration: none;
+            background-color:#222222;
+            padding:20px;
+            padding-right:10px;
+        }
     .tooltip-content {
-        left: 324%;
+        left:383%;
+        top:134%;
+    }
+    #profieName {
+        left:0%;
     }
 }
 
@@ -509,19 +516,24 @@ p {
 
     .tooltip-content {
         font-size: 18px;
-        left: 381%;
+        left:316%;
         background-color: black;
         color: #fff;
         min-width: 250px;
+        top:134%;
     }
 
     .tooltip-content span,
     .tooltip-content a {
-        display: block;
-        margin-bottom: 6px;
-        color: #fff;
-        text-decoration: none;
-    }
+            display: block;
+            margin-bottom: 6px;
+            color:#fff;
+            font-size: 20px;
+            text-decoration: none;
+            background-color:#222222;
+            padding:20px;
+            padding-right:10px;
+        }
 
     .profile-wrapper img {
         margin-left: 12px;
@@ -529,7 +541,7 @@ p {
     }
 
     #profileName {
-        left: 10px;
+        left:16px;
     }
 }
 
@@ -597,19 +609,22 @@ p {
 
     .tooltip-content {
         font-size: 18px;
-        left: 118px;
+        left:281%;
         background-color: #fff;
         color: black;
     }
 
     .tooltip-content span,
     .tooltip-content a {
-        display: block;
-        margin-bottom: 6px;
-        color: black;
-        text-decoration: none;
-        font-size: 17px;
-    }
+            display: block;
+            margin-bottom: 6px;
+            color:#fff;
+            font-size: 20px;
+            text-decoration: none;
+            background-color:#222222;
+            padding:20px;
+            padding-right:10px;
+        }
 
     .resume {
         max-width: 158px;
@@ -647,6 +662,20 @@ p {
         align-items:center;
 
     }
+    th {
+        font-size:20px;
+    }
+    .tooltip-content span,
+    .tooltip-content a {
+            display: block;
+            margin-bottom: 6px;
+            color:#fff;
+            font-size: 20px;
+            text-decoration: none;
+            background-color:#222222;
+            padding:20px;
+            padding-right:10px;
+        }
 }
 
 @media screen and (min-width:960px) {
@@ -692,6 +721,17 @@ p {
     .task {
         margin-top: 50px;
     }
+    .tooltip-content span,
+    .tooltip-content a {
+            display: block;
+            margin-bottom: 6px;
+            color:#fff;
+            font-size: 20px;
+            text-decoration: none;
+            background-color:#222222;
+            padding:20px;
+            padding-right:10px;
+        }
 }
 
 @media screen and (min-width:1148px) {
@@ -754,7 +794,20 @@ p {
     .task {
         margin-top: 60px;
     }
+    th {
+        font-size:23px;
+    }
+    .tooltip-content span,
+    .tooltip-content a {
+            display: block;
+            margin-bottom: 6px;
+            color:#fff;
+            font-size: 20px;
+            text-decoration: none;
+            background-color:#222222;
+            padding:20px;
 
+        }
     @media screen and (min-width:1440px) {
         #charts {
             margin-top: -10px;
@@ -802,7 +855,7 @@ p {
             border-radius: 6px;
             font-size: 14px;
             z-index: 10;
-            min-width: 300px;
+            min-width: 350px;
             font-weight: bold;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }
@@ -811,9 +864,12 @@ p {
         .tooltip-content a {
             display: block;
             margin-bottom: 6px;
-            color: black;
+            color:#fff;
             font-size: 20px;
             text-decoration: none;
+            background-color:#222222;
+            padding:20px;
+            padding-right:10px;
         }
 
         .name {
@@ -873,7 +929,7 @@ p {
             border-radius: 6px;
             font-size: 14px;
             z-index: 10;
-            min-width: 260px;
+            min-width:350px;
             font-weight: bold;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }
