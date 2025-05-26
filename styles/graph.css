@@ -66,7 +66,7 @@ button {
 #charts {
     display:flex;
     flex-wrap: wrap;
-    gap:20px;
+    gap:100px;
     margin:15px;
     justify-content: center;
     background-color:#fff;
@@ -84,6 +84,7 @@ button {
     color:#fff;
     max-width:87%;
 }
+
 #monthyCharts:hover{
     background-color: rgb(42, 41, 43);
 }
@@ -161,6 +162,7 @@ footer {
 
 h3 {
     margin-top: 20px;
+    font-family:'inconsolata';
 }
 .bar-graph {
     display: grid;
@@ -294,9 +296,6 @@ h3 {
     #showDailyStatus{
         font-size:18px;
     }
-    /* footer {
-        margin-top:105px;
-    } */
     .y-axis {
         font-size:20px;
     }
@@ -305,9 +304,10 @@ h3 {
     #showDailyStatus{
         font-size:19px;
     }
-    /* footer {
-        margin-top:126px;
-    } */
+    h3 {
+        font-size:25px;
+        font-family:'Inconsolata';
+    }
     .bars .bar {
         font-size:16px;
     }
@@ -317,9 +317,10 @@ h3 {
     .name {
         font-size:21px;
     }
-    /* footer {
-        margin-top:220px;
-    } */
+    h3 {
+        font-size:30px;
+        
+    }
     .bar {
         font-size:20px;
     }

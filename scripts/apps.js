@@ -19,7 +19,7 @@ function getWeekRange(isPreviousWeek) {
 function renderWeeklyBarGraph(isPreviousWeek = false) {
   const {start,end} = getWeekRange(isPreviousWeek);
 
-  const weekData = {Mon:0,Tue:0,Wed:0,Thu:0,Fri:0,Sat:0,Sun:0},
+  const weekData = {Mon:0,Tue:0,Wed:0,Thu:0,Fri:0,Sat:0,Sun:0}
   const dayMap = ["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
 
 
@@ -51,6 +51,13 @@ function renderWeeklyBarGraph(isPreviousWeek = false) {
   const yFragment = document.createDocumentFragment();
   for (let i=5;i >= 0;i--) {
     const label = document.createElement("div");
-    label.textContent = `${}`
+    label.textContent = `${((maxDuration/5)*i).toFixed(1)}h`;
+    yFragment.appendChild(label);
   }
+  yAxisLabels.appendChild(yFragment);
+
+  const height = Math.min(400,maxDuration*50);
+  barsContainer.style.height = `${height}px`;
+
+  
 }
