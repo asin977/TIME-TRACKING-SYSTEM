@@ -51,7 +51,11 @@ header {
     font-size: 20px;
 
 }
-
+input[type="text"] {
+    pointer-events: auto;
+    z-index: 1;
+  }
+  
 .resume {
     padding: 6px;
     font-weight: bold;
@@ -60,6 +64,16 @@ header {
 
 .edit {
     font-size: 16px;
+}
+.save {
+    font-weight:bold;
+    font-size:16px;
+    max-width:185px;
+}
+.cancel {
+    font-weight:bold;
+    font-size:16px;
+    max-width:185px;
 }
 
 .title {
@@ -99,7 +113,6 @@ header {
     font-size: 25px;
     margin-top: 12px;
     margin-bottom: 12px;
-
 }
 
 textarea {
@@ -142,6 +155,7 @@ label {
     border: 1px solid #ccc;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     width: 100%;
+    border-radius:6px;
 }
 
 #description:hover {
@@ -370,7 +384,6 @@ p {
     height: 40px;
 
 }
-
 .tooltip-content {
     display: none;
     position: absolute;
@@ -618,6 +631,20 @@ p {
     .task {
         margin-top: 40px;
     }
+
+    .search-result {
+        font-size: 25px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    .group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items:center;
+
+    }
 }
 
 @media screen and (min-width:960px) {
@@ -643,7 +670,7 @@ p {
     .task-container {
         padding-left: 70px;
         padding-right: 70px;
-        padding-top:40px;
+        padding-top: 40px;
     }
 
     .image {
@@ -706,7 +733,7 @@ p {
     .task-container {
         padding-left: 80px;
         padding-right: 80px;
-        padding-top:40px;
+        padding-top: 40px;
     }
 
     .name {
@@ -735,7 +762,7 @@ p {
         .task-container {
             padding-left: 100px;
             padding-right: 100px;
-            padding-top:56px;
+            padding-top: 56px;
         }
 
         .resume {
@@ -760,7 +787,6 @@ p {
             right: 30%;
             top: 85%;
         }
-
         .tooltip-content {
             display: none;
             position: absolute;
@@ -802,6 +828,9 @@ p {
 
         .task {
             margin-top: 70px;
+        }
+        .search-results{
+            min-width:989px;
         }
     }
 
@@ -845,18 +874,18 @@ p {
             font-weight: bold;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }
+        #profileName {
+            left: 1%;
+            margin: 0;
+        }
+
+        .title {
+            font-size: 2.3rem;
+        }
+
+        .task {
+            margin-top: 80px;
+        }
     }
 
-    #profileName {
-        left: 1%;
-        margin: 0;
-    }
-
-    .title {
-        font-size: 2.3rem;
-    }
-
-    .task {
-        margin-top: 80px;
-    }
 }

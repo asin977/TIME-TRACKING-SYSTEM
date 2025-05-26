@@ -106,7 +106,7 @@ function renderWeeklyBarGraph() {
     const totalBadge = document.getElementById("totalHoursBadge");
     if (totalBadge) totalBadge.textContent = `Total: ${totalHours}h this week`;
   }
-
+ 
   function renderTaskTable() {
     const taskTableBody = document.getElementById("taskTableBody");
     const showMoreBtn = document.getElementById("showMoreBtn");
@@ -118,14 +118,15 @@ function renderWeeklyBarGraph() {
     const visibleLimit = 4;
     taskList.forEach((task, index) => {
       const row = document.createElement("tr");
+      row.id = `taskRow-${index}`;
       row.innerHTML = `
-        <td>${task.taskName || "-"}</td>
+        <td class="taskNameCell" id="taskNameCell-${index}">${task.taskName || "-"}</td>
         <td>${task.startDate || "--/--/----"}</td>
         <td>${task.totalDuration || "00:00:00"}</td>
         <td>
-          <div class="more"> 
+          <div class="more" id="actionBtns-${index}"> 
             <button class="resume" onclick="resumeTask(${index})">🕒 Resume</button>
-            <button class="edit" onclick="editTask(${index})">✏️ Edit</button>
+            <button class="edit" onclick="toggleEditButtons(${index})">✏️ Edit</button>
             <button class="delete" onclick="deleteTask(${index})">🗑️ Delete</button>
           </div>
         </td>
@@ -140,9 +141,44 @@ function renderWeeklyBarGraph() {
     } else {
       showMoreBtn.style.display = "none";
     }
-  
-    renderWeeklyBarGraph();
   }
+  
+  function toggleEditButtons(index) {
+    const btnContainer = document.getElementById(`actionBtns-${index}`);
+    const nameCell = document.getElementById(`taskNameCell-${index}`);
+    if (!btnContainer || !nameCell) return;
+  
+    const isEditing = btnContainer.querySelector(".save");
+    if (isEditing) {
+      
+      nameCell.textContent = taskList[index].taskName || "-";
+      btnContainer.innerHTML = `
+        <button class="resume" onclick="resumeTask(${index})">🕒 Resume</button>
+        <button class="edit" onclick="toggleEditButtons(${index})">✏️ Edit</button>
+        <button class="delete" onclick="deleteTask(${index})">🗑️ Delete</button>
+      `;
+    } else {
+      
+      nameCell.innerHTML = `<input type="text" id="editTaskName-${index}" value="${taskList[index].taskName || ""}" />`;
+      btnContainer.innerHTML = `
+        <button class="save" onclick="saveTask(${index})">💾 Save</button>
+        <button class="cancel" onclick="toggleEditButtons(${index})">⛔ Cancel</button>
+      `;
+    }
+  }
+  
+  function saveTask(index) {
+    const editedNameInput = document.getElementById(`editTaskName-${index}`);
+    if (!editedNameInput) return;
+  
+    const newName = editedNameInput.value.trim();
+    if (newName) {
+      taskList[index].taskName = newName;
+    }
+  
+    renderTaskTable();
+  }
+  
   document.addEventListener("DOMContentLoaded", function () {
     const showMoreBtn = document.getElementById("showMoreBtn");
   
@@ -162,14 +198,11 @@ function renderWeeklyBarGraph() {
       expanded = !expanded;
     });
   });
-  
 
   function toggleProfileDetails() {
     document.querySelector('.profile-wrapper').classList.toggle('show');
   }
-  
-  
-  
+
   function resumeTask(index) {
     if (index >= 0 && index < taskList.length) {
       window.location.href = `timer.html?taskIndex=${index}`;
@@ -202,6 +235,14 @@ function renderWeeklyBarGraph() {
       return;
     }
   
+    function saveTask(index) {
+    
+      console.log("Saving task", index);
+    
+    
+      toggleEditButtons(index);
+    }
+    
     filtered.forEach((task, i) => {
       const resultId = `search-result-${i}`;
       const div = document.createElement("div");
@@ -211,7 +252,7 @@ function renderWeeklyBarGraph() {
         <strong>📑 ${task.taskName}</strong><br>
         📌 ${task.taskTag}<br>
         🕒 ${task.totalDuration}<br>
-         <button class="resume" onclick="resumeTask(${i})">🕒 Resume</button>
+         <button class="resume" onclick="resumeTask(${i})">▶️ Resume</button>
         <div class="clear" onclick="removeSearchResult('${resultId}')">
                     <svg height="30" preserveAspectRatio="none" viewBox="0 0 64 64" width="30" xmlns="http://www.w3.org/2000/svg"><path d="m12.458008 20.291992h39.083984v39.583008h-39.083984z" fill="#fff"/><path d="m55.7714844 14.652832h-2.8564453v-3.277832c0-1.0454102-.8476563-1.8930664-1.8935547-1.8930664h-9.0634766v-5.3569336c0-1.1044922-.8955078-2-2-2h-15.9160156c-1.1044922 0-2 .8955078-2 2v5.3569336h-9.0629883c-1.0454102 0-1.8930664.8476563-1.8930664 1.8930664v3.277832h-2.8574219c-1.1816406 0-2.1391602.9575195-2.1391602 2.1391602v7.1245117c0 1.1816406.9575195 2.1391602 2.1391602 2.1391602h2.2294922v33.8193359c0 1.1044922.8955078 2 2 2h39.0839844c1.1044922 0 2-.8955078 2-2v-33.8193359h2.2294922c1.1816406 0 2.1396484-.9575195 2.1396484-2.1391602v-7.1245117c0-1.1816406-.9580078-2.1391602-2.1396484-2.1391602zm-29.7294922-8.527832h11.9160156v3.3569336h-11.9160156zm23.5 51.75h-35.0839844v-31.8193359h35.0839844z" fill="#182985"/><path d="m22.125 51.1513672c-1.0043945 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8139648-1.8183594 1.8183594-1.8183594s1.8183594.8139649 1.8183594 1.8183594v17.3330078c0 1.0039063-.8139649 1.8183594-1.8183594 1.8183594z" fill="#e80000"/><path d="m41.875 51.1513672c-1.0039063 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8144531-1.8183594 1.8183594-1.8183594s1.8183594.8139649 1.8183594 1.8183594v17.3330078c0 1.0039063-.8144531 1.8183594-1.8183594 1.8183594z" fill="#e80000"/><path d="m32 51.1513672c-1.0043945 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8139648-1.8183594 1.8183594-1.8183594 1.0039063 0 1.8183594.8139648 1.8183594 1.8183594v17.3330078c0 1.0039063-.8144531 1.8183594-1.8183594 1.8183594z" fill="#e80000"/><g fill="#182985"><path d="m22.125 51.1513672c-1.0043945 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8139648-1.8183594 1.8183594-1.8183594s1.8183594.8139649 1.8183594 1.8183594v17.3330078c0 1.0039063-.8139649 1.8183594-1.8183594 1.8183594z"/><path d="m41.875 51.1513672c-1.0039063 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8144531-1.8183594 1.8183594-1.8183594s1.8183594.8139649 1.8183594 1.8183594v17.3330078c0 1.0039063-.8144531 1.8183594-1.8183594 1.8183594z"/><path d="m32 51.1513672c-1.0043945 0-1.8183594-.8144531-1.8183594-1.8183594v-17.3330078c0-1.0043945.8139648-1.8183594 1.8183594-1.8183594 1.0039063 0 1.8183594.8139648 1.8183594 1.8183594v17.3330078c0 1.0039063-.8144531 1.8183594-1.8183594 1.8183594z"/></g></svg>
 
@@ -251,7 +292,6 @@ function renderWeeklyBarGraph() {
       sessions: []
     };
    
-    
     taskList.push(newTask);
     saveTaskToLocalStorage();
   
@@ -307,3 +347,6 @@ function saveEdit(index) {
   }
 
   document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph);
+
+
+  
