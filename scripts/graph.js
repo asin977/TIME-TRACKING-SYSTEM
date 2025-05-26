@@ -1,21 +1,42 @@
-let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
+let showPreviousWeek = false;
 
-function parseDurationToHours(durationStr) {
-  if (!durationStr || !durationStr.includes(":")) return 0;
-  const [h, m, s] = durationStr.split(":").map(Number);
-  return (h || 0) + (m || 0) / 60 + (s || 0) / 3600;
+function getWeekRange(isPreviousWeek) {
+  const now = new Date();
+  const dayOfWeek = now.getDay();
+  const startOfThisWeek = new Date(now);
+  startOfThisWeek.setDate(now.getDate() - dayOfWeek);
+  startOfThisWeek.setHours(0, 0, 0, 0);
+
+  if (isPreviousWeek) {
+    const startOfPrevWeek = new Date(startOfThisWeek);
+    startOfPrevWeek.setDate(startOfThisWeek.getDate() - 7);
+    const endOfPrevWeek = new Date(startOfThisWeek);
+    endOfPrevWeek.setMilliseconds(-1);
+    return { start: startOfPrevWeek, end: endOfPrevWeek };
+  } else {
+    const endOfThisWeek = new Date(startOfThisWeek);
+    endOfThisWeek.setDate(startOfThisWeek.getDate() + 7);
+    endOfThisWeek.setMilliseconds(-1);
+    return { start: startOfThisWeek, end: endOfThisWeek };
+  }
 }
 
-function renderWeeklyBarGraph() {
+function renderWeeklyBarGraph(isPreviousWeek = false) {
+  const { start, end } = getWeekRange(isPreviousWeek);
+
   const weekData = { Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0, Sun: 0 };
   const dayMap = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   taskList.forEach(task => {
     if (!task.startDate || !task.totalDuration) return;
-    const dayIndex = new Date(task.startDate).getDay();
-    const hours = parseDurationToHours(task.totalDuration);
-    if (!isNaN(hours)) {
-      weekData[dayMap[dayIndex]] += hours;
+
+    const taskDate = new Date(task.startDate);
+    if (taskDate >= start && taskDate <= end) {
+      const dayIndex = taskDate.getDay();
+      const hours = parseDurationToHours(task.totalDuration);
+      if (!isNaN(hours)) {
+        weekData[dayMap[dayIndex]] += hours;
+      }
     }
   });
 
@@ -40,8 +61,7 @@ function renderWeeklyBarGraph() {
   }
   yAxisLabels.appendChild(yFragment);
 
-
-  const height = Math.min(400, maxDuration * 50); 
+  const height = Math.min(400, maxDuration * 50);
   barsContainer.style.height = `${height}px`;
 
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -66,69 +86,17 @@ function renderWeeklyBarGraph() {
   xAxisLabels.appendChild(xLabelsFragment);
 }
 
-function renderTaskTable() {
-  const taskTableBody = document.getElementById("taskTableBody");
-  if (!taskTableBody) return;
-
-  taskTableBody.innerHTML = "";
-  const fragment = document.createDocumentFragment();
-
-  taskList.forEach((task, index) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${task.taskName || "-"}</td>
-      <td>${task.startDate || "--/--/----"}</td>
-      <td>${task.totalDuration || "00:00:00"}</td>
-      <td><button class="resume" onclick="resumeTask(${index})">🕒 Resume</button></td>
-      <td><button class="delete" onclick="deleteTask(${index})">Delete</button></td>
-    `;
-    fragment.appendChild(row);
-  });
-
-  taskTableBody.appendChild(fragment);
-  renderWeeklyBarGraph();
-}
-
-function resumeTask(index) {
-  if (index >= 0 && index < taskList.length) {
-    window.location.href = `timer.html?taskIndex=${index}`;
-  } else {
-    alert("Invalid task index");
-  }
-}
-
-function deleteTask(index) {
-  if (index >= 0 && index < taskList.length) {
-    taskList.splice(index, 1);
-    saveTaskToLocalStorage();
-    renderTaskTable();
-  } else {
-    alert("Invalid task index");
-  }
-}
-
-function saveTaskToLocalStorage() {
-  localStorage.setItem("tasks", JSON.stringify(taskList));
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  const profileNameSpan = document.getElementById("profileName");
-  const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
-
-  if (!loggedInUser) {
-    alert("You must be signed in to view the dashboard.");
-    window.location.href = "index.html";
-    return;
-  }
-
-  if (profileNameSpan) {
-    profileNameSpan.textContent = loggedInUser.firstName || "Guest";
-  }
-
-  renderTaskTable();
+document.getElementById("toggleWeekBtn").addEventListener("click", () => {
+  showPreviousWeek = !showPreviousWeek;
+  renderWeeklyBarGraph(showPreviousWeek);
+  document.getElementById("toggleWeekBtn").textContent = showPreviousWeek ? "📊 Current Week ➡️" : "📊 ⬅️ Previous Week";
 });
 
-document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph);
+
+window.addEventListener("DOMContentLoaded", () => {
+  renderWeeklyBarGraph(false);
+});
+
 
 function renderDailyTaskGraph() {
   const taskList = JSON.parse(localStorage.getItem("tasks") || "[]");
@@ -198,5 +166,3 @@ function renderDailyTaskGraph() {
 document.addEventListener("DOMContentLoaded", () => {
   renderDailyTaskGraph();
 });
-
-

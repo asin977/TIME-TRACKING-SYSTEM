@@ -50,64 +50,8 @@ function startTask() {
   sessionStorage.setItem("currentTask", JSON.stringify(task));
   window.location.href = "timer.html";
 }
-
-function renderWeeklyBarGraph() {
-    const weekData = { Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0, Sun: 0 };
-    const dayMap = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-    taskList.forEach(task => {
-      if (!task.startDate || !task.totalDuration) return;
-      const hours = parseDurationToHours(task.totalDuration);
-      if (!isNaN(hours)) {
-        const dayIndex = new Date(task.startDate).getDay();
-        weekData[dayMap[dayIndex]] += hours;
-      }
-    });
-
-    const durations = Object.values(weekData);
-    const maxDuration = Math.max(...durations, 1);
-
-    const yAxisLabels = document.getElementById("yAxisLabels");
-    const barsContainer = document.getElementById("barsContainer");
-    const xAxisLabels = document.getElementById("xAxisLabels");
-
-    if (!yAxisLabels || !barsContainer || !xAxisLabels) return;
-
-    yAxisLabels.innerHTML = "";
-    barsContainer.innerHTML = "";
-    xAxisLabels.innerHTML = "";
-
-    
-    for (let i = 5; i >= 0; i--) {
-      const label = document.createElement("div");
-      const value = ((maxDuration / 5) * i).toFixed(1);
-      label.textContent = `${value}h`;
-      yAxisLabels.appendChild(label);
-    }
-
-    
-    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-    days.forEach(day => {
-      const barHeightPercent = (weekData[day] / maxDuration) * 100;
-
-      const bar = document.createElement("div");
-      bar.className = "bar";
-      bar.style.height = `${barHeightPercent}%`;
-      bar.textContent = weekData[day] ? weekData[day].toFixed(1) : "0.0";
-      barsContainer.appendChild(bar);
-
-      const label = document.createElement("div");
-      label.textContent = day;
-      xAxisLabels.appendChild(label);
-    });
-
-    
-    const totalHours = durations.reduce((a, b) => a + b, 0).toFixed(1);
-    const totalBadge = document.getElementById("totalHoursBadge");
-    if (totalBadge) totalBadge.textContent = `Total: ${totalHours}h this week`;
-  }
  
-  function renderTaskTable() {
+function renderTaskTable() {
     const taskTableBody = document.getElementById("taskTableBody");
     const showMoreBtn = document.getElementById("showMoreBtn");
   
@@ -115,7 +59,7 @@ function renderWeeklyBarGraph() {
   
     taskTableBody.innerHTML = "";
   
-    const visibleLimit = 4;
+    const visibleLimit = 5;
     taskList.forEach((task, index) => {
       const row = document.createElement("tr");
       row.id = `taskRow-${index}`;

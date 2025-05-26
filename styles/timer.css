@@ -13,7 +13,7 @@ body {
     font-family:'Inconsolata';
     background-size: cover;
     color:#fff;
-    background-color:black;
+    background-color:#282828;
     overflow: hidden;
 }
 .homer {
@@ -40,7 +40,7 @@ img{
     bottom: 12px;
     top:592px;
     background-color:#fff;
-    color:black;
+    color:#282828;
     width: 98%;
     padding: 20px;
     box-sizing: border-box;
@@ -99,7 +99,7 @@ p {
 }
 
 .record {
-    background-color:black;
+    background-color:#282828;
     margin-bottom: 12px;
     padding: 12px;
     border-radius: 6px;

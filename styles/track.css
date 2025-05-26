@@ -146,6 +146,7 @@ label {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top:20px;
 }
 
 #description {
@@ -572,6 +573,7 @@ p {
         gap: 12px;
         justify-content: center;
         align-items: center;
+        margin-top:30px;
     }
 
     .image {
@@ -634,7 +636,7 @@ p {
 
     .search-result {
         font-size: 25px;
-        margin-top: 12px;
+        margin-top:20px;
         margin-bottom: 12px;
     }
 
@@ -665,6 +667,7 @@ p {
 
     .more-btn {
         gap: 40px;
+        margin-top:50px;
     }
 
     .task-container {
