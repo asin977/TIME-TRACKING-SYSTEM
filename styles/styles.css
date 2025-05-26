@@ -15,7 +15,7 @@ body {
     /* background-image: 
             linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7), rgba(60, 60, 60, 0.7)),
             url('img/clock.jpg'); */
-    background-color:#282828;
+    background-color:#3a3939;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -225,7 +225,6 @@ footer {
     font-size: 14px;
     margin-top: 1311px;
     position: relative;
-    border: 10px solid black;
 }
 
 .footer-content p {

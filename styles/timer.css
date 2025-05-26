@@ -13,7 +13,7 @@ body {
     font-family:'Inconsolata';
     background-size: cover;
     color:#fff;
-    background-color:#282828;
+    background-color:#3a3939;
     overflow: hidden;
 }
 .homer {
@@ -38,9 +38,9 @@ img{
 .records {
     position: absolute;
     bottom: 12px;
-    top:592px;
+    top:660px;
     background-color:#fff;
-    color:#282828;
+    color:#3a3939;
     width: 98%;
     padding: 20px;
     box-sizing: border-box;
@@ -99,7 +99,7 @@ p {
 }
 
 .record {
-    background-color:#282828;
+    background-color:#3a3939;
     margin-bottom: 12px;
     padding: 12px;
     border-radius: 6px;
@@ -244,6 +244,7 @@ p {
 
 .display-rows {
     color:black;
+    margin-bottom:15px;
 }
 
 #startTime,
