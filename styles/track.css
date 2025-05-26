@@ -46,7 +46,7 @@ header {
     font-size: 16px;
     position: absolute;
     bottom: -5%;
-    left: 1%;
+    left:2%;
     font-size: 20px;
 
 }
@@ -501,11 +501,7 @@ p {
         margin-top: 16px;
     }
 
-    #profileName {
-        left: 0px;
-    }
-
-    .image {
+.image {
         position: absolute;
         top: 86%;
     }
@@ -541,7 +537,7 @@ p {
     }
 
     #profileName {
-        left:16px;
+        left:22px;
     }
 }
 
@@ -835,7 +831,7 @@ p {
         }
 
         #profileName {
-            left: 0%;
+            left:22px;
         }
 
         .image {
@@ -875,12 +871,6 @@ p {
         .name {
             display: none;
         }
-
-        #profileName {
-            left: 1%;
-            margin: 0;
-        }
-
         .title {
             font-size: 2.2rem;
         }
