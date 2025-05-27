@@ -891,6 +891,10 @@ p {
         td {
             font-size:25px;
         }
+        .button {
+            padding-left:20px;
+            padding-right:20px;
+        }
     }
 
     @media screen and (min-width:1875px) {
@@ -939,6 +943,12 @@ p {
 
         .task {
             margin-top: 80px;
+        }
+        .button {
+            padding-left:25px;
+            padding-right:25px;
+            padding-top:12px;
+            padding-bottom:12px;
         }
     }
 
