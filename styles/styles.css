@@ -12,9 +12,9 @@ html {
 }
 
 body {
-    /* background-image: 
+    background-image: 
             linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7), rgba(60, 60, 60, 0.7)),
-            url('img/clock.jpg'); */
+            url('img/clock.jpg');
     background-color:#3a3939;
     background-size: cover;
     background-position: center;

@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css?family=Tangerine");
+@import url("https://fonts.googleapis.com/css?family=Inconsolata");
+
+
 body {
     /* background-image: 
     linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7), rgba(60, 60, 60, 0.7)),
@@ -6,6 +10,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    font-family: 'Inconsolata', monospace;
+    background-color:#3a3939;
 }
 
 img {
@@ -882,7 +888,7 @@ p {
         .search-results{
             min-width:989px;
         }
-        th {
+        td {
             font-size:25px;
         }
     }
