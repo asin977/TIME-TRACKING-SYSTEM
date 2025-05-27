@@ -58,6 +58,94 @@ function renderWeeklyBarGraph(isPreviousWeek = false) {
 
   const height = Math.min(400,maxDuration*50);
   barsContainer.style.height = `${height}px`;
-
   
+  const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  const barsFragment = document.createDocumentFragment();
+  const xLabelsFragment = document.createDocumentFragment();
+
+  days.forEach(day=> {
+    const barHeightPercent = (weekData[day]/maxDuration)*100;
+
+    const bar = document.createElement("div");
+    bar.className = "bar";
+    bar.style.height = `${barHeightPercent}%`;
+    bar.textContent = weekData[day].toFixed(1) || "0";
+    barsFragment.appendChild(bar);
+
+    const label = document.createElement("div");
+    label.textContent = day;
+    xLabelsFragment.appendChild(label);
+  });
+
+  barsContainer.appendChild(barsFragment);
+  xAxisLabels.appendChild(label);
+}
+
+document.getElementById("toggleWeekBtn").addEventListener("click",()=> {
+  showPreviousWeek = !showPreviousWeek;
+  renderWeeklyBarGraph(showPreviousWeek);
+  document.getElementById('toggleWeekBtn').textContent = showPreviousWeek ? "Show Current Week" : "Show Previous Week";
+});
+
+window.addEventListener("DOMontentLoaded",()=> {
+    renderWeeklyBarGraph(false);
+});
+
+function renderDailyTaskGraph() {
+  const taskList = JSON.parse(localStorage.getItem("tasks") || "[]");
+  const today = new Date().toISOString().split("T")[0];
+  const dailyTaskDurations = {};
+
+  taskList.forEach(task => {
+    if (!task.startDate || !task.totalDuration) return;
+    if (task.startDate.startsWith(today)) {
+      const hours = parseDurationToHours(task.totalDuration);
+      if (!isNaN(hours)) {
+        dailyTaskDurations[task.taskName] = (dailyTaskDurations[task.taskName] || 0) + hours;
+      }
+    }
+  });
+  
+  const taskNames = document.getElementById("dailyAxis");
+  const durations = taskNames.map(name => dailyTaskDurations[name]);
+
+  const yAxis = document.getElementById("dailyYAxis");
+  const barsContainer = document.getElementById("dailyBars");
+  const xAxis = document.getElementById("dailyXAxis");
+
+  yAxis.innerHTML = "";
+  barsContainer.innerHTML = "";
+  xAxis.innerHTML = "";
+
+  if (taskNames.length === 0) {
+    yAxis.innerHTML = "<p>No Tasks done today....</p>";
+    return;
+  }
+  const maxHours = Math.max(...durations,1);
+
+  const height = Math.min(400,maxHours*50);
+  barsContainer.style.height = `${height}px`;
+
+  for (let i = 10;i>= 0; i--) {
+    const labelValue = (maxHours/10)*i;
+    const label = document.createElement("div");
+    label.textContent = labelValue.toFixed(1);
+    yAxis.appendChild(label);
+  }
+
+  taskNames.forEach(taskName => {
+    const hours = dailyTaskDurations[taskName];
+    const barHeightPercent = (hours / maxHours)*100;
+
+    const bar = document.createElement("div");
+    bar.className = "bar";
+    bar.style.height = `${barHeightPercent}%`;
+
+    const durationLabel = document.createElement("span");
+    durationLabel.className = "duration";
+    durationLabel.textContent = hours.toFixed(2);
+    bar.appendChild(durationLabel);
+    barsContainer.appned
+
+  })
 }

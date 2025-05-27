@@ -126,7 +126,7 @@ function renderDailyTaskGraph() {
   xAxis.innerHTML = "";
 
   if (taskNames.length === 0) {
-    barsContainer.innerHTML = "<p>No tasks done today.</p>";
+    barsContainer.innerHTML = "<p>No tasks done today...</p>";
     return;
   }
 

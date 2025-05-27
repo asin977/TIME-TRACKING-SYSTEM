@@ -189,7 +189,11 @@ button {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-
+.name {
+    position:absolute;
+    right:1px;
+    top:1px;
+}
 button {
     width: 100%;
     padding: 10px;
@@ -514,9 +518,12 @@ p {
     }
 
     .name {
-        top: 19px;
+        top:19px;
+        right:85px;
     }
-
+    .button {
+        margin-top:0px;
+    }
     .tooltip-content {
         font-size: 18px;
         left:316%;
@@ -566,7 +573,7 @@ p {
     }
 
     .name {
-        top: 24px;
+        top: 8px;
         right: 12%;
     }
 
@@ -953,4 +960,3 @@ p {
     }
 
 }
-
