@@ -145,7 +145,9 @@ function renderDailyTaskGraph() {
     durationLabel.className = "duration";
     durationLabel.textContent = hours.toFixed(2);
     bar.appendChild(durationLabel);
-    barsContainer.appned
+    barsContainer.appendChild(bar);
 
+
+    
   })
 }

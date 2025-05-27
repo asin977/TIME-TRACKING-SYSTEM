@@ -63,13 +63,14 @@ input[type="text"] {
   }
   
 .resume {
-    padding: 6px;
+    padding:5px;
     font-weight: bold;
     font-size: 16px;
 }
 
 .edit {
     font-size: 16px;
+    padding:8px;
 }
 .save {
     font-weight:bold;
@@ -161,7 +162,7 @@ label {
     font-size: 15px;
     border: 1px solid #ccc;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    width: 100%;
+    width:95%;
     border-radius:6px;
 }
 
@@ -213,7 +214,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    margin-left: -18px;
+    margin-left:-20px;
 }
 
 th,
@@ -302,6 +303,7 @@ thead {
 .delete {
     font-weight: bold;
     font-size: 16px;
+    padding:5px;
 }
 
 .chart-container {
@@ -449,7 +451,7 @@ p {
     }
 
     table {
-        margin-left: 2px;
+        margin-left:-5px;
     }
 
     .tooltip-content span,
@@ -469,6 +471,12 @@ p {
     }
     #profieName {
         left:0%;
+    }
+    .edit {
+        padding:9px;
+    }
+    .delete {
+        padding:6px;
     }
 }
 
@@ -592,7 +600,7 @@ p {
     .more-btn {
         display: flex;
         flex-direction: row;
-        gap: 12px;
+        gap:35px;
         justify-content: center;
         align-items: center;
         margin-top:30px;
@@ -707,7 +715,7 @@ p {
 
     .more-btn {
         gap: 40px;
-        margin-top:50px;
+        margin-top:60px;
     }
 
     .task-container {
@@ -814,6 +822,9 @@ p {
             padding:20px;
 
         }
+    .more-btn {
+        gap:70px;
+    }    
     @media screen and (min-width:1440px) {
         #charts {
             margin-top: -10px;
