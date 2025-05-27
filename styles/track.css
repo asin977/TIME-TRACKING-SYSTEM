@@ -430,7 +430,9 @@ p {
     color: #fff;
     font-weight: bold;
 }
-
+.completed-tag {
+    font-family:'Inconsolata';
+}
 @media screen and (min-width:375px) {
     .task-container {
         padding-left: 30px;
@@ -709,7 +711,7 @@ p {
     }
 
     #profileName {
-        left: 0%;
+        left:19px;
     }
 
     .more-btn {
@@ -731,11 +733,6 @@ p {
         margin-top: 2px;
         padding: 14px;
     }
-
-    #profileName {
-        left: 1%;
-    }
-
     .task {
         margin-top: 50px;
     }

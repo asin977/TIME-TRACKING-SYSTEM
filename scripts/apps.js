@@ -151,3 +151,25 @@ function renderDailyTaskGraph() {
     
   })
 }
+
+
+function renderTaskTable() {
+  const taskTableBody = document.getElementById("taskTableBody");
+  const showMoreBtn = document.getElementById("showMoreBtn");
+
+  if (!taskTableBody || !showMoreBtn) return;
+  taskTableBody.innerHTML = "";
+
+  const visibleLimit = 5;
+  taskList.forEach((task,index) => {
+    const row = document.createElement("tr");
+    row.id = `taskRow- ${index}`;
+
+    const completedTag = task.completd ? `<span class="completed-tag">Completed</span>` : "";
+    const actionBtnLabel = task.completd ? "Details" :"Resume";
+    const actionBtnHandler = task.completd ? `viewTaskDetails()${index})` : `resumeTask(${index})`;
+
+    row.innerHTML = `
+       <td class="taskNameCell" id ="taskNameCell-"></td>
+  }) 
+}

@@ -52,40 +52,49 @@ function startTask() {
 }
  
 function renderTaskTable() {
-    const taskTableBody = document.getElementById("taskTableBody");
-    const showMoreBtn = document.getElementById("showMoreBtn");
-  
-    if (!taskTableBody || !showMoreBtn) return;
-  
-    taskTableBody.innerHTML = "";
-  
-    const visibleLimit = 5;
-    taskList.forEach((task, index) => {
-      const row = document.createElement("tr");
-      row.id = `taskRow-${index}`;
-      row.innerHTML = `
-        <td class="taskNameCell" id="taskNameCell-${index}">${task.taskName || "-"}</td>
-        <td>${task.startDate || "--/--/----"}</td>
-        <td>${task.totalDuration || "00:00:00"}</td>
-        <td>
-          <div class="more" id="actionBtns-${index}"> 
-            <button class="resume" onclick="resumeTask(${index})">🕒 Resume</button>
-            <button class="edit" onclick="toggleEditButtons(${index})">✏️ Edit</button>
-            <button class="delete" onclick="deleteTask(${index})">🗑️ Delete</button>
-          </div>
-        </td>
-      `;
-      if (index >= visibleLimit) row.classList.add("hidden-row");
-      taskTableBody.appendChild(row);
-    });
-  
-    if (taskList.length > visibleLimit) {
-      showMoreBtn.style.display = "block";
-      showMoreBtn.textContent = "Show More";
-    } else {
-      showMoreBtn.style.display = "none";
-    }
+  const taskTableBody = document.getElementById("taskTableBody");
+  const showMoreBtn = document.getElementById("showMoreBtn");
+
+  if (!taskTableBody || !showMoreBtn) return;
+
+  taskTableBody.innerHTML = "";
+
+  const visibleLimit = 5;
+  taskList.forEach((task, index) => {
+    const row = document.createElement("tr");
+    row.id = `taskRow-${index}`;
+
+    const completedTag = task.completed ? `<span class="completed-tag">Completed ✓</span>` : "";
+    const actionBtnLabel = task.completed ? "🔎 Details" : "🕒 Resume";
+    const actionBtnHandler = task.completed ? `viewTaskDetails(${index})` : `resumeTask(${index})`;
+
+    row.innerHTML = `
+      <td class="taskNameCell" id="taskNameCell-${index}">
+        ${task.taskName || "-"} ${completedTag}
+      </td>
+      <td>${task.startDate || "--/--/----"}</td>
+      <td>${task.totalDuration || "00:00:00"}</td>
+      <td>
+        <div class="more" id="actionBtns-${index}"> 
+          <button class="resume" onclick="${actionBtnHandler}">${actionBtnLabel}</button>
+          <button class="edit" onclick="toggleEditButtons(${index})">✏️ Edit</button>
+          <button class="delete" onclick="deleteTask(${index})">🗑️ Delete</button>
+        </div>
+      </td>
+    `;
+
+    if (index >= visibleLimit) row.classList.add("hidden-row");
+    taskTableBody.appendChild(row);
+  });
+
+  if (taskList.length > visibleLimit) {
+    showMoreBtn.style.display = "block";
+    showMoreBtn.textContent = "Show More";
+  } else {
+    showMoreBtn.style.display = "none";
   }
+}
+
   
 function toggleEditButtons(index) {
     const btnContainer = document.getElementById(`actionBtns-${index}`);
@@ -296,5 +305,4 @@ function saveEdit(index) {
   document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph);
 
 
-  
   
