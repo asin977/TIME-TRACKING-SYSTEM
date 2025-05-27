@@ -432,6 +432,7 @@ p {
 }
 .completed-tag {
     font-family:'Inconsolata';
+    font-weight:bold;
 }
 @media screen and (min-width:375px) {
     .task-container {
@@ -440,7 +441,7 @@ p {
     }
 
     table {
-        margin-left: 2px;
+        margin-left:-22px;
     }
 
     .tooltip-content span,
@@ -461,6 +462,9 @@ p {
     #profieName {
         left:0%;
     }
+    td {
+        font-size:18px;
+    }
 }
 
 @media screen and (min-width:425px) {
@@ -479,7 +483,7 @@ p {
     }
 
     table {
-        margin-left: 0px;
+        margin-left:-29px;
     }
 
     input {
