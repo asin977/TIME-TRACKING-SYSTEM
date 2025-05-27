@@ -87,7 +87,7 @@ function renderTaskTable() {
     }
   }
   
-  function toggleEditButtons(index) {
+function toggleEditButtons(index) {
     const btnContainer = document.getElementById(`actionBtns-${index}`);
     const nameCell = document.getElementById(`taskNameCell-${index}`);
     if (!btnContainer || !nameCell) return;
@@ -111,18 +111,21 @@ function renderTaskTable() {
     }
   }
   
-  function saveTask(index) {
+function saveTask(index) {
     const editedNameInput = document.getElementById(`editTaskName-${index}`);
     if (!editedNameInput) return;
   
     const newName = editedNameInput.value.trim();
     if (newName) {
+      
       taskList[index].taskName = newName;
+  
+      
+      localStorage.setItem("taskList", JSON.stringify(taskList));
     }
   
-    renderTaskTable();
+    renderTaskTable(); 
   }
-  
   document.addEventListener("DOMContentLoaded", function () {
     const showMoreBtn = document.getElementById("showMoreBtn");
   
@@ -143,11 +146,11 @@ function renderTaskTable() {
     });
   });
 
-  function toggleProfileDetails() {
+function toggleProfileDetails() {
     document.querySelector('.profile-wrapper').classList.toggle('show');
   }
 
-  function resumeTask(index) {
+function resumeTask(index) {
     if (index >= 0 && index < taskList.length) {
       window.location.href = `timer.html?taskIndex=${index}`;
     } else {
@@ -155,7 +158,7 @@ function renderTaskTable() {
     }
   }
 
-  function deleteTask(index) {
+function deleteTask(index) {
     if (index >= 0 && index < taskList.length) {
       taskList.splice(index, 1);
       saveTaskToLocalStorage();
@@ -164,7 +167,7 @@ function renderTaskTable() {
       alert("Invalid task index");
     }
   }
-  function searchTasks() {
+function searchTasks() {
     const query = document.getElementById("searchInput").value.trim().toLowerCase();
     const resultsDiv = document.getElementById("searchResults");
     resultsDiv.innerHTML = "";
@@ -293,4 +296,5 @@ function saveEdit(index) {
   document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph);
 
 
+  
   

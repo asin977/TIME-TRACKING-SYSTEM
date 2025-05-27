@@ -874,9 +874,16 @@ p {
 
         .task {
             margin-top: 70px;
+            font-size:25px;
+        }
+        label {
+            font-size:25px;
         }
         .search-results{
             min-width:989px;
+        }
+        th {
+            font-size:25px;
         }
     }
 
