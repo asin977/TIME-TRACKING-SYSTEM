@@ -255,6 +255,7 @@ h3 {
     gap: 10px;
     height: 100%;
     margin-bottom:-99px;
+
   }
   
   .bar {
@@ -365,7 +366,7 @@ h3 {
     display: grid;
     grid-template-rows: auto 1fr auto;
     width: 100%;
-    height: 300px;
+    height:214px;
     margin: 20px 0;
 }
 
@@ -385,8 +386,8 @@ h3 {
     align-items: flex-end;
     justify-content: space-around;
     height: 100%;
+    border-bottom:1px solid grey;
 }
-
 .bars .bar {
     width: 30px;
     background-color:black;

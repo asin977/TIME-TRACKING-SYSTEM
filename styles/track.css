@@ -22,7 +22,7 @@ header {
     border-bottom: 2px solid #fff;
     position: relative;
     z-index: 1;
-    padding: 12px;
+    padding:15px;
 }
 
 .names {
@@ -45,9 +45,10 @@ header {
     color: black;
     font-size: 16px;
     position: absolute;
-    bottom: -5%;
-    left:2%;
+    bottom:-3%;
+    left:3%;
     font-size: 20px;
+    padding-bottom:1px;
 
 }
 input[type="text"] {
@@ -501,7 +502,7 @@ p {
         margin-top: 16px;
     }
 
-.image {
+    .image {
         position: absolute;
         top: 86%;
     }
@@ -537,7 +538,7 @@ p {
     }
 
     #profileName {
-        left:22px;
+        left:26px;
     }
 }
 
@@ -687,7 +688,8 @@ p {
     }
 
     #profileName {
-        left: 0%;
+        left:26px;
+        padding-bottom:3px;
     }
 
     .more-btn {
@@ -709,11 +711,6 @@ p {
         margin-top: 2px;
         padding: 14px;
     }
-
-    #profileName {
-        left: 1%;
-    }
-
     .task {
         margin-top: 50px;
     }
@@ -831,7 +828,7 @@ p {
         }
 
         #profileName {
-            left:22px;
+            left:24px;
         }
 
         .image {
@@ -898,7 +895,7 @@ p {
         }
 
         #profileName {
-            left: 0%;
+            left:24px;
         }
 
         .image {
@@ -923,11 +920,6 @@ p {
             font-weight: bold;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }
-        #profileName {
-            left:1%;
-            margin: 0;
-        }
-
         .title {
             font-size: 2.3rem;
         }
