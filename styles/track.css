@@ -1,11 +1,25 @@
+@import url("https://fonts.googleapis.com/css?family=Tangerine");
+@import url("https://fonts.googleapis.com/css?family=Inconsolata");
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:after,
+*:before {
+    box-sizing: inherit;
+}
 body {
     /* background-image: 
     linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(30, 30, 30, 0.7), rgba(60, 60, 60, 0.7)),
     url('img/clock.jpg'); */
     background-size: cover;
+    background-color:#3a3939;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    font-family: 'Inconsolata', monospace;
 }
 
 img {
@@ -31,7 +45,19 @@ header {
     right: 14px;
     top: 35px;
 }
-
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+input:hover,
+select:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
 .button {
     font-weight: bold;
     color: #fff;
@@ -202,7 +228,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    margin-left: -18px;
+    margin-left:-31px;
 }
 
 th,
@@ -285,14 +311,11 @@ thead {
     font-size: 18px;
     cursor: pointer;
     max-width: 250px;
-
 }
-
 .delete {
     font-weight: bold;
     font-size: 16px;
 }
-
 .chart-container {
     display: flex;
     justify-content: center;
@@ -301,7 +324,6 @@ thead {
     margin: 20px auto;
     max-width: 529px;
 }
-
 footer {
     background-color: #fff;
     color: black;
@@ -313,7 +335,16 @@ footer {
     position: relative;
     border: none;
 }
+.footer-links a {
+    color: #faad08;
+    text-decoration: none;
+    margin: 0 8px;
+    font-weight: bold;
+}
 
+.footer-links a:hover {
+    text-decoration: underline;
+}
 p {
     font-size: 18px;
     font-weight: bold;
@@ -372,7 +403,12 @@ p {
 .tooltip-content span {
     display: block;
 }
-
+.name {
+    margin: 0px;
+    position: absolute;
+    right: 14px;
+    top: 16px;
+}
 .profile-wrapper {
     position: relative;
     display: inline-block;
@@ -854,6 +890,9 @@ p {
     td,th {
         font-size:23px;
     }
+    .task{
+        font-size:23px;
+    }
     @media screen and (min-width:1440px) {
         #charts {
             margin-top: -10px;
@@ -927,6 +966,7 @@ p {
 
         .task {
             margin-top: 70px;
+            font-size:23px;
         }
         .search-results{
             min-width:989px;
