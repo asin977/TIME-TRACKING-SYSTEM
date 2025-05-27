@@ -138,8 +138,29 @@ document.addEventListener("DOMContentLoaded", () => {
     clearBtn.className = "clear";
     clearBtn.addEventListener("click", clearSessions);
     recordsList.appendChild(clearBtn);
-  }
 
+    const completedBtn = document.createElement("button");
+    completedBtn.textContent = "Mark as Completed";
+    completedBtn.className = "completed";
+    recordsList.appendChild(completedBtn);
+
+
+    completedBtn.addEventListener("click", () => {
+    if (confirm("Mark this task as completed?")) {
+      taskData.completed = true;
+      tasks[taskIndex] = taskData;
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+
+      document.getElementById("start").disabled = true;
+      document.getElementById("stop").disabled = true;
+      document.getElementById("reset").disabled = true;
+
+      alert("Task marked as completed. No further time tracking is allowed.");
+      renderAllTaskSessions();
+    }
+});
+}
+  
   function clearSessions() {
     if (confirm("Clear all sessions for this task?")) {
       taskData.sessions = [];
@@ -155,4 +176,3 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("stop").addEventListener("click", stopTimer);
   document.getElementById("reset").addEventListener("click", resetTimer);
 });
-

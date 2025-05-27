@@ -221,6 +221,23 @@ p {
     font-weight:bold;
     font-size:15px;
 }
+.clear:hover {
+    background-color:lightgray;
+}
+.completed {
+    background-color:#fff;
+    border:none;
+    color:black;
+    border-radius:4px;
+    cursor:pointer;
+    padding:8px 13px;
+    margin-top:12px;
+    font-weight:bold;
+    font-size:15px;
+}
+.completed:hover {
+    background-color:lightgray;
+}
 .resume {
     background-color:#fff;
     border: none;
@@ -435,6 +452,7 @@ p {
         padding: 10px 20px;
         cursor: pointer;
     }
+    
     .records::-webkit-scrollbar {
         width: 6px;
     }
@@ -484,5 +502,10 @@ p {
     }
     .dashboard {
         margin-top:20px;
+    }
+}
+@media  screen and (min-width:1440px) {
+    .completed {
+        margin-left:12px;
     }
 }
