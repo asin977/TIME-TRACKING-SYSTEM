@@ -65,7 +65,7 @@ function renderTaskTable() {
     row.id = `taskRow-${index}`;
 
     const completedTag = task.completed ? `<span class="completed-tag">Completed ✓</span>` : "";
-    const actionBtnLabel = task.completed ? "🔎 Details" : "🕒 Resume";
+    const actionBtnLabel = task.completed ? "📝 Details" : "🕒 Resume";
     const actionBtnHandler = task.completed ? `viewTaskDetails(${index})` : `resumeTask(${index})`;
 
     row.innerHTML = `
@@ -83,6 +83,7 @@ function renderTaskTable() {
       </td>
     `;
 
+
     if (index >= visibleLimit) row.classList.add("hidden-row");
     taskTableBody.appendChild(row);
   });
@@ -93,6 +94,14 @@ function renderTaskTable() {
   } else {
     showMoreBtn.style.display = "none";
   }
+}
+
+function viewTaskDetails(index) {
+  
+  const task = taskList[index];
+  sessionStorage.setItem("viewTaskDetails", JSON.stringify(task));
+  sessionStorage.setItem("viewOnlyMode", "true");
+   window.location.href = "timer.html";
 }
 
   
@@ -157,6 +166,10 @@ function saveTask(index) {
 
 function toggleProfileDetails() {
     document.querySelector('.profile-wrapper').classList.toggle('show');
+  }
+
+  function viewTaskDetails(index) {
+    window.location.href = `timer.html?taskIndex=${index}`;
   }
 
 function resumeTask(index) {
@@ -303,6 +316,9 @@ function saveEdit(index) {
   }
 
   document.querySelector(".show")?.addEventListener("click", renderWeeklyBarGraph);
+
+
+ 
 
 
   

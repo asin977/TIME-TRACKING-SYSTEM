@@ -171,8 +171,36 @@ document.addEventListener("DOMContentLoaded", () => {
       renderAllTaskSessions();
     }
   }
-
+  document.addEventListener("DOMContentLoaded", () => {
+    const viewOnlyMode = sessionStorage.getItem("viewOnlyMode") === "true";
+    
+    if (viewOnlyMode) {
+      
+      document.getElementById("startBtn").disabled = true;
+      document.getElementById("stopBtn").disabled = true;
+      document.getElementById("resetBtn").disabled = true;
+      
+    
+      document.getElementById("startBtn").classList.add("disabled");
+      document.getElementById("stopBtn").classList.add("disabled");
+      document.getElementById("resetBtn").classList.add("disabled");
+      
+      
+      const task = JSON.parse(sessionStorage.getItem("viewTaskDetails"));
+      if (task) {
+        document.getElementById("taskNameDisplay").textContent = task.name || "-";
+        document.getElementById("taskTagDisplay").textContent = task.tag || "-";
+        document.getElementById("taskDescriptionDisplay").textContent = task.description || "-";
+        document.getElementById("taskStartDateDisplay").textContent = new Date(task.startTime).toLocaleString();
+        document.getElementById("taskDurationDisplay").textContent = task.totalDuration || "00:00:00";
+      }
+    }
+  });
+  
   document.getElementById("start").addEventListener("click", startTimer);
   document.getElementById("stop").addEventListener("click", stopTimer);
   document.getElementById("reset").addEventListener("click", resetTimer);
 });
+
+
+ 
