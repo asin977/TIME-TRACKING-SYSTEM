@@ -30,11 +30,12 @@ body {
     background-color: #fff;
     padding: 10px;
     box-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
+    
 }
 
 a {
     text-decoration: none;
-    color: #2222;
+    color:black;
 }
 
 .header img {
@@ -191,7 +192,7 @@ input:focus {
 .container2 {
     background: #fff;
     position: absolute;
-    bottom: -58%;
+    bottom: -65%;
     margin-left: 9px;
     margin-right: 9px;
     font-weight: 100;
@@ -202,11 +203,9 @@ input:focus {
     border-radius: 8px;
     padding: 20px;
 }
-
 p {
     font-weight: bold;
 }
-
 .think {
     text-align: center;
     font-family: 'Inconsolata', monospace;
@@ -223,7 +222,7 @@ footer {
     padding: 20px 10px;
     font-family: 'Inconsolata', monospace;
     font-size: 14px;
-    margin-top: 1311px;
+    margin-top: 1377px;
     position: relative;
 }
 
@@ -257,11 +256,11 @@ footer {
     }
 
     .container2 {
-        bottom: -49%;
+        bottom: -56%;
     }
 
     footer {
-        margin-top: 1241px;
+        margin-top:1314px;
     }
 }
 
@@ -271,7 +270,7 @@ footer {
     }
 
     .container2 {
-        bottom: -49%;
+        bottom:-55%;
     }
 
     .name {
@@ -295,7 +294,7 @@ footer {
 
     .container2 {
         max-width: 500px;
-        bottom: -53%;
+        bottom: -59%;
     }
 
     footer {
